@@ -1,0 +1,4070 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Microsoft DP-900 Exam Platform</title>
+    <style>
+        :root {
+            --primary: #0078d4;
+            --primary-dark: #005a9e;
+            --success: #107c41;
+            --error: #a80000;
+            --bg: #f3f2f1;
+            --card: #ffffff;
+            --surface: #faf9f8;
+            --text: #323130;
+            --muted: #605e5c;
+            --border: #e1dfdd;
+            --warning: #d83b01;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(180deg, #eef5fb 0%, var(--bg) 30%, #f7f7f5 100%);
+            color: var(--text);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 0.95em;
+            font-weight: 700;
+        }
+
+        button:hover { background: var(--primary-dark); }
+
+        .hidden { display: none !important; }
+
+        /* ===== HOME SCREEN ===== */
+        #home-screen {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 24px;
+        }
+
+        .home-card {
+            background: #fff;
+            border-radius: 20px;
+            padding: 48px;
+            max-width: 700px;
+            width: 100%;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+
+        .home-card h1 {
+            font-size: clamp(1.6rem, 3vw, 2.2rem);
+            color: #0f172a;
+            margin: 0 0 8px;
+        }
+
+        .home-card p { color: var(--muted); margin: 4px 0; }
+
+        .mode-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 32px 0;
+            text-align: left;
+        }
+
+        .mode-card {
+            padding: 28px 24px;
+            background: var(--surface);
+            border: 2px solid var(--border);
+            border-radius: 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .mode-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0,120,212,0.12);
+        }
+
+        .mode-card h2 {
+            font-size: 1.2rem;
+            margin: 0 0 6px;
+            color: var(--primary-dark);
+        }
+
+        .mode-card p {
+            font-size: 0.85rem;
+            color: var(--muted);
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        .mode-card .mode-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        @media (max-width: 600px) {
+            .mode-grid { grid-template-columns: 1fr; }
+            .home-card { padding: 28px 20px; }
+        }
+
+        /* ===== PRACTICE MODE: APP LAYOUT ===== */
+        .app-layout {
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+            background: rgba(255,255,255,0.95);
+            border-right: 1px solid var(--border);
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .sidebar h3 {
+            margin: 0;
+            font-size: 1rem;
+            color: var(--primary-dark);
+        }
+
+        .timer-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 12px;
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .timer-bar.warning { color: var(--error); border-color: var(--error); }
+
+        .timer-bar button {
+            font-size: 0.75rem;
+            padding: 4px 8px;
+            border-radius: 6px;
+        }
+
+        .progress-info {
+            font-size: 0.85rem;
+            color: var(--muted);
+        }
+
+        .progress-info span { font-weight: 700; color: var(--text); }
+
+        .progress-bar-track {
+            height: 6px;
+            background: var(--border);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: var(--primary);
+            border-radius: 3px;
+            transition: width 0.3s ease;
+        }
+
+        .nav-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 4px;
+        }
+
+        .nav-btn {
+            width: 100%;
+            aspect-ratio: 1;
+            border: 1px solid var(--border);
+            background: #fff;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.15s ease;
+            position: relative;
+            color: var(--text);
+        }
+
+        .nav-btn:hover { border-color: var(--primary); }
+        .nav-btn.current { background: var(--primary); color: #fff; border-color: var(--primary); }
+        .nav-btn.answered { background: #dff6dd; border-color: var(--success); }
+        .nav-btn.flagged::after {
+            content: '\2691';
+            position: absolute;
+            top: -4px;
+            right: -2px;
+            font-size: 0.6rem;
+            color: var(--error);
+        }
+
+        .sidebar-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-top: auto;
+        }
+
+        .sidebar-actions button {
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            border: none;
+            font-size: 0.9rem;
+        }
+
+        .btn-submit-practice { background: var(--primary); color: #fff; }
+        .btn-submit-practice:hover { background: var(--primary-dark); }
+
+        .btn-clear { background: #fff; color: var(--error); border: 1px solid var(--error) !important; }
+        .btn-clear:hover { background: #fde7e9; }
+
+        .btn-back-home {
+            background: #fff;
+            color: var(--text);
+            border: 1px solid var(--border) !important;
+        }
+        .btn-back-home:hover { background: var(--surface); }
+
+        .main-content {
+            padding: 24px;
+            max-width: 900px;
+        }
+
+        header.practice-header {
+            display: grid;
+            gap: 10px;
+            text-align: center;
+            margin-bottom: 24px;
+            padding: 28px 24px;
+            background: rgba(255, 255, 255, 0.92);
+            border: 1px solid rgba(0, 120, 212, 0.15);
+            border-radius: 18px;
+            box-shadow: 0 10px 30px rgba(37, 39, 44, 0.08);
+        }
+
+        h1 {
+            margin: 0;
+            font-size: clamp(1.6rem, 3vw, 2.4rem);
+            letter-spacing: -0.02em;
+            color: #0f172a;
+        }
+
+        header.practice-header p { margin: 0; color: var(--muted); font-size: 0.95rem; }
+
+        .toolbar {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            padding: 14px 16px;
+            background: rgba(255, 255, 255, 0.85);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+        }
+
+        .toolbar .meta { color: var(--muted); font-size: 0.95rem; }
+
+        .toolbar .filter { display: flex; gap: 8px; flex-wrap: wrap; }
+
+        .chip {
+            border: 1px solid var(--border);
+            background: white;
+            color: var(--text);
+            padding: 8px 12px;
+            border-radius: 999px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all 0.15s ease;
+        }
+
+        .chip:hover { transform: translateY(-1px); border-color: rgba(0, 120, 212, 0.35); }
+
+        .chip.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+
+        .question-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 22px;
+            margin-bottom: 18px;
+            box-shadow: 0 8px 24px rgba(37, 39, 44, 0.06);
+        }
+
+        .question-card.hidden { display: none; }
+
+        .question-card.current-q { border: 2px solid var(--primary); }
+
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            align-items: baseline;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 16px;
+        }
+
+        .question-header h2 { margin: 0; font-size: 1.1rem; color: var(--primary-dark); }
+
+        .question-badges { display: flex; gap: 8px; flex-wrap: wrap; }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 10px;
+            border-radius: 999px;
+            background: #eef6ff;
+            color: var(--primary-dark);
+            border: 1px solid rgba(0, 120, 212, 0.15);
+            font-size: 0.82rem;
+            font-weight: 700;
+        }
+
+        .badge.secondary { background: #f5f5f4; color: var(--muted); border-color: var(--border); }
+
+        .question-text { font-size: 1.03rem; margin-bottom: 16px; white-space: pre-wrap; }
+
+        .source-toggle {
+            margin-top: 12px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .source-toggle button {
+            background: transparent;
+            color: var(--primary-dark);
+            border: 1px solid rgba(0, 120, 212, 0.25);
+            padding: 8px 12px;
+        }
+
+        .source-toggle button:hover { background: rgba(0, 120, 212, 0.08); }
+
+        .source-panel {
+            display: none;
+            margin-top: 14px;
+            padding: 12px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: #fafafa;
+        }
+
+        .source-panel img {
+            display: block;
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+        }
+
+        .source-panel p { margin: 10px 0 0; color: var(--muted); font-size: 0.92rem; }
+
+        .options { display: grid; gap: 10px; }
+
+        .option-label {
+            display: block;
+            background: var(--surface);
+            padding: 12px 14px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            border: 1px solid transparent;
+        }
+
+        .option-label:hover { background: #e9f3fb; border-color: rgba(0, 120, 212, 0.18); }
+        .option-label input { margin-right: 10px; }
+
+        .inline-select {
+            min-width: min(100%, 360px);
+            padding: 8px 12px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            font-size: 0.96rem;
+            background: white;
+        }
+
+        .statement-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+        }
+
+        .statement-table th,
+        .statement-table td {
+            padding: 14px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+            vertical-align: top;
+        }
+
+        .statement-table th { background: #f8fafc; }
+
+        .drag-layout {
+            display: grid;
+            grid-template-columns: 1fr 1.6fr;
+            gap: 16px;
+            margin-top: 12px;
+        }
+
+        .pool-box, .match-box {
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 16px;
+            background: #fafafa;
+        }
+
+        .pool-box h3, .match-box h3,
+        .pool-box h4, .match-box h4 {
+            margin: 0 0 10px;
+            font-size: 0.9rem;
+            color: var(--primary-dark);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 700;
+        }
+
+        .draggable-item, .drag-item {
+            background: var(--primary);
+            color: white;
+            padding: 10px 14px;
+            margin: 8px 0;
+            border-radius: 10px;
+            cursor: grab;
+            user-select: none;
+            font-weight: 600;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .drop-zone-table, .drop-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 6px;
+        }
+
+        .drop-zone-table th,
+        .drop-zone-table td,
+        .drop-table th,
+        .drop-table td {
+            border: 1px solid var(--border);
+            padding: 12px;
+            text-align: left;
+            vertical-align: top;
+            color: var(--text);
+        }
+
+        .drop-target {
+            min-height: 44px;
+            border: 2px dashed #a19f9d;
+            border-radius: 10px;
+            padding: 6px;
+            background: #fff;
+            transition: all 0.2s ease;
+        }
+
+        .drop-target.drag-over {
+            border-color: var(--primary);
+            background: #e8f0fe;
+            box-shadow: 0 0 8px rgba(0,120,212,0.15);
+        }
+
+        .drop-target .draggable-item,
+        .drop-target .drag-item { margin: 0; }
+
+        .actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
+
+        .json-block {
+            white-space: pre;
+            background: rgba(0,0,0,0.4);
+            color: #e2e8f0;
+            padding: 16px;
+            border-radius: 12px;
+            font-family: 'Cascadia Code', 'Fira Code', monospace;
+            font-size: 0.88rem;
+            line-height: 1.5;
+            overflow-x: auto;
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .review-container { display: none; }
+        .review-container.show { display: block; background: var(--bg); min-height: 100vh; padding: 24px; }
+
+        .review-q {
+            background: #fff;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 16px;
+            border: 1px solid var(--border);
+            color: var(--text);
+        }
+
+        .review-q.was-correct { border-left: 4px solid var(--success); }
+        .review-q.was-incorrect { border-left: 4px solid var(--error); }
+        .review-q.was-unanswered { border-left: 4px solid var(--muted); }
+
+        .review-q h3 { font-size: 1rem; color: var(--primary-dark); margin-bottom: 8px; }
+        .review-q .q-text { font-size: 0.95rem; margin-bottom: 10px; }
+
+        .review-answer {
+            padding: 10px 14px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-top: 6px;
+        }
+
+        .review-answer.user-correct { background: #dff6dd; color: var(--success); }
+        .review-answer.user-wrong { background: #fde7e9; color: var(--error); }
+        .review-answer.correct-ans { background: #e8f5e9; color: var(--success); }
+            border-radius: 10px;
+            display: none;
+            font-weight: 700;
+        }
+
+        .feedback.correct { display: block; background: #dff6dd; color: var(--success); border: 1px solid rgba(16, 124, 65, 0.3); }
+        .feedback.incorrect { display: block; background: #fde7e9; color: var(--error); border: 1px solid rgba(168, 0, 0, 0.3); }
+
+        .explanation {
+            display: none;
+            margin-top: 10px;
+            padding: 12px 14px;
+            border-radius: 10px;
+            background: #eef6ff;
+            color: var(--primary-dark);
+            border: 1px solid rgba(0,120,212,0.2);
+            font-size: 0.9rem;
+            font-weight: 400;
+        }
+
+        .flag-btn {
+            background: transparent;
+            color: var(--muted);
+            border: 1px solid var(--border);
+            padding: 6px 12px;
+            font-size: 0.82rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .flag-btn:hover { color: var(--error); border-color: var(--error); }
+        .flag-btn.flagged { color: var(--error); border-color: var(--error); background: #fde7e9; }
+
+        .json-block {
+            white-space: pre;
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 14px;
+            border-radius: 10px;
+            font-family: 'Cascadia Code', 'Fira Code', monospace;
+            font-size: 0.88rem;
+            line-height: 1.5;
+            overflow-x: auto;
+        }
+
+        .results-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .results-overlay.show { display: flex; }
+
+        .results-card {
+            background: #fff;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 560px;
+            width: 90%;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+
+        .results-card h2 { margin: 0 0 8px; font-size: 1.8rem; }
+        .results-card .score-big { font-size: 3.5rem; font-weight: 800; margin: 16px 0; }
+        .results-card .score-big.pass { color: var(--success); }
+        .results-card .score-big.fail { color: var(--error); }
+        .results-card p { color: var(--muted); margin: 4px 0; }
+
+        .results-breakdown {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin: 20px 0;
+            text-align: left;
+        }
+
+        .results-breakdown .stat {
+            padding: 12px;
+            background: var(--surface);
+            border-radius: 10px;
+            border: 1px solid var(--border);
+        }
+
+        .results-breakdown .stat .label { font-size: 0.8rem; color: var(--muted); }
+        .results-breakdown .stat .value { font-size: 1.3rem; font-weight: 700; }
+
+        .results-actions { display: flex; gap: 10px; justify-content: center; margin-top: 20px; }
+
+        /* ===== EXAM MODE ===== */
+        #exam-section {
+            background: #e8edf2;
+            min-height: 100vh;
+        }
+
+        .topbar {
+            background: #fff;
+            color: #1e293b;
+            padding: 0 32px;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid #cbd5e1;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        .topbar .exam-title {
+            font-weight: 800;
+            letter-spacing: 1px;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            color: #2563eb;
+        }
+
+        .topbar .timer {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 800;
+            font-size: 1.15rem;
+            font-variant-numeric: tabular-nums;
+            background: #f1f5f9;
+            padding: 6px 16px;
+            border-radius: 999px;
+            border: 1px solid #cbd5e1;
+            color: #1e293b;
+        }
+
+        .topbar .timer svg { opacity: 0.5; }
+
+        .topbar .timer.warning { color: #d97706; border-color: #fbbf24; background: #fef3c7; }
+        .topbar .timer.critical { color: #dc2626; border-color: #fca5a5; background: #fef2f2; animation: timerGlow 1s ease-in-out infinite; }
+
+        @keyframes timerGlow {
+            0%,100% { box-shadow: 0 0 0 0 rgba(220,38,38,0.15); }
+            50% { box-shadow: 0 0 12px 2px rgba(220,38,38,0.2); }
+        }
+
+        .topbar .q-counter {
+            color: #64748b;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .progress-strip {
+            background: #fff;
+            padding: 10px 24px;
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+            justify-content: center;
+            position: sticky;
+            top: 56px;
+            z-index: 99;
+            border-bottom: 1px solid #e2e8f0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+        }
+
+        .progress-dot {
+            width: 26px;
+            height: 26px;
+            border-radius: 8px;
+            border: 1.5px solid #cbd5e1;
+            background: #f8fafc;
+            cursor: pointer;
+            font-size: 0.65rem;
+            font-weight: 700;
+            color: #94a3b8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .progress-dot:hover {
+            border-color: #2563eb;
+            color: #2563eb;
+            background: #eff6ff;
+            transform: scale(1.15);
+        }
+
+        .progress-dot.current {
+            background: #2563eb;
+            border-color: transparent;
+            color: #fff;
+            box-shadow: 0 2px 8px rgba(37,99,235,0.3);
+            transform: scale(1.1);
+        }
+
+        .progress-dot.answered {
+            background: #dbeafe;
+            border-color: #93c5fd;
+            color: #2563eb;
+        }
+
+        .progress-dot.checked {
+            background: #10b981;
+            border-color: transparent;
+            color: #fff;
+            box-shadow: 0 2px 6px rgba(16,185,129,0.3);
+        }
+
+        .progress-dot.flagged {
+            background: #f59e0b;
+            border-color: transparent;
+            color: #fff;
+        }
+
+        .exam-body {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            max-width: 820px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 40px 24px 140px;
+        }
+
+        .exam-body .question-container { display: none; }
+        .exam-body .question-container.active {
+            display: block;
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+            animation: cardFloat 0.4s cubic-bezier(0.25, 1, 0.5, 1) both;
+        }
+
+        @keyframes cardFloat {
+            from { opacity: 0; transform: translateY(24px) scale(0.97); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .q-type-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 14px;
+            border-radius: 999px;
+            background: #eff6ff;
+            color: #2563eb;
+            border: 1px solid #bfdbfe;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 16px;
+        }
+
+        .q-text {
+            font-size: 1.1rem;
+            margin-bottom: 24px;
+            white-space: pre-wrap;
+            color: #1e293b;
+            line-height: 1.7;
+        }
+
+        .q-flag-btn {
+            float: right;
+            background: #fff;
+            color: #94a3b8;
+            border: 1px solid #e2e8f0;
+            padding: 6px 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .q-flag-btn:hover { border-color: #f59e0b; color: #d97706; background: #fef3c7; }
+        .q-flag-btn.flagged { background: #fef3c7; color: #d97706; border-color: #fbbf24; }
+
+        .opt-label {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 16px 18px;
+            background: #f8fafc;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 14px;
+            cursor: pointer;
+            transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+            font-size: 1rem;
+            color: #334155;
+            margin-bottom: 10px;
+        }
+
+        .opt-label:hover {
+            background: #eff6ff;
+            border-color: #93c5fd;
+            transform: translateX(4px);
+        }
+
+        .opt-label.selected {
+            background: #eff6ff;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 2px rgba(37,99,235,0.15);
+        }
+
+        .opt-label input { margin-top: 3px; accent-color: #2563eb; }
+
+        .opt-letter {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 30px;
+            border-radius: 10px;
+            background: #e2e8f0;
+            border: 1.5px solid #cbd5e1;
+            font-weight: 700;
+            font-size: 0.85rem;
+            flex-shrink: 0;
+            transition: all 0.2s ease;
+            color: #64748b;
+        }
+
+        .opt-label.selected .opt-letter {
+            background: #2563eb;
+            color: #fff;
+            border-color: transparent;
+            box-shadow: 0 2px 6px rgba(37,99,235,0.3);
+        }
+
+        .multi-select-group { margin-bottom: 20px; }
+        .multi-select-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: #2563eb;
+            font-size: 0.9rem;
+        }
+
+        .stmt-table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .stmt-table th, .stmt-table td {
+            padding: 14px;
+            text-align: left;
+            border-bottom: 1px solid #f1f5f9;
+            vertical-align: top;
+            color: #334155;
+        }
+
+        .stmt-table th { background: #f1f5f9; font-weight: 700; color: #1e293b; }
+
+        .source-img {
+            display: block;
+            width: 100%;
+            max-height: 400px;
+            object-fit: contain;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            margin: 12px 0;
+            background: #f8fafc;
+        }
+
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #fff;
+            border-top: 1px solid #e2e8f0;
+            padding: 14px 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            z-index: 100;
+            box-shadow: 0 -2px 12px rgba(0,0,0,0.06);
+        }
+
+        .bottom-nav button {
+            padding: 12px 28px;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            border: none;
+            font-size: 0.95rem;
+            transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .btn-prev {
+            background: #f1f5f9;
+            color: #475569;
+            border: 1.5px solid #e2e8f0 !important;
+        }
+        .btn-prev:hover { background: #e2e8f0; color: #1e293b; transform: translateX(-2px); }
+        .btn-next {
+            background: #2563eb;
+            color: #fff;
+            box-shadow: 0 2px 8px rgba(37,99,235,0.25);
+        }
+        .btn-next:hover { background: #1d4ed8; box-shadow: 0 4px 12px rgba(37,99,235,0.35); transform: translateY(-2px); }
+        .btn-submit-exam {
+            background: #dc2626;
+            color: #fff;
+            box-shadow: 0 2px 8px rgba(220,38,38,0.25);
+        }
+        .btn-submit-exam:hover { background: #b91c1c; box-shadow: 0 4px 12px rgba(220,38,38,0.35); transform: translateY(-2px); }
+        .btn-check {
+            background: #10b981;
+            color: #fff;
+            padding: 12px 28px;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            border: none;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 8px rgba(16,185,129,0.25);
+        }
+        .btn-check:hover { background: #059669; box-shadow: 0 4px 12px rgba(16,185,129,0.35); transform: translateY(-2px); }
+
+        .feedback-bar {
+            padding: 16px 22px;
+            border-radius: 14px;
+            margin: 20px 0 0;
+            font-weight: 600;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .feedback-bar.correct {
+            background: #ecfdf5;
+            color: #065f46;
+            border: 1px solid #a7f3d0;
+        }
+        .feedback-bar.incorrect {
+            background: #fef2f2;
+            color: #991b1b;
+            border: 1px solid #fecaca;
+        }
+        .feedback-bar .fb-icon { font-size: 1.4rem; }
+
+        .explanation-box {
+            margin-top: 12px;
+            padding: 16px 20px;
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            color: #334155;
+            line-height: 1.6;
+        }
+        .explanation-box strong { color: #1d4ed8; }
+
+        .question-container.locked input[type="radio"],
+        .question-container.locked input[type="checkbox"],
+        .question-container.locked select,
+        .question-container.locked .drag-item {
+            pointer-events: none;
+            opacity: 0.4;
+        }
+        .question-container.locked .drop-target { pointer-events: none; }
+
+        .question-container .opt-label.correct-highlight {
+            background: #ecfdf5 !important;
+            border-color: #10b981 !important;
+        }
+        .question-container .opt-label.wrong-highlight {
+            background: #fef2f2 !important;
+            border-color: #ef4444 !important;
+            text-decoration: line-through;
+            opacity: 0.6;
+        }
+        .question-container select.correct-highlight {
+            background: #ecfdf5;
+            border-color: #10b981;
+            color: #065f46;
+        }
+        .question-container select.wrong-highlight {
+            background: #fef2f2;
+            border-color: #ef4444;
+            color: #991b1b;
+        }
+        .question-container .drop-target.correct-highlight {
+            background: #ecfdf5;
+            border-color: #10b981;
+        }
+        .question-container .drop-target.wrong-highlight {
+            background: #fef2f2;
+            border-color: #ef4444;
+        }
+
+        .nav-center { display: flex; gap: 8px; align-items: center; }
+
+        .score-ring {
+            width: 180px;
+            height: 180px;
+            margin: 28px auto;
+            position: relative;
+        }
+
+        .score-ring svg { transform: rotate(-90deg); }
+
+        .score-ring .score-text {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .score-ring .score-num { font-size: 2.8rem; font-weight: 800; color: #1e293b; }
+        .score-ring .score-label { font-size: 0.85rem; color: #64748b; }
+
+        .pass-badge {
+            display: inline-block;
+            padding: 8px 24px;
+            border-radius: 999px;
+            font-weight: 800;
+            font-size: 0.9rem;
+            margin: 8px 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .pass-badge.pass { background: #ecfdf5; color: #065f46; border: 1px solid #a7f3d0; }
+        .pass-badge.fail { background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; }
+
+        .results-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+            margin: 24px 0;
+        }
+
+        .results-stats .stat {
+            padding: 16px;
+            background: #f8fafc;
+            border-radius: 14px;
+            border: 1px solid #e2e8f0;
+            text-align: center;
+        }
+
+        .results-stats .stat .val { font-size: 1.5rem; font-weight: 800; color: #1e293b; }
+        .results-stats .stat .lbl { font-size: 0.75rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; }
+
+        .btn-review { background: #2563eb; color: #fff; }
+        .btn-retake { background: #fff; color: #dc2626; border: 1.5px solid #fca5a5 !important; }
+        .btn-retake:hover { background: #fef2f2; }
+        .btn-home { background: #fff; color: #475569; border: 1.5px solid #e2e8f0 !important; }
+        .btn-home:hover { background: #f8fafc; }
+
+        .review-container { display: none; }
+        .review-container.show { display: block; background: #e8edf2; min-height: 100vh; padding: 24px; }
+
+        .review-q {
+            background: #fff;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 16px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+        }
+
+        .review-q.was-correct { border-left: 4px solid #10b981; }
+        .review-q.was-incorrect { border-left: 4px solid #ef4444; }
+        .review-q.was-unanswered { border-left: 4px solid #cbd5e1; }
+
+        .review-q h3 { font-size: 1rem; color: #2563eb; margin-bottom: 8px; }
+        .review-q .q-text { font-size: 0.95rem; margin-bottom: 10px; color: #334155; }
+
+        .review-answer {
+            padding: 10px 14px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-top: 6px;
+        }
+
+        .review-answer.user-correct { background: #ecfdf5; color: #065f46; }
+        .review-answer.user-wrong { background: #fef2f2; color: #991b1b; }
+        .review-answer.correct-ans { background: #f0fdf4; color: #166534; }
+
+        /* ===== EXAM WELCOME + RESULTS ===== */
+        .welcome-screen {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 999;
+            background: #e8edf2;
+            justify-content: center;
+            align-items: center;
+            padding: 24px;
+        }
+        .welcome-screen.show { display: flex; }
+
+        .welcome-card {
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 480px;
+            width: 100%;
+            text-align: center;
+            color: #1e293b;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+        }
+        .welcome-card h1 { font-size: 1.6rem; margin-bottom: 6px; color: #1e293b; }
+        .welcome-card p { color: #64748b; margin-bottom: 6px; }
+
+        .results-screen {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 999;
+            background: #e8edf2;
+            justify-content: center;
+            align-items: center;
+            padding: 24px;
+            overflow-y: auto;
+        }
+        .results-screen.show { display: flex; }
+
+        .results-card {
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 520px;
+            width: 100%;
+            text-align: center;
+            color: #1e293b;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+        }
+        .results-card h2 { margin: 0 0 8px; font-size: 1.8rem; color: #1e293b; }
+
+        .results-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+        .results-actions button {
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            border: none;
+        }
+
+        /* ===== PRACTICE MOBILE ===== */
+        @media (max-width: 900px) {
+            #practice-section .app-layout { grid-template-columns: 1fr; }
+            #practice-section .sidebar {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: auto;
+                max-height: 45vh;
+                border-right: none;
+                border-top: 1px solid var(--border);
+                z-index: 100;
+                flex-direction: row;
+                flex-wrap: wrap;
+                overflow-y: auto;
+                padding: 10px;
+                gap: 8px;
+            }
+            #practice-section .sidebar h3,
+            #practice-section .timer-bar,
+            #practice-section .progress-info,
+            #practice-section .progress-bar-track { display: none; }
+            #practice-section .nav-grid { grid-template-columns: repeat(10, 1fr); width: 100%; }
+            #practice-section .sidebar-actions { flex-direction: row; width: 100%; margin-top: 0; }
+            #practice-section .sidebar-actions button { flex: 1; }
+            #practice-section .main-content { padding: 14px; padding-bottom: 120px; }
+            .drag-layout { grid-template-columns: 1fr; }
+        }
+
+        /* ===== EXAM MOBILE ===== */
+        @media (max-width: 640px) {
+            .question-card { padding: 16px; }
+            .question-header { align-items: flex-start; flex-direction: column; }
+            .statement-table th, .statement-table td { padding: 10px; }
+            .exam-body { padding: 16px 14px 120px; }
+            .drag-layout { grid-template-columns: 1fr; }
+            .bottom-nav { padding: 10px 14px; }
+            .bottom-nav button { padding: 8px 14px; font-size: 0.85rem; }
+            .progress-dot { width: 18px; height: 18px; font-size: 0.5rem; }
+        }
+
+        /* ===================================================================
+           INTERACTIVE ANIMATIONS & EFFECTS
+           =================================================================== */
+
+        /* --- Ripple Effect on Buttons --- */
+        button, .mode-card, .chip, .nav-btn, .opt-label, .option-label, .flag-btn, .q-flag-btn,
+        .progress-dot, .btn-check, .btn-next, .btn-prev, .btn-submit-exam, .btn-submit-practice,
+        .btn-clear, .btn-back-home, .btn-review, .btn-retake, .btn-home {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.4);
+            transform: scale(0);
+            animation: rippleAnim 0.6s ease-out forwards;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        @keyframes rippleAnim {
+            0% { transform: scale(0); opacity: 1; }
+            100% { transform: scale(4); opacity: 0; }
+        }
+
+        /* --- Home Card Entrance --- */
+        .home-card {
+            animation: cardEnter 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+        }
+
+        @keyframes cardEnter {
+            from { opacity: 0; transform: translateY(30px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .mode-card {
+            transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .mode-card:active {
+            transform: translateY(0) scale(0.97);
+        }
+
+        /* --- Option Selection Animations --- */
+        .opt-label {
+            transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .opt-label:active {
+            transform: scale(0.98);
+        }
+
+        .opt-label.selected {
+            animation: selectPop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @keyframes selectPop {
+            0% { transform: scale(1); }
+            40% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+
+        .option-label {
+            transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .option-label:active {
+            transform: scale(0.98);
+        }
+
+        .opt-letter {
+            transition: all 0.2s ease;
+        }
+
+        .opt-label.selected .opt-letter {
+            animation: letterBounce 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @keyframes letterBounce {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+            100% { transform: scale(1); }
+        }
+
+        /* --- Inline Select Transition --- */
+        .inline-select {
+            transition: all 0.2s ease;
+        }
+
+        .inline-select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(0,120,212,0.15);
+            outline: none;
+        }
+
+        .inline-select:not(:invalid) {
+            border-color: var(--primary);
+        }
+
+        /* --- Question Container Transitions --- */
+        .question-container {
+            animation: slideIn 0.35s cubic-bezier(0.25, 1, 0.5, 1) both;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- Exam Mode Question Transition --- */
+        .exam-body .question-container.active {
+            animation: examSlideIn 0.3s cubic-bezier(0.25, 1, 0.5, 1) both;
+        }
+
+        @keyframes examSlideIn {
+            from { opacity: 0; transform: translateX(30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        /* --- Feedback Bar Entrance --- */
+        .feedback-bar {
+            animation: feedbackDrop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+        }
+
+        @keyframes feedbackDrop {
+            from { opacity: 0; transform: translateY(-10px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .feedback-bar.correct .fb-icon {
+            animation: iconPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both;
+        }
+
+        .feedback-bar.incorrect .fb-icon {
+            animation: iconShake 0.5s ease 0.1s both;
+        }
+
+        @keyframes iconPop {
+            0% { transform: scale(0) rotate(-20deg); }
+            100% { transform: scale(1) rotate(0); }
+        }
+
+        @keyframes iconShake {
+            0%,100% { transform: translateX(0); }
+            20% { transform: translateX(-4px); }
+            40% { transform: translateX(4px); }
+            60% { transform: translateX(-3px); }
+            80% { transform: translateX(3px); }
+        }
+
+        /* --- Explanation Box Entrance --- */
+        .explanation-box {
+            animation: fadeInUp 0.3s ease 0.15s both;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- Check Answer Button Pulse --- */
+        .btn-check:not(:disabled) {
+            animation: checkPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes checkPulse {
+            0%,100% { box-shadow: 0 0 0 0 rgba(16,124,65,0.4); }
+            50% { box-shadow: 0 0 0 8px rgba(16,124,65,0); }
+        }
+
+        .btn-check:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            animation: none;
+        }
+
+        /* --- Button Hover Lift --- */
+        .btn-next, .btn-prev, .btn-submit-exam, .btn-submit-practice, .btn-review {
+            transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .btn-next:hover, .btn-submit-exam:hover, .btn-submit-practice:hover, .btn-review:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .btn-next:active, .btn-submit-exam:active, .btn-submit-practice:active, .btn-review:active {
+            transform: translateY(0) scale(0.98);
+        }
+
+        /* --- Flag Toggle Animation --- */
+        .q-flag-btn.flagged, .flag-btn.flagged {
+            animation: flagBounce 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @keyframes flagBounce {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.15) rotate(-5deg); }
+            100% { transform: scale(1) rotate(0); }
+        }
+
+        /* --- Progress Dot Tooltips & Effects --- */
+        .progress-dot {
+            transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+        }
+
+        .progress-dot:hover {
+            transform: scale(1.3);
+            z-index: 10;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+
+        .progress-dot:active {
+            transform: scale(0.9);
+        }
+
+        .progress-dot.current {
+            animation: dotCurrent 1.5s ease-in-out infinite;
+        }
+
+        @keyframes dotCurrent {
+            0%,100% { box-shadow: 0 0 0 0 rgba(0,120,212,0.5); }
+            50% { box-shadow: 0 0 0 4px rgba(0,120,212,0); }
+        }
+
+        .progress-dot.checked {
+            animation: dotChecked 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @keyframes dotChecked {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.4); }
+            100% { transform: scale(1); }
+        }
+
+        /* --- Nav Button Effects --- */
+        .nav-btn {
+            transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .nav-btn:hover {
+            transform: scale(1.1);
+            z-index: 5;
+        }
+
+        .nav-btn:active {
+            transform: scale(0.9);
+        }
+
+        .nav-btn.answered {
+            animation: navAnswered 0.3s ease;
+        }
+
+        @keyframes navAnswered {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); background: #b8e6c8; }
+            100% { transform: scale(1); }
+        }
+
+        /* --- Chip Active Animation --- */
+        .chip.active {
+            animation: chipActivate 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @keyframes chipActivate {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+            100% { transform: scale(1); }
+        }
+
+        /* --- Timer Urgency Effects --- */
+        .topbar .timer.warning {
+            animation: timerWarn 1s ease-in-out infinite;
+        }
+
+        @keyframes timerWarn {
+            0%,100% { color: #ffb900; }
+            50% { color: #ff8c00; }
+        }
+
+        .topbar .timer.critical {
+            animation: timerCritical 0.5s ease-in-out infinite;
+        }
+
+        @keyframes timerCritical {
+            0%,100% { color: #ff4500; transform: scale(1); }
+            50% { color: #ff0000; transform: scale(1.05); }
+        }
+
+        /* --- Practice Timer Warning --- */
+        .timer-bar.warning {
+            animation: practiceTimerWarn 1s ease-in-out infinite;
+        }
+
+        @keyframes practiceTimerWarn {
+            0%,100% { border-color: var(--error); }
+            50% { border-color: #ff6b6b; background: #fff5f5; }
+        }
+
+        /* --- Progress Bar Fill Animation --- */
+        .progress-bar-fill {
+            transition: width 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+        }
+
+        .progress-bar-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.3) 50%, transparent 100%);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        /* --- Question Card Hover (Practice Mode) --- */
+        .question-card {
+            transition: all 0.2s ease;
+        }
+
+        .question-card:hover {
+            box-shadow: 0 12px 32px rgba(37, 39, 44, 0.1);
+        }
+
+        .question-card.current-q {
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        /* --- Results Entrance --- */
+        .results-overlay.show .results-card,
+        .results-screen.show .results-card {
+            animation: resultsEnter 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+        }
+
+        @keyframes resultsEnter {
+            from { opacity: 0; transform: scale(0.8) translateY(30px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .results-card .score-big {
+            animation: scoreReveal 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s both;
+        }
+
+        @keyframes scoreReveal {
+            from { opacity: 0; transform: scale(0.5); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .results-breakdown .stat {
+            padding: 14px;
+            background: #f8fafc;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            animation: statSlide 0.3s ease both;
+        }
+
+        .results-breakdown .stat .label { font-size: 0.8rem; color: #64748b; }
+        .results-breakdown .stat .value { font-size: 1.3rem; font-weight: 700; color: #1e293b; }
+
+        .results-breakdown .stat:nth-child(1) { animation-delay: 0.3s; }
+        .results-breakdown .stat:nth-child(2) { animation-delay: 0.4s; }
+        .results-breakdown .stat:nth-child(3) { animation-delay: 0.5s; }
+        .results-breakdown .stat:nth-child(4) { animation-delay: 0.6s; }
+
+        @keyframes statSlide {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- Score Ring SVG Animation --- */
+        .score-ring svg circle {
+            transition: stroke-dashoffset 1.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        /* --- Drag & Drop Effects --- */
+        .drag-item {
+            transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .drag-item:hover {
+            transform: scale(1.03);
+            box-shadow: 0 4px 12px rgba(0,120,212,0.3);
+        }
+
+        .drag-item:active {
+            transform: scale(0.97);
+            cursor: grabbing;
+        }
+
+        .drag-item.dragging {
+            opacity: 0.5;
+            transform: scale(0.95);
+        }
+
+        .drop-target {
+            transition: all 0.2s ease;
+        }
+
+        .drop-target.drag-over {
+            border-color: var(--primary);
+            background: rgba(0,120,212,0.05);
+            box-shadow: 0 0 0 3px rgba(0,120,212,0.15);
+            transform: scale(1.01);
+        }
+
+        .drop-target .drag-item {
+            animation: dropSnap 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @keyframes dropSnap {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* --- Source Panel Toggle --- */
+        .source-panel {
+            animation: panelSlide 0.3s ease both;
+        }
+
+        @keyframes panelSlide {
+            from { opacity: 0; max-height: 0; }
+            to { opacity: 1; max-height: 600px; }
+        }
+
+        /* --- Correct/Wrong Highlight Animations --- */
+        .opt-label.correct-highlight {
+            animation: correctFlash 0.5s ease;
+        }
+
+        .opt-label.wrong-highlight {
+            animation: wrongFlash 0.5s ease;
+        }
+
+        @keyframes correctFlash {
+            0% { background: #dff6dd; }
+            50% { background: #b8e6c8; }
+            100% { background: #dff6dd; }
+        }
+
+        @keyframes wrongFlash {
+            0% { background: #fde7e9; }
+            50% { background: #f8c4ca; }
+            100% { background: #fde7e9; }
+        }
+
+        /* --- Practice Feedback Entrance --- */
+        .feedback.correct, .feedback.incorrect {
+            animation: feedbackDrop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+        }
+
+        /* --- Welcome Screen Effects --- */
+        .welcome-card {
+            animation: cardEnter 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+        }
+
+        .welcome-card button {
+            transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .welcome-card button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(37,99,235,0.3);
+        }
+
+        .welcome-card button:active {
+            transform: translateY(0) scale(0.97);
+        }
+
+        /* --- Keyboard Shortcut Hint Badge --- */
+        .kbd-hint {
+            position: fixed;
+            bottom: 80px;
+            right: 24px;
+            background: rgba(0,0,0,0.75);
+            color: #fff;
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            z-index: 200;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+
+        .kbd-hint.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .kbd-hint kbd {
+            display: inline-block;
+            padding: 2px 6px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.8rem;
+            margin: 0 2px;
+        }
+
+        /* --- Scrollbar Styling --- */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #ccc; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #999; }
+
+        /* --- Focus Visible States for Accessibility --- */
+        *:focus-visible {
+            outline: 2px solid var(--primary);
+            outline-offset: 2px;
+        }
+
+        /* --- Question Badge Pulse --- */
+        .badge {
+            transition: all 0.2s ease;
+        }
+
+        .badge:hover {
+            transform: scale(1.05);
+        }
+
+        /* --- Review Card Entrance --- */
+        .review-q {
+            animation: fadeInUp 0.3s ease both;
+        }
+
+        .review-q:nth-child(odd) { animation-delay: 0.05s; }
+        .review-q:nth-child(even) { animation-delay: 0.1s; }
+    </style>
+</head>
+<body>
+
+<!-- ==================== HOME SCREEN ==================== -->
+<div id="home-screen">
+    <div class="home-card">
+        <h1>Microsoft DP-900</h1>
+        <p>Azure Data Fundamentals &mdash; Exam Platform</p>
+        <div class="mode-grid">
+            <div class="mode-card" onclick="switchMode('practice')">
+                <span class="mode-icon">&#x1F4D6;</span>
+                <h2>Practice Mode</h2>
+                <p>All 122 questions. Per-question submit with instant feedback. Sidebar navigation, timer with pause, type filters, explanations, source page toggle, flag &amp; review.</p>
+            </div>
+            <div class="mode-card" onclick="switchMode('exam')">
+                <span class="mode-icon">&#x23F1;</span>
+                <h2>Exam Mode</h2>
+                <p>45 shuffled questions, one at a time. Strict 45-minute timer (no pause). Flag for review. Submit at end for scored results with per-target match details.</p>
+            </div>
+        </div>
+        <p style="font-size:0.82rem;color:var(--muted);">122 unique questions from the official DP-900 question pool.</p>
+    </div>
+</div>
+
+<!-- ==================== PRACTICE MODE ==================== -->
+<div id="practice-section" class="hidden">
+<div class="app-layout">
+    <aside class="sidebar">
+        <h3>DP-900 Practice</h3>
+        <div class="timer-bar" id="timer-bar">
+            <span id="timer-display">45:00</span>
+            <button type="button" id="timer-toggle" onclick="pToggleTimer()">Pause</button>
+        </div>
+        <div class="progress-info">
+            <span id="answered-count">0</span> / <span id="total-count">0</span> answered
+        </div>
+        <div class="progress-bar-track"><div class="progress-bar-fill" id="progress-fill"></div></div>
+        <div class="nav-grid" id="nav-grid"></div>
+        <div class="sidebar-actions">
+            <button type="button" class="btn-back-home" onclick="switchMode('home')">Back to Home</button>
+            <button type="button" class="btn-submit-practice" onclick="pSubmitQuiz()">Submit Exam</button>
+            <button type="button" class="btn-clear" onclick="pClearAll()">Reset All</button>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <header class="practice-header">
+            <h1>Microsoft DP-900 Practice Platform</h1>
+            <p>Timed exam simulation. Answer all questions, then submit for your score.</p>
+        </header>
+
+        <div class="toolbar">
+            <div class="meta" id="quiz-meta">Loading questions...</div>
+            <div class="filter" id="type-filters"></div>
+        </div>
+
+        <div id="quiz-root"></div>
+    </main>
+</div>
+
+<div class="results-overlay" id="results-overlay">
+    <div class="results-card">
+        <h2 id="results-title">Exam Complete</h2>
+        <div class="score-big" id="results-score">0%</div>
+        <p id="results-msg"></p>
+        <div class="results-breakdown">
+            <div class="stat"><div class="label">Correct</div><div class="value" id="r-correct">0</div></div>
+            <div class="stat"><div class="label">Incorrect</div><div class="value" id="r-incorrect">0</div></div>
+            <div class="stat"><div class="label">Unanswered</div><div class="value" id="r-unanswered">0</div></div>
+            <div class="stat"><div class="label">Time Taken</div><div class="value" id="r-time">0m</div></div>
+        </div>
+        <div class="results-actions">
+            <button type="button" onclick="pReviewAnswers()">Review Answers</button>
+            <button type="button" class="btn-clear" onclick="pRetakeQuiz()" style="background:var(--error);color:#fff;border:none;">Retake</button>
+        </div>
+    </div>
+</div>
+</div>
+
+<!-- ==================== EXAM MODE ==================== -->
+<div id="exam-section" class="hidden">
+
+<div class="topbar" id="topbar" style="display:none;">
+    <span class="exam-title">DP-900: Azure Data Fundamentals</span>
+    <span class="q-counter" id="q-counter">Q 1 / 45</span>
+    <div class="timer" id="exam-timer">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        <span id="exam-timer-display">45:00</span>
+    </div>
+</div>
+
+<div class="progress-strip" id="progress-strip" style="display:none;"></div>
+
+<div class="welcome-screen" id="welcome-screen">
+    <div class="welcome-card">
+        <h1>DP-900 Exam Simulation</h1>
+        <p>Microsoft Azure Data Fundamentals</p>
+        <p style="font-size:0.85rem;">Simulates the real Pearson VUE exam experience</p>
+        <div class="exam-info-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:24px 0;text-align:left;">
+            <div style="padding:16px;background:#f8fafc;border-radius:14px;border:1px solid #e2e8f0;"><div style="font-size:0.75rem;color:#64748b;text-transform:uppercase;font-weight:700;letter-spacing:0.5px;">Questions</div><div style="font-size:1.1rem;font-weight:800;color:#1e293b;" id="info-questions">45</div></div>
+            <div style="padding:16px;background:#f8fafc;border-radius:14px;border:1px solid #e2e8f0;"><div style="font-size:0.75rem;color:#64748b;text-transform:uppercase;font-weight:700;letter-spacing:0.5px;">Duration</div><div style="font-size:1.1rem;font-weight:800;color:#1e293b;">45 minutes</div></div>
+            <div style="padding:16px;background:#f8fafc;border-radius:14px;border:1px solid #e2e8f0;"><div style="font-size:0.75rem;color:#64748b;text-transform:uppercase;font-weight:700;letter-spacing:0.5px;">Passing Score</div><div style="font-size:1.1rem;font-weight:800;color:#1e293b;">700 / 1000</div></div>
+            <div style="padding:16px;background:#f8fafc;border-radius:14px;border:1px solid #e2e8f0;"><div style="font-size:0.75rem;color:#64748b;text-transform:uppercase;font-weight:700;letter-spacing:0.5px;">Format</div><div style="font-size:1.1rem;font-weight:800;color:#1e293b;">One at a time</div></div>
+        </div>
+        <p style="font-size:0.82rem;color:#64748b;margin-bottom:16px;">
+            Questions are shuffled. Timer starts immediately. You can navigate freely between questions.
+        </p>
+        <button type="button" style="background:#2563eb;color:#fff;border:none;padding:14px 40px;border-radius:12px;font-size:1.1rem;font-weight:700;cursor:pointer;margin-top:12px;box-shadow:0 2px 10px rgba(37,99,235,0.3);" onclick="eStartExam()">Start Exam</button>
+        <a href="#" onclick="switchMode('home');return false;" style="display:block;margin-top:16px;color:#2563eb;text-decoration:none;font-size:0.9rem;">Back to Home</a>
+    </div>
+</div>
+
+<main class="exam-body" id="exam-body" style="display:none;"></main>
+
+<div class="bottom-nav" id="bottom-nav" style="display:none;">
+    <button type="button" class="btn-prev" id="btn-prev" onclick="ePrevQuestion()">Previous</button>
+    <div class="nav-center">
+        <button type="button" id="btn-flag" onclick="eToggleCurrentFlag()" style="background:#fff;color:#94a3b8;border:1.5px solid #e2e8f0;border-radius:10px;padding:8px 16px;font-weight:600;cursor:pointer;transition:all 0.2s;">Flag</button>
+        <button type="button" id="btn-check" class="btn-check" onclick="eCheckAnswer()" style="display:none;">Check Answer</button>
+    </div>
+    <button type="button" class="btn-next" id="btn-next" onclick="eNextQuestion()" style="display:none;">Next</button>
+</div>
+
+<div class="results-screen" id="results-screen" style="display:none;">
+    <div class="results-card">
+        <h2 id="res-title">Exam Complete</h2>
+        <div class="score-ring">
+            <svg width="180" height="180">
+                <circle cx="90" cy="90" r="78" fill="none" stroke="#e2e8f0" stroke-width="12"/>
+                <circle cx="90" cy="90" r="78" fill="none" stroke-width="12" id="score-circle" stroke-linecap="round"
+                    stroke-dasharray="490" stroke-dashoffset="490"/>
+            </svg>
+            <div class="score-text">
+                <div class="score-num" id="res-score">0</div>
+                <div class="score-label">/ 1000</div>
+            </div>
+        </div>
+        <div class="pass-badge" id="res-badge">PASS</div>
+        <p id="res-msg" style="color:#64748b;"></p>
+        <div class="results-stats">
+            <div class="stat"><div class="val" id="r-correct-e">0</div><div class="lbl">Correct</div></div>
+            <div class="stat"><div class="val" id="r-wrong-e">0</div><div class="lbl">Incorrect</div></div>
+            <div class="stat"><div class="val" id="r-time-e">0m</div><div class="lbl">Time Used</div></div>
+        </div>
+        <div class="results-actions">
+            <button type="button" class="btn-review" onclick="eShowReview()">Review Answers</button>
+            <button type="button" class="btn-retake" onclick="eRetake()">Retake Exam</button>
+            <button type="button" class="btn-home" onclick="switchMode('home')">Home</button>
+        </div>
+    </div>
+</div>
+
+<div class="review-container" id="review-container"></div>
+
+</div>
+
+<script src="dp900-questions.js"></script>
+<script>
+/* ======================================================================
+   SHARED DATA — defined once, used by both modes
+   ====================================================================== */
+const TIMER_MINUTES = 45;
+const pageImageBase = 'page-images';
+const pageImageExtension = '.png';
+
+const matchData = {
+    23: { pool: 'Activity Types', targets: [
+        ['Copy activity','Data movement'],['Mapping Data Flow','Data transformation'],['If/Until/ForEach activity','Control']
+    ]},
+    26: { pool: 'Workload Types', targets: [
+        ['Run a job once every 24 hours','Batch'],['Process data continuously as it arrives','Streaming'],['Process accumulated data every 5 minutes','Micro-batch']
+    ]},
+    36: { pool: 'SQL Clauses', targets: [
+        ['_____ ProductName, UnitPrice FROM Products','Select'],['_____ UnitPrice DESC','Order By']
+    ]},
+    52: { pool: 'ADF Components', targets: [
+        ['Contains connection information to data sources','Linked Service'],['Represents data structures within data stores','Data Set'],['Orchestrates and manages workflows','Pipeline']
+    ]},
+    58: { pool: 'ADLS Terms', targets: [
+        ['Groups related data together','Folders'],['Contains the actual data objects','Files']
+    ]},
+    62: { pool: 'ELT Locations', targets: [
+        ['Extract data from here','CRM System'],['Load data into here','Data Warehouse'],['Transform data here','In memory data integration']
+    ]},
+    64: { pool: 'SQL Terms', targets: [
+        ['Stores data physically in rows and columns','Table'],['A virtual table defined by a SELECT statement','View'],['An object that improves query performance by sorting and storing rows','Index']
+    ]},
+    66: { pool: 'Data Types', targets: [
+        ['Store and serve binary large objects','Image files'],['Store and query data as vertices and edges','Relationship between employees'],['Store data for high-throughput key-based access','Key/Value pairs']
+    ]},
+    75: { pool: 'Security', targets: [
+        ['Restrict network access based on IP addresses','Firewall'],['Verify user identity before granting access','Authentication'],['Protect data at rest and in transit','Encryption']
+    ]},
+    80: { pool: 'Analytics Types', targets: [
+        ['Determine why a metric decreased last quarter','Diagnostic'],['Forecast demand for next quarter','Predictive'],['Classify images of products automatically','Cognitive']
+    ]},
+    106: { pool: 'Azure Services', targets: [
+        ['Orchestrate data movement and transformation pipelines','Azure Data Factory'],['Analyze data using dedicated SQL pools','Azure Synapse Analytics']
+    ]},
+    107: { pool: 'Workload Types', targets: [
+        ['Process sales data every night at midnight','Batch'],['Generate a weekly sales summary report','Batch'],['Monitor live IoT telemetry in real time','Streaming']
+    ]},
+    117: { pool: 'Tools', targets: [
+        ['Manage SQL Server instances with a graphical interface','SSMS'],['Write and debug code with extensions and Git integration','Visual Studio Code'],['Query Azure SQL databases with built-in notebook support','Azure Data Studio'],['Design and deploy SQL Server database projects','SSDT']
+    ]},
+    119: { pool: 'Cosmos DB APIs', targets: [
+        ['Store and query graph data with vertices and edges','Gremlin API'],['Store and query JSON documents','MongoDB API'],['Store and query key-value tabular data','Table API']
+    ]}
+};
+
+const dropdownData = {
+    1:{prompt:'Transparent Data Encryption (TDE) encrypts_____',options:['a column to protect data at rest and in transit.','queries and their results in order to protect data in transit.','the database to protect data at rest.','the server to protect data at rest.'],correct:'the database to protect data at rest.'},
+    4:{prompt:'Descriptive analytics tells you_____.',options:['what is most likely to occur in the future.','what occurred in the past.','which actions you can perform to affect outcomes.','why something occurred in the past.'],correct:'what occurred in the past.'},
+    5:{prompt:'Batch Loads _____.',options:['process data in memory, row-by-row.','collect and process data at most once a day.','process data as new data is received in near real-time.','collect data and then process the data when a condition is met.'],correct:'collect data and then process the data when a condition is met.'},
+    19:{prompt:'Relational Data Uses_______to Enforce Relationships Between Different Tables',options:['keys','columns','documents','relationships'],correct:'keys'},
+    20:{prompt:'By default, each Azure SQL database is protected by___',options:['server level firewall','database level firewall','network security group','virtual network rule'],correct:'server level firewall'},
+    34:{prompt:'A relational database must be used when_____.',options:['strong consistency guarantees are required','only a relational database is acceptable','you need a managed PostgreSQL service','the data is stored exclusively on-premises'],correct:'strong consistency guarantees are required'},
+    41:{prompt:'Transcribing audio files is an example of_____analytics.',options:['Descriptive','Diagnostic','Predictive','Cognitive'],correct:'Cognitive'},
+    44:{prompt:'To configure an Azure Storage account to support both security at the folder level and atomic directory manipulation_____.',options:['set Account kind to BlobStorage','enable the CDN endpoint','Enable the hierarchical namespace','configure a custom domain'],correct:'Enable the hierarchical namespace'},
+    49:{prompt:'you can query a graph database in Azure Cosmos DB______',options:['as nodes and edges by using the Gremlin language','as rows and columns by using SQL','as key-value pairs by using the Table API','only by using the MongoDB API'],correct:'as nodes and edges by using the Gremlin language.'},
+    53:{prompt:'You should enable encryption on _____',options:['a column to encrypt data at rest and in transit','queries to protect data in transit','the dataset to protect data at rest','the server to protect data at rest'],correct:'the dataset to protect data at rest'},
+    54:{prompt:'A relational database is appropriate for scenarios that involve a high volume of_____.',options:['writes that have varying data structures','data that requires complex joins across many tables','time-series data only','high volumes of transactional writes.'],correct:'high volumes of transactional writes.'},
+    59:{prompt:'A key/value data store is optimized for _____.',options:['simple lookups','complex analytics queries','full-text search','hierarchical data modeling'],correct:'simple lookups'},
+    60:{prompt:'In an ETL process requires _____.',options:['data is fully processed before being loaded to the target data store','data is loaded to the target first and then processed','data is processed and loaded simultaneously','data is stored in a staging area indefinitely'],correct:'data is fully processed before being loaded to the target data store'},
+    67:{prompt:'In Azure Data Factory you can use a _____ to orchestrate a pipeline.',options:['A control flow','A trigger','A dataset','A linked service'],correct:'A control flow'},
+    70:{prompt:'______a virtual table that contains content defined by a query.',options:['A view','A stored procedure','An index','A heap'],correct:'A view'},
+    72:{prompt:'Querying a Graph Database in Azure Cosmos DB_____.',options:['as nodes & edges by using Gremlin language','as documents in JSON format','as rows in a table','as key-value pairs'],correct:'as nodes & edges by using Gremlin language'},
+    73:{prompt:'The massively parallel processing (MPP) engine of Azure Synapse Analytics_______',options:['distribute processing across compute nodes','encrypt data at rest','manage user authentication','replicate data across regions'],correct:'distribute processing across compute nodes'},
+    79:{prompt:'A data store that is used to represent and query relationships between entities is called a _____.',options:['graph','columnar','document','key/value'],correct:'graph'},
+    83:{prompt:'An object associated with a table that sorts and stores the data rows based on their key values_______',options:['A clustered index','A non-clustered index','A view','A stored procedure'],correct:'A clustered index'},
+    93:{prompt:'The massively parallel processing (MPP) engine of Synapse Analytics_______',options:['Distribute processing across compute nodes','encrypt sensitive data','manage database backups','configure network firewalls'],correct:'Distribute processing across compute nodes'},
+    95:{prompt:'To configure an Azure Storage account to support both security at the folder level and atomic directory manipulation_____',options:['set Account to Blob Storage','enable Azure CDN','Enable the hierarchical namespace.','configure a load balancer'],correct:'Enable the hierarchical namespace.'},
+    103:{prompt:'An extract, load, and transform (ELT) process requires_____',options:['A target data store powerful enough to transform data','data is loaded without any changes','data is compressed before extraction','data is encrypted during transfer'],correct:'A target data store powerful enough to transform data'},
+    108:{prompt:'A relational database stores data in _____.',options:['a tabular form of rows and columns','a hierarchical tree structure','a graph of nodes and edges','a collection of JSON documents'],correct:'a tabular form of rows and columns'},
+    109:{prompt:'Microsoft Power BI _____ are optimized for printing and PDF distribution.',options:['paginated reports','interactive reports','dashboards','dataflows'],correct:'paginated reports'},
+    112:{prompt:'A visualization that shows a university\'s current student enrollment versus the maximum capacity is an example of ____________ analytics.',options:['Descriptive','Diagnostic','Predictive','Prescriptive'],correct:'Descriptive'},
+    116:{prompt:'In Batch processing_____.',options:['latency is expected','real-time results are required','data is processed as it arrives','low latency is critical'],correct:'latency is expected'}
+};
+
+const yesNoData = {
+    6:[['Processing salary payments once a month is an example of a batch workload.','Yes'],['A wind turbine that sends 50 sensor readings per second is an example of a streaming workload.','Yes'],['A home electricity meter that sends readings once a day to an energy provider is an example of a streaming workload.','No']],
+    8:[['A Microsoft Power BI dashboard is associated with a single workspace.','No'],['A Microsoft Power BI dashboard can only display visualizations from a single dataset.','No'],['A Microsoft Power BI dashboard can display visualizations from a Microsoft Excel workbook.','Yes']],
+    18:[['The Azure Cosmos DB API is configured separately for each database in an Azure Cosmos DB account.','No'],['Partition keys are used in Azure Cosmos DB to optimize queries.','Yes'],['Items contained in the same Azure Cosmos DB logical partition can have different partition keys.','No']],
+    29:[['A clustered index determines the physical order of data in a table.','Yes'],['A table can have multiple clustered indexes.','No'],['A non-clustered index can be created on a view.','Yes']],
+    32:[['You can create a view by using the CREATE VIEW Transact-SQL statement.','No'],['An index can be created on a view.','No'],['A view can be used to join data from multiple tables.','Yes']],
+    42:[['Descriptive analytics is used to summarize historical data.','Yes'],['Diagnostic analytics is used to determine why something happened.','Yes'],['Predictive analytics is used to determine what is happening right now.','No']],
+    46:[['Azure Blob storage can store files that are accessed from HTTP.','Yes'],['Azure Queue storage is used to store tabular data.','No'],['Azure Table storage supports schemaless design.','Yes']],
+    48:[['A Power BI dashboard can display visualizations from multiple workspaces.','Yes'],['A Power BI report can only contain data from a single dataset.','No'],['Power BI supports row-level security (RLS) to restrict data access.','Yes'],['Power BI datasets can be refreshed manually or on a schedule.','Yes']],
+    50:[['Azure Data Lake Storage is a relational database service.','No'],['Azure Cosmos DB supports multiple APIs such as SQL, MongoDB, and Gremlin.','Yes'],['Azure Synapse Analytics can be used to run SQL queries on data lake storage.','Yes']],
+    55:[['Encryption at rest protects data that is stored on disk.','Yes'],['A firewall rule can restrict access to an Azure SQL database by IP address.','Yes'],['Transparent Data Encryption (TDE) encrypts the entire database.','Yes']],
+    56:[['A primary key constraint uniquely identifies each row in a table.','Yes'],['A foreign key constraint ensures referential integrity between two tables.','Yes'],['A NULL value is the same as a zero value.','Yes']],
+    78:[['Azure Cosmos DB provides single-digit millisecond latency at the 99th percentile.','Yes'],['Azure Cosmos DB is a fully managed NoSQL database service.','Yes'],['Azure Cosmos DB only supports the SQL (Core) API.','No']],
+    91:[['Streaming data processing handles data in real time as it arrives.','Yes'],['Batch processing is the preferred method for processing IoT sensor data in real time.','No'],['Micro-batch processing processes small groups of events at a time.','Yes']],
+    92:[['Azure SQL Database requires you to manage the underlying operating system.','No'],['Azure SQL Database supports automatic backups.','Yes'],['Azure SQL Database can be scaled up or down without downtime.','Yes']],
+    97:[['Data visualization helps to communicate insights from data.','Yes'],['Dashboards provide a high-level overview of key metrics.','Yes'],['Visualizations can be used to compare data across different categories.','Yes']],
+    98:[['Descriptive analytics predicts future outcomes.','No'],['Diagnostic analytics determines what is happening in real time.','No'],['Prescriptive analytics recommends actions based on data analysis.','Yes']],
+    99:[['A SELECT statement is used to retrieve data from a database.','Yes'],['The WHERE clause filters rows based on specified conditions.','Yes'],['The GROUP BY clause sorts the result set in ascending order.','No']],
+    111:[['Azure HDInsight is a fully managed relational database service.','No'],['Azure Databricks is an Apache Spark-based analytics service.','Yes'],['Azure Cosmos DB is a data warehouse service.','No']],
+    115:[['ETL stands for Extract, Transform, and Load.','Yes'],['In an ELT process, data transformation occurs before loading to the target.','No'],['A data warehouse is optimized for analytical queries.','Yes']]
+};
+
+const answerKey = {
+    1:['the database to protect data at rest.'],2:['D'],3:['Key/Value','Object','Graph'],4:['what occurred in the past.'],5:['collect data and then process the data when a condition is met.'],
+    6:['Yes','Yes','No'],7:['A'],8:['No','No','Yes'],9:['root object','nested object','nested array'],
+    10:['B','D','F'],11:['A'],12:['D'],13:['Azure Data Factory','Azure Data Lake Storage','Azure Synapse Analytics'],
+    14:['A'],15:['star schema','dimension'],16:['A','B'],17:['A'],18:['No','Yes','No'],
+    19:['keys'],20:['server level firewall'],21:['A','D'],22:['A','C'],
+    23:['Data movement','Data transformation','Control'],24:['D'],25:['C'],
+    26:['Batch','Streaming','Micro-batch'],27:['B'],28:['A'],29:['Yes','No','Yes'],
+    30:['A'],31:['B'],32:['No','No','Yes'],33:['C'],
+    34:['strong consistency guarantees are required'],35:['A','C','E'],36:['Select','Order By'],
+    37:['A table','A column'],38:['D'],39:['D'],40:['A'],41:['Cognitive'],
+    42:['Yes','Yes','No'],43:['B'],44:['Enable the hierarchical namespace'],45:['C'],
+    46:['Yes','No','Yes'],47:['C'],48:['Yes','No','Yes','Yes'],
+    49:['as nodes and edges by using the Gremlin language.'],50:['No','Yes','Yes'],
+    51:['B'],52:['Data Set','Linked Service','Pipeline'],53:['the dataset to protect data at rest'],
+    54:['high volumes of transactional writes.'],55:['Yes','Yes','Yes'],56:['Yes','Yes','Yes'],
+    57:['C'],58:['Folders','Files'],59:['simple lookups'],
+    60:['data is fully processed before being loaded to the target data store'],
+    61:['B'],62:['CRM System','Data Warehouse','In memory data integration'],63:['A','C'],
+    64:['Table','View','Index'],65:['B'],66:['Image files','Relationship between employees','Key/Value pairs'],
+    67:['A control flow'],68:['A'],69:['D'],70:['A view'],71:['D'],
+    72:['as nodes & edges by using Gremlin language'],73:['distribute processing across compute nodes'],
+    74:['D'],75:['Firewall','Authentication','Encryption'],76:['A'],77:['A','C','E'],
+    78:['Yes','Yes','No'],79:['graph'],80:['Diagnostic','Predictive','Cognitive'],
+    81:['B'],82:['A'],83:['A clustered index'],84:['D'],85:['C'],86:['B'],87:['C'],
+    88:['A','B'],89:['D'],90:['D'],91:['Yes','No','Yes'],92:['No','Yes','Yes'],
+    93:['Distribute processing across compute nodes'],94:['A'],
+    95:['Enable the hierarchical namespace.'],96:['D'],97:['Yes','Yes','Yes'],98:['No','No','Yes'],
+    99:['Yes','Yes','No'],100:['B'],101:['A'],102:['A','C'],
+    103:['A target data store powerful enough to transform data'],
+    104:['C'],105:['A','D'],106:['Azure Data Factory','Azure Synapse Analytics'],
+    107:['Batch','Batch','Streaming'],108:['a tabular form of rows and columns'],
+    109:['paginated reports'],110:['D'],111:['No','Yes','No'],112:['Descriptive'],
+    113:['B'],114:['A'],115:['Yes','No','Yes'],116:['latency is expected'],
+    117:['SSMS','Visual Studio Code','Azure Data Studio','SSDT'],118:['B'],
+    119:['Gremlin API','MongoDB API','Table API'],120:['B','C'],121:['C'],122:['B']
+};
+
+const answerKeyByNumber = {
+    1:{type:'dropdown',values:['the database to protect data at rest.']},
+    2:{type:'mcq',values:['D']},
+    3:{type:'match',values:['Key/Value','Object','Graph']},
+    4:{type:'dropdown',values:['what occurred in the past.']},
+    5:{type:'dropdown',values:['collect data and then process the data when a condition is met.']},
+    6:{type:'yesno',values:['Yes','Yes','No']},
+    7:{type:'mcq',values:['A']},
+    8:{type:'yesno',values:['No','No','Yes']},
+    9:{type:'dropdown',values:['root object','nested object','nested array']},
+    10:{type:'mcq',values:['B','D','F']},
+    11:{type:'mcq',values:['A']},
+    12:{type:'mcq',values:['D']},
+    13:{type:'match',values:['Azure Data Factory','Azure Data Lake Storage','Azure Synapse Analytics']},
+    14:{type:'mcq',values:['A']},
+    15:{type:'dropdown',values:['star schema','dimension']},
+    16:{type:'mcq',values:['A','B']},
+    17:{type:'mcq',values:['A']},
+    18:{type:'yesno',values:['No','Yes','No']},
+    19:{type:'dropdown',values:['keys']},
+    20:{type:'dropdown',values:['server level firewall']},
+    21:{type:'mcq',values:['A','D']},
+    22:{type:'mcq',values:['A','C']},
+    23:{type:'match',values:['Data movement','Data transformation','Control']},
+    24:{type:'mcq',values:['D']},
+    25:{type:'mcq',values:['C']},
+    26:{type:'match',values:['Batch','Streaming','Micro-batch']},
+    27:{type:'mcq',values:['B']},
+    28:{type:'mcq',values:['A']},
+    29:{type:'yesno',values:['Yes','No','Yes']},
+    30:{type:'mcq',values:['A']},
+    31:{type:'mcq',values:['B']},
+    32:{type:'yesno',values:['No','No','Yes']},
+    33:{type:'mcq',values:['C']},
+    34:{type:'dropdown',values:['strong consistency guarantees are required']},
+    35:{type:'mcq',values:['A','C','E']},
+    36:{type:'match',values:['Select','Order By']},
+    37:{type:'dropdown',values:['A table','A column']},
+    38:{type:'mcq',values:['D']},
+    39:{type:'mcq',values:['D']},
+    40:{type:'mcq',values:['A']},
+    41:{type:'dropdown',values:['Cognitive']},
+    42:{type:'yesno',values:['Yes','Yes','No']},
+    43:{type:'mcq',values:['B']},
+    44:{type:'dropdown',values:['Enable the hierarchical namespace']},
+    45:{type:'mcq',values:['C']},
+    46:{type:'yesno',values:['Yes','No','Yes']},
+    47:{type:'mcq',values:['C']},
+    48:{type:'yesno',values:['Yes','No','Yes','Yes']},
+    49:{type:'dropdown',values:['as nodes and edges by using the Gremlin language.']},
+    50:{type:'yesno',values:['No','Yes','Yes']},
+    51:{type:'mcq',values:['B']},
+    52:{type:'match',values:['Data Set','Linked Service','Pipeline']},
+    53:{type:'dropdown',values:['the dataset to protect data at rest']},
+    54:{type:'dropdown',values:['high volumes of transactional writes.']},
+    55:{type:'yesno',values:['Yes','Yes','Yes']},
+    56:{type:'yesno',values:['Yes','Yes','Yes']},
+    57:{type:'mcq',values:['C']},
+    58:{type:'match',values:['Folders','Files']},
+    59:{type:'dropdown',values:['simple lookups']},
+    60:{type:'dropdown',values:['data is fully processed before being loaded to the target data store']},
+    61:{type:'mcq',values:['B']},
+    62:{type:'match',values:['CRM System','Data Warehouse','In memory data integration']},
+    63:{type:'mcq',values:['A','C']},
+    64:{type:'match',values:['Table','View','Index']},
+    65:{type:'mcq',values:['B']},
+    66:{type:'match',values:['Image files','Relationship between employees','Key/Value pairs']},
+    67:{type:'dropdown',values:['A control flow']},
+    68:{type:'mcq',values:['A']},
+    69:{type:'mcq',values:['D']},
+    70:{type:'dropdown',values:['A view']},
+    71:{type:'mcq',values:['D']},
+    72:{type:'dropdown',values:['as nodes & edges by using Gremlin language']},
+    73:{type:'dropdown',values:['distribute processing across compute nodes']},
+    74:{type:'mcq',values:['D']},
+    75:{type:'match',values:['Firewall','Authentication','Encryption']},
+    76:{type:'mcq',values:['A']},
+    77:{type:'mcq',values:['A','C','E']},
+    78:{type:'yesno',values:['Yes','Yes','No']},
+    79:{type:'dropdown',values:['graph']},
+    80:{type:'match',values:['Diagnostic','Predictive','Cognitive']},
+    81:{type:'mcq',values:['B']},
+    82:{type:'mcq',values:['A']},
+    83:{type:'dropdown',values:['A clustered index']},
+    84:{type:'mcq',values:['D']},
+    85:{type:'mcq',values:['C']},
+    86:{type:'mcq',values:['B']},
+    87:{type:'mcq',values:['C']},
+    88:{type:'mcq',values:['A','B']},
+    89:{type:'mcq',values:['D']},
+    90:{type:'mcq',values:['D']},
+    91:{type:'yesno',values:['Yes','No','Yes']},
+    92:{type:'yesno',values:['No','Yes','Yes']},
+    93:{type:'dropdown',values:['Distribute processing across compute nodes']},
+    94:{type:'mcq',values:['A']},
+    95:{type:'dropdown',values:['Enable the hierarchical namespace.']},
+    96:{type:'mcq',values:['D']},
+    97:{type:'yesno',values:['Yes','Yes','Yes']},
+    98:{type:'yesno',values:['No','No','Yes']},
+    99:{type:'yesno',values:['Yes','Yes','No']},
+    100:{type:'mcq',values:['B']},
+    101:{type:'mcq',values:['A']},
+    102:{type:'mcq',values:['A','C']},
+    103:{type:'dropdown',values:['A target data store powerful enough to transform data']},
+    104:{type:'mcq',values:['C']},
+    105:{type:'mcq',values:['A','D']},
+    106:{type:'match',values:['Azure Data Factory','Azure Synapse Analytics']},
+    107:{type:'match',values:['Batch','Batch','Streaming']},
+    108:{type:'dropdown',values:['a tabular form of rows and columns']},
+    109:{type:'dropdown',values:['paginated reports']},
+    110:{type:'mcq',values:['D']},
+    111:{type:'yesno',values:['No','Yes','No']},
+    112:{type:'dropdown',values:['Descriptive']},
+    113:{type:'mcq',values:['B']},
+    114:{type:'mcq',values:['A']},
+    115:{type:'yesno',values:['Yes','No','Yes']},
+    116:{type:'dropdown',values:['latency is expected']},
+    117:{type:'match',values:['SSMS','Visual Studio Code','Azure Data Studio','SSDT']},
+    118:{type:'mcq',values:['B']},
+    119:{type:'match',values:['Gremlin API','MongoDB API','Table API']},
+    120:{type:'mcq',values:['B','C']},
+    121:{type:'mcq',values:['C']},
+    122:{type:'mcq',values:['B']}
+};
+
+const typeLabels = { mcq: 'Multiple choice', dropdown: 'Dropdown', yesno: 'Yes / No', match: 'Drag and drop' };
+
+/* ======================================================================
+   SHARED UTILITIES
+   ====================================================================== */
+function getQId(q) { return q.id ?? q.number; }
+
+function escapeHtml(t) {
+    return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+
+function shuffle(arr) {
+    const a = [...arr];
+    for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+}
+
+function formatTime(s) {
+    const m = Math.floor(s / 60);
+    const sec = s % 60;
+    return `${String(m).padStart(2,'0')}:${String(sec).padStart(2,'0')}`;
+}
+
+function normalizeAnswer(a) { return String(a || '').replace(/^Answer(?:\s*\([^)]*\))?\s*:\s*/i, '').trim(); }
+
+function getExplanation(id) {
+    const explanations = {
+        7: 'Read-only replicas are used to offload read workloads such as analytics and reporting from the write replica.',
+        10: 'OLTP workloads are characterized by heavy writes and moderate reads, schema on write, and normalized data to ensure data integrity.',
+        11: 'Azure SQL Database firewall rules control access by client IP address, so a changed external IP must be added to the allow list.',
+        12: 'Internet-connected temperature sensor trend analysis is a time-series scenario.',
+        16: 'Real-time data processing means data is processed as it is created with low latency expected.',
+        24: 'The API (Core SQL, MongoDB, Cassandra, etc.) can only be set at account creation time and cannot be changed later.',
+        28: 'ARM templates automate the creation of interdependent Azure resources in a repeatable, declarative way.',
+        35: 'Querying from the internet requires: Reader role on the resource group, SELECT access on the table, a user in the database, and your IP must be allowed through the firewall.',
+        40: 'INSERT is a Data Manipulation Language (DML) statement. ALTER, DROP, and CREATE are DDL. DISABLE is not standard SQL.',
+        57: 'Azure SQL Database serverless automatically scales compute and pauses during inactive periods, billing only for storage while paused.',
+        67: 'A control flow in Azure Data Factory orchestrates the execution order of activities within a pipeline.',
+        68: 'Azure Data Studio runs on Windows, macOS, and Ubuntu, and provides IntelliSense for SQL queries.',
+        69: 'Multi-write and read regions are configured at the Cosmos DB account level.',
+        71: 'Azure SQL Database is the recommended PaaS option for OLTP workloads.',
+        74: 'Key/value stores provide the lowest latency for simple lookups like session data, shopping carts, and personalization attributes.',
+        82: 'A bar chart showing YTD sales by region is descriptive analytics (what happened).',
+        84: 'A view persists a SQL query so other users can reference it.',
+        87: 'Reading from a data warehouse for QA is Online Analytical Processing (OLAP).',
+        88: 'Data visualization represents trends and patterns over time and communicates the significance of data.',
+        101: 'Power BI Report Builder is the standalone tool for authoring paginated reports in the Power BI service.',
+        103: 'ELT transforms data in the target data store, so the target must be powerful enough to handle the transformations.',
+        104: 'Azure Private Link provides private connectivity from a VM to Azure SQL without internet exposure.',
+        109: 'Paginated reports in Power BI are designed for printing and display all data across multiple pages.',
+        114: 'Predictive analytics forecasts future outcomes based on historical data patterns.',
+        121: 'Azure Files provides SMB/NFS file shares that can be mapped as network drives.',
+        122: 'An integration runtime provides the compute environment for ADF activities.',
+    };
+    return explanations[id] || null;
+}
+
+/* ======================================================================
+   MODE SWITCHING
+   ====================================================================== */
+let currentMode = 'home';
+
+function switchMode(mode) {
+    if (currentMode === 'practice' && mode !== 'practice') {
+        if (!confirm('Leave practice mode? Your timer and answers will be lost.')) return;
+    }
+    if (currentMode === 'exam' && mode !== 'exam') {
+        if (!confirm('Leave exam mode? Your timer and answers will be lost.')) return;
+    }
+
+    if (mode === 'practice') {
+        clearInterval(pTimerInterval);
+        eClearTimers();
+    }
+    if (mode === 'exam') {
+        clearInterval(pTimerInterval);
+    }
+
+    currentMode = mode;
+
+    document.getElementById('home-screen').classList.toggle('hidden', mode !== 'home');
+    document.getElementById('practice-section').classList.toggle('hidden', mode !== 'practice');
+    document.getElementById('exam-section').classList.toggle('hidden', mode !== 'exam');
+
+    if (mode === 'home') {
+        eResetState();
+        pResetState();
+    } else if (mode === 'practice') {
+        pInit();
+    } else if (mode === 'exam') {
+        eResetState();
+    }
+}
+
+/* ======================================================================
+   PRACTICE MODE
+   ====================================================================== */
+const pTypePriority = ['all', 'mcq', 'dropdown', 'yesno', 'match'];
+let pActiveFilter = 'all';
+let pQuestions = [];
+let pQuestionStates = {};
+let pCurrentQuestionId = null;
+let pTimerSeconds = TIMER_MINUTES * 60;
+let pTimerInterval = null;
+let pTimerRunning = false;
+let pExamSubmitted = false;
+
+function pResetState() {
+    clearInterval(pTimerInterval);
+    pTimerRunning = false;
+    pExamSubmitted = false;
+}
+
+function pInit() {
+    pQuestions = window.dp900Questions;
+    const root = document.getElementById('quiz-root');
+    root.innerHTML = pQuestions.map(pBuildQuestionCard).join('');
+    document.getElementById('quiz-meta').textContent = `${pQuestions.length} questions loaded.`;
+    pRenderFilters();
+    pBuildNav();
+    pApplyFilter('all');
+    pTimerSeconds = TIMER_MINUTES * 60;
+    document.getElementById('timer-display').textContent = formatTime(pTimerSeconds);
+    document.getElementById('timer-bar').classList.remove('warning');
+    document.getElementById('results-overlay').classList.remove('show');
+    pUpdateProgress();
+    pUpdateNav();
+    pStartTimer();
+}
+
+function pGetQuestionId(q) { return q.id ?? q.number; }
+
+function pBuildHeader(q) {
+    const id = pGetQuestionId(q);
+    const flagged = pQuestionStates[id]?.flagged;
+    const badges = [`<span class="badge">${typeLabels[q.type] || q.type}</span>`];
+    if (q.pageNumbers && q.pageNumbers.length) {
+        badges.push(`<span class="badge secondary">Pages ${q.pageNumbers.join(', ')}</span>`);
+    }
+    return `
+        <div class="question-header">
+            <h2>Question #${id}</h2>
+            <div class="question-badges">
+                ${badges.join('')}
+                <button type="button" class="flag-btn${flagged ? ' flagged' : ''}" onclick="pToggleFlag(${id})">${flagged ? '\u2691 Flagged' : '\u2691 Flag'}</button>
+            </div>
+        </div>
+    `;
+}
+
+function pBuildSourcePanel(q) {
+    const id = pGetQuestionId(q);
+    const pn = q.pageNumbers && q.pageNumbers.length ? q.pageNumbers[0] : id;
+    const img = `${pageImageBase}/page-${String(pn).padStart(3,'0')}${pageImageExtension}`;
+    return `
+        <div class="source-toggle"><button type="button" onclick="pToggleSource('source-${id}')">Toggle source page</button></div>
+        <div class="source-panel" id="source-${id}">
+            <img src="${img}" alt="Source page for question ${id}">
+            <p>Source page: ${pn}.</p>
+        </div>
+    `;
+}
+
+function pBuildMcq(q) {
+    const id = pGetQuestionId(q);
+    const av = (answerKeyByNumber[id] || {}).values || [];
+    const isMulti = av.length > 1;
+    const opts = q.options.length ? q.options : ['Option A','Option B','Option C','Option D'];
+    const labels = ['A','B','C','D','E','F'];
+    const html = opts.map((o,i) => {
+        const l = labels[i] || String.fromCharCode(65+i);
+        return `<label class="option-label"><input type="${isMulti?'checkbox':'radio'}" name="q${id}-opt" value="${l}"> ${l}. ${escapeHtml(o)}</label>`;
+    }).join('');
+    return `
+        <div class="question-text">${escapeHtml(q.questionText)}</div>
+        <div class="options">${html}</div>
+        ${pBuildSourcePanel(q)}
+        <div class="actions"><button type="button" onclick='pCheckMCQ("q${id}",${JSON.stringify(av)})'>Submit Answer</button></div>
+        <div class="feedback"></div>
+        <div class="explanation"></div>
+    `;
+}
+
+function pBuildDropdown(q) {
+    const id = pGetQuestionId(q);
+    const av = (answerKeyByNumber[id] || {}).values || [];
+    if (id === 9) {
+        return `<div class="question-text">Given the following JSON document structure:<br><br>${pRenderJsonBlock(id)}<br><br>Use the drop-down menus to select the answer choice that completes each statement.</div>
+            <div class="question-text">1. Customer is: ${pRenderSelect(id,0,av[0],['nested array','nested object','root object'])}
+            <br><br>2. Address is: ${pRenderSelect(id,1,av[1],['nested array','nested object','root object'])}
+            <br><br>3. Social media is: ${pRenderSelect(id,2,av[2],['nested array','nested object','root object'])}</div>
+            ${pBuildSourcePanel(q)}
+            <div class="actions"><button type="button" onclick="pCheckMultiDropdown('q${id}')">Submit Selection</button></div>
+            <div class="feedback"></div><div class="explanation"></div>`;
+    }
+    if (id === 15) {
+        return `<div class="question-text">You are reviewing the data model shown in the following exhibit.</div>
+            ${pRenderExhibitBlock(id)}
+            <div class="question-text">The data model is a ${pRenderSelect(id,0,av[0],['transactional model','star schema','snowflake schema'])}.<br><br>Customer is a ${pRenderSelect(id,1,av[1],['fact','dimension','bridge'])} table.</div>
+            ${pBuildSourcePanel(q)}
+            <div class="actions"><button type="button" onclick="pCheckMultiDropdown('q${id}')">Submit Selection</button></div>
+            <div class="feedback"></div><div class="explanation"></div>`;
+    }
+    if (id === 37) {
+        return `<div class="question-text">You have the following SQL query:<br><br><code>SELECT ProductName, UnitPrice FROM Products WHERE CategoryID = 5</code></div>
+            <div class="question-text">1. Products is: ${pRenderSelect(id,0,av[0],['A table','A view','A column','A database'])}
+            <br><br>2. ProductName is: ${pRenderSelect(id,1,av[1],['A table','A column','A row','A schema'])}</div>
+            ${pBuildSourcePanel(q)}
+            <div class="actions"><button type="button" onclick="pCheckMultiDropdown('q${id}')">Submit Selection</button></div>
+            <div class="feedback"></div><div class="explanation"></div>`;
+    }
+    if (id === 32) return pBuildYesNo({ ...q, type: 'yesno', id: 32 });
+
+    const data = dropdownData[id];
+    if (data) {
+        const optsHtml = data.options.map(o => `<option value="${escapeHtml(o)}">${escapeHtml(o)}</option>`).join('');
+        const sel = `<select class="inline-select" data-correct="${escapeHtml(data.correct)}"><option value="">-- Select Option --</option>${optsHtml}</select>`;
+        return `<div class="question-text">${escapeHtml(data.prompt)}</div>${sel}${pBuildSourcePanel(q)}
+            <div class="actions"><button type="button" onclick="pCheckInline('q${id}')">Submit Answer</button></div>
+            <div class="feedback"></div><div class="explanation"></div>`;
+    }
+    return `<div class="question-text">${escapeHtml(q.questionText || '').replace(/\n/g,'<br>')}</div>
+        <select class="inline-select" data-correct="${av[0]||''}"><option value="">-- Select Option --</option><option value="A">Option A</option><option value="B">Option B</option><option value="C">Option C</option><option value="D">Option D</option></select>
+        ${pBuildSourcePanel(q)}
+        <div class="actions"><button type="button" onclick="pCheckInline('q${id}')">Submit Answer</button></div>
+        <div class="feedback"></div><div class="explanation"></div>`;
+}
+
+function pRenderSelect(qn,idx,correct,opts) {
+    const vals = opts.map(o => `<option value="${escapeHtml(o)}">${escapeHtml(o)}</option>`).join('');
+    return `<select class="inline-select" data-correct="${escapeHtml(correct)}" data-index="${idx}"><option value="">-- Select --</option>${vals}</select>`;
+}
+
+function pRenderJsonBlock(n) {
+    if (n !== 9) return '';
+    return `<div class="json-block">{\n  "customer" : {\n     "first name" : "Ben",\n     "last name" : "Smith",\n     "address" : {\n        "line 1" : "161 Azure Ln",\n        "line 2" : "Palo Alto",\n        "ZIP code" : "54762"\n     },\n     "social media" : [\n        { "service": "twitter", "handle": "@bensmith" },\n        { "service": "linkedin", "handle": "bensmith" }\n     ]\n  }\n}</div>`;
+}
+
+function pRenderExhibitBlock(n) {
+    if (n !== 15) return '';
+    return `<div class="json-block" style="white-space:normal;background:#f8fafc;color:#0f172a;font-family:inherit;line-height:1.4;">
+        <strong>Customer</strong> Key: CustomerID Foreign Keys: None<br><br>
+        <strong>Product</strong> Key: ProductID Foreign Keys: None<br><br>
+        <strong>Sales</strong> Key: SalesID Foreign Keys: CustomerID, ProductID, SalesPersonID, WarehouseID<br><br>
+        <strong>SalesPerson</strong> Key: SalesPersonID Foreign Keys: None<br><br>
+        <strong>Warehouse</strong> Key: WarehouseID Foreign Keys: None</div>`;
+}
+
+function pBuildYesNo(q) {
+    const id = pGetQuestionId(q);
+    const rows = (yesNoData[id] || []);
+    const rowHtml = rows.map(([s,a]) => `
+        <tr class="stmt-row" data-ans="${a}"><td>${escapeHtml(s)}</td><td><select class="inline-select"><option value="">-- Choose --</option><option value="Yes">Yes</option><option value="No">No</option></select></td></tr>
+    `).join('');
+    return `<div class="question-text">For each of the following statements, select Yes if the statement is true. Otherwise, select No.</div>
+        <table class="statement-table"><thead><tr><th>Statement</th><th>Response</th></tr></thead><tbody>${rowHtml}</tbody></table>
+        ${pBuildSourcePanel(q)}
+        <div class="actions"><button type="button" onclick="pCheckMatrix('q${id}')">Submit Table Choices</button></div>
+        <div class="feedback"></div><div class="explanation"></div>`;
+}
+
+function pBuildMatch(q) {
+    const id = pGetQuestionId(q);
+    if (id === 3) {
+        return `<div class="question-text">Match the types of data stores to the appropriate scenarios.</div>
+            <div class="drag-layout">
+                <div class="pool-box"><h3>Data Store Types</h3>
+                    <div class="draggable-item" draggable="true" ondragstart="pDrag(event)" id="q3-i1">Key/Value</div>
+                    <div class="draggable-item" draggable="true" ondragstart="pDrag(event)" id="q3-i2">Object</div>
+                    <div class="draggable-item" draggable="true" ondragstart="pDrag(event)" id="q3-i3">Graph</div>
+                </div>
+                <div class="match-box"><h3>Scenarios</h3>
+                    <table class="drop-zone-table"><thead><tr><th>Scenario</th><th>Target</th></tr></thead><tbody>
+                        <tr><td>Application users and their default language</td><td><div class="drop-target" id="q3-target1" data-match="Key/Value" ondrop="pDrop(event)" ondragover="pAllowDrop(event)"></div></td></tr>
+                        <tr><td>Medical images and their associated metadata</td><td><div class="drop-target" id="q3-target2" data-match="Object" ondrop="pDrop(event)" ondragover="pAllowDrop(event)"></div></td></tr>
+                        <tr><td>Employee data showing relationships between employees</td><td><div class="drop-target" id="q3-target3" data-match="Graph" ondrop="pDrop(event)" ondragover="pAllowDrop(event)"></div></td></tr>
+                    </tbody></table>
+                </div>
+            </div>${pBuildSourcePanel(q)}
+            <div class="actions"><button type="button" onclick="pCheckDragDrop('q${id}')">Submit Match</button></div>
+            <div class="feedback"></div><div class="explanation"></div>`;
+    }
+    if (id === 13) {
+        return `<div class="question-text">Match the Azure services to appropriate requirements.</div>
+            <div class="drag-layout">
+                <div class="pool-box"><h3>Azure Services</h3>
+                    <div class="draggable-item" draggable="true" ondragstart="pDrag(event)" id="q13-i1">Azure Data Factory</div>
+                    <div class="draggable-item" draggable="true" ondragstart="pDrag(event)" id="q13-i2">Azure Data Lake Storage</div>
+                    <div class="draggable-item" draggable="true" ondragstart="pDrag(event)" id="q13-i3">Azure Synapse Analytics</div>
+                </div>
+                <div class="match-box"><h3>Answer Area</h3>
+                    <table class="drop-zone-table"><thead><tr><th>Target</th><th>Requirement</th></tr></thead><tbody>
+                        <tr><td><div class="drop-target" id="q13-target1" data-match="Azure Data Factory" ondrop="pDrop(event)" ondragover="pAllowDrop(event)"></div></td><td>Output data to Parquet format.</td></tr>
+                        <tr><td><div class="drop-target" id="q13-target2" data-match="Azure Data Lake Storage" ondrop="pDrop(event)" ondragover="pAllowDrop(event)"></div></td><td>Store data that is in Parquet format.</td></tr>
+                        <tr><td><div class="drop-target" id="q13-target3" data-match="Azure Synapse Analytics" ondrop="pDrop(event)" ondragover="pAllowDrop(event)"></div></td><td>Persist a tabular representation of data in Parquet format.</td></tr>
+                    </tbody></table>
+                </div>
+            </div>${pBuildSourcePanel(q)}
+            <div class="actions"><button type="button" onclick="pCheckDragDrop('q${id}')">Submit Match</button></div>
+            <div class="feedback"></div><div class="explanation"></div>`;
+    }
+    const md = matchData[id];
+    if (md) {
+        const correctItems = md.targets.map(t => t[1]);
+        const uniqueItems = [...new Set(correctItems)];
+        const shuffledItems = shuffle(uniqueItems);
+        let itemCounter = 0;
+        const itemHtml = shuffledItems.map(item => {
+            itemCounter++;
+            return `<div class="draggable-item" draggable="true" ondragstart="pDrag(event)" id="q${id}-i${itemCounter}">${escapeHtml(item)}</div>`;
+        }).join('');
+        const targetHtml = md.targets.map((t, i) => {
+            return `<tr><td>${escapeHtml(t[0])}</td><td><div class="drop-target" id="q${id}-target${i+1}" data-match="${escapeHtml(t[1])}" ondrop="pDrop(event)" ondragover="pAllowDrop(event)"></div></td></tr>`;
+        }).join('');
+        return `<div class="question-text">Match the items from the left to the correct targets on the right.</div>
+            <div class="drag-layout">
+                <div class="pool-box"><h3>${escapeHtml(md.pool)}</h3>${itemHtml}</div>
+                <div class="match-box"><h3>Scenarios</h3><table class="drop-zone-table"><thead><tr><th>Description</th><th>Target</th></tr></thead><tbody>${targetHtml}</tbody></table></div>
+            </div>${pBuildSourcePanel(q)}
+            <div class="actions"><button type="button" onclick="pCheckDragDrop('q${id}')">Submit Match</button></div>
+            <div class="feedback"></div><div class="explanation"></div>`;
+    }
+    return `<div class="question-text">${escapeHtml(q.questionText)}</div>
+        <div class="feedback" style="display:block;background:#fff3cd;color:#856404;border:1px solid #ffc107;">This match question requires the source PDF exhibit.</div>
+        ${pBuildSourcePanel(q)}`;
+}
+
+function pBuildQuestionCard(q) {
+    const id = pGetQuestionId(q);
+    let body = '';
+    if (q.type === 'mcq') body = pBuildMcq(q);
+    else if (q.type === 'dropdown') body = pBuildDropdown(q);
+    else if (q.type === 'yesno') body = pBuildYesNo(q);
+    else if (q.type === 'match') body = pBuildMatch(q);
+    return `<section class="question-card" data-type="${q.type}" data-qid="${id}" id="q${id}">${pBuildHeader(q)}${body}</section>`;
+}
+
+function pToggleSource(id) {
+    const p = document.getElementById(id);
+    if (!p) return;
+    p.style.display = p.style.display === 'block' ? 'none' : 'block';
+}
+
+function pAllowDrop(ev) { ev.preventDefault(); }
+function pDrag(ev) { ev.dataTransfer.setData('text', ev.target.id); }
+function pDrop(ev) {
+    ev.preventDefault();
+    const data = ev.dataTransfer.getData('text');
+    const el = document.getElementById(data);
+    if (!el) return;
+    if (ev.target.classList.contains('drop-target')) {
+        ev.target.appendChild(el);
+    }
+}
+
+function pMarkAnswered(id) {
+    if (!pQuestionStates[id]) pQuestionStates[id] = { answered: false, flagged: false, userAnswer: null };
+    pQuestionStates[id].answered = true;
+    pUpdateNav();
+    pUpdateProgress();
+}
+
+function pCheckMCQ(cardId, correctVal) {
+    const card = document.getElementById(cardId);
+    const selected = [...card.querySelectorAll(`input[name="${cardId}-opt"]:checked`)];
+    const fb = card.querySelector('.feedback');
+    const exp = card.querySelector('.explanation');
+    const correct = Array.isArray(correctVal) ? correctVal : [correctVal];
+    const id = parseInt(cardId.replace('q',''));
+
+    if (!selected.length) { alert(correct.length > 1 ? 'Please choose all correct answers first.' : 'Please choose an answer first.'); return; }
+
+    const sel = selected.map(i => i.value).sort();
+    const expc = correct.map(v => String(v)).sort();
+    const ok = sel.length === expc.length && sel.every((v,i) => v === expc[i]);
+
+    fb.style.display = 'block';
+    fb.className = 'feedback ' + (ok ? 'correct' : 'incorrect');
+    fb.innerText = ok ? 'Correct! Well done.' : (correct.length > 1 ? `Incorrect. The correct answers are ${expc.join(', ')}.` : `Incorrect. The correct answer is option ${expc[0]}.`);
+
+    if (exp) {
+        const explanation = getExplanation(id);
+        if (explanation) { exp.style.display = 'block'; exp.innerText = explanation; }
+    }
+    pMarkAnswered(id);
+}
+
+function pCheckInline(cardId) {
+    const card = document.getElementById(cardId);
+    const sel = card.querySelector('select');
+    const fb = card.querySelector('.feedback');
+    const exp = card.querySelector('.explanation');
+    const id = parseInt(cardId.replace('q',''));
+
+    if (sel.value === '') { alert('Please pick an option from the menu.'); return; }
+
+    const expected = sel.getAttribute('data-correct');
+    const ok = sel.value === expected;
+    fb.style.display = 'block';
+    fb.className = 'feedback ' + (ok ? 'correct' : 'incorrect');
+    fb.innerText = ok ? 'Correct!' : 'Incorrect choice. Please try again.';
+
+    if (exp) {
+        const explanation = getExplanation(id);
+        if (explanation) { exp.style.display = 'block'; exp.innerText = explanation; }
+    }
+    pMarkAnswered(id);
+}
+
+function pCheckMultiDropdown(cardId) {
+    const card = document.getElementById(cardId);
+    const sels = card.querySelectorAll('.inline-select[data-correct]');
+    const fb = card.querySelector('.feedback');
+    const exp = card.querySelector('.explanation');
+    const id = parseInt(cardId.replace('q',''));
+    let ok = true;
+    sels.forEach(s => { if (s.value !== s.getAttribute('data-correct')) ok = false; });
+
+    fb.style.display = 'block';
+    fb.className = 'feedback ' + (ok ? 'correct' : 'incorrect');
+    fb.innerText = ok ? 'Correct!' : 'One or more selections are not correct.';
+
+    if (exp) {
+        const explanation = getExplanation(id);
+        if (explanation) { exp.style.display = 'block'; exp.innerText = explanation; }
+    }
+    pMarkAnswered(id);
+}
+
+function pCheckMatrix(cardId) {
+    const card = document.getElementById(cardId);
+    const rows = card.querySelectorAll('.stmt-row');
+    const fb = card.querySelector('.feedback');
+    const exp = card.querySelector('.explanation');
+    const id = parseInt(cardId.replace('q',''));
+    let correct = 0;
+    rows.forEach(r => { if (r.querySelector('select').value === r.getAttribute('data-ans')) correct++; });
+
+    fb.style.display = 'block';
+    fb.className = 'feedback ' + (correct === rows.length ? 'correct' : 'incorrect');
+    fb.innerText = correct === rows.length ? 'Correct!' : `You correctly identified ${correct} out of ${rows.length} statements.`;
+
+    if (exp) {
+        const explanation = getExplanation(id);
+        if (explanation) { exp.style.display = 'block'; exp.innerText = explanation; }
+    }
+    pMarkAnswered(id);
+}
+
+function pCheckDragDrop(cardId) {
+    const card = document.getElementById(cardId);
+    const targets = card.querySelectorAll('.drop-target');
+    const fb = card.querySelector('.feedback');
+    const exp = card.querySelector('.explanation');
+    const id = parseInt(cardId.replace('q',''));
+    let mistake = false;
+    targets.forEach(t => {
+        if (t.children.length === 0) { mistake = true; return; }
+        if (t.children[0].innerText.trim() !== t.getAttribute('data-match')) mistake = true;
+    });
+
+    fb.style.display = 'block';
+    fb.className = 'feedback ' + (mistake ? 'incorrect' : 'correct');
+    fb.innerText = mistake ? 'Incorrect allocations. Drag elements back and try again.' : 'Perfect Match!';
+
+    if (exp) {
+        const explanation = getExplanation(id);
+        if (explanation) { exp.style.display = 'block'; exp.innerText = explanation; }
+    }
+    pMarkAnswered(id);
+}
+
+function pToggleFlag(id) {
+    if (!pQuestionStates[id]) pQuestionStates[id] = { answered: false, flagged: false };
+    pQuestionStates[id].flagged = !pQuestionStates[id].flagged;
+    const card = document.getElementById('q' + id);
+    if (card) {
+        const btn = card.querySelector('.flag-btn');
+        if (btn) {
+            btn.classList.toggle('flagged', pQuestionStates[id].flagged);
+            btn.innerText = pQuestionStates[id].flagged ? '\u2691 Flagged' : '\u2691 Flag';
+        }
+    }
+    pUpdateNav();
+}
+
+function pApplyFilter(type) {
+    pActiveFilter = type;
+    document.querySelectorAll('#type-filters .chip').forEach(c => c.classList.toggle('active', c.dataset.type === type));
+    document.querySelectorAll('.question-card').forEach(c => {
+        c.classList.toggle('hidden', type !== 'all' && c.dataset.type !== type);
+    });
+}
+
+function pRenderFilters() {
+    const root = document.getElementById('type-filters');
+    root.innerHTML = pTypePriority.map(t => `<button class="chip${t==='all'?' active':''}" type="button" data-type="${t}" onclick="pApplyFilter('${t}')">${t==='all'?'All':typeLabels[t]}</button>`).join('');
+}
+
+function pBuildNav() {
+    const grid = document.getElementById('nav-grid');
+    grid.innerHTML = pQuestions.map(q => {
+        const id = pGetQuestionId(q);
+        return `<button type="button" class="nav-btn" data-qid="${id}" onclick="pScrollToQuestion(${id})">${id}</button>`;
+    }).join('');
+}
+
+function pScrollToQuestion(id) {
+    const el = document.getElementById('q' + id);
+    if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        document.querySelectorAll('.question-card.current-q').forEach(c => c.classList.remove('current-q'));
+        el.classList.add('current-q');
+        pCurrentQuestionId = id;
+    }
+}
+
+function pUpdateNav() {
+    document.querySelectorAll('.nav-btn').forEach(btn => {
+        const id = parseInt(btn.dataset.qid);
+        const state = pQuestionStates[id];
+        btn.classList.toggle('answered', state?.answered);
+        btn.classList.toggle('flagged', state?.flagged);
+        btn.classList.toggle('current', id === pCurrentQuestionId);
+    });
+}
+
+function pUpdateProgress() {
+    const total = pQuestions.length;
+    const answered = pQuestions.filter(q => pQuestionStates[pGetQuestionId(q)]?.answered).length;
+    document.getElementById('answered-count').textContent = answered;
+    document.getElementById('total-count').textContent = total;
+    document.getElementById('progress-fill').style.width = (total ? (answered/total*100) : 0) + '%';
+}
+
+function pStartTimer() {
+    if (pTimerRunning) return;
+    pTimerRunning = true;
+    document.getElementById('timer-toggle').textContent = 'Pause';
+    pTimerInterval = setInterval(() => {
+        pTimerSeconds--;
+        document.getElementById('timer-display').textContent = formatTime(pTimerSeconds);
+        if (pTimerSeconds <= 300) document.getElementById('timer-bar').classList.add('warning');
+        if (pTimerSeconds <= 0) {
+            clearInterval(pTimerInterval);
+            pTimerRunning = false;
+            pSubmitQuiz();
+        }
+    }, 1000);
+}
+
+function pToggleTimer() {
+    if (pTimerRunning) {
+        clearInterval(pTimerInterval);
+        pTimerRunning = false;
+        document.getElementById('timer-toggle').textContent = 'Resume';
+    } else {
+        pStartTimer();
+    }
+}
+
+function pSubmitQuiz() {
+    if (pExamSubmitted) return;
+    const answered = pQuestions.filter(q => pQuestionStates[pGetQuestionId(q)]?.answered).length;
+    const total = pQuestions.length;
+    if (answered < total && !confirm(`You have answered ${answered} of ${total} questions. Submit anyway?`)) return;
+
+    pExamSubmitted = true;
+    clearInterval(pTimerInterval);
+    pTimerRunning = false;
+
+    let correct = 0, incorrect = 0, unanswered = 0;
+    pQuestions.forEach(q => {
+        const id = pGetQuestionId(q);
+        const state = pQuestionStates[id];
+        if (!state?.answered) { unanswered++; return; }
+        const key = answerKeyByNumber[id];
+        if (!key) { incorrect++; return; }
+        const correctVals = (key.values || []).sort().join(',');
+        let userAns = '';
+        const card = document.getElementById('q' + id);
+        if (!card) { incorrect++; return; }
+
+        if (q.type === 'mcq') {
+            userAns = [...card.querySelectorAll(`input[name="q${id}-opt"]:checked`)].map(i => i.value).sort().join(',');
+        } else if (q.type === 'dropdown') {
+            const selects = card.querySelectorAll('.inline-select[data-correct]');
+            if (selects.length) {
+                userAns = [...selects].map(s => s.value).sort().join(',');
+            } else {
+                const sel = card.querySelector('select');
+                userAns = sel ? sel.value : '';
+            }
+        } else if (q.type === 'yesno') {
+            userAns = [...card.querySelectorAll('.stmt-row select')].map(s => s.value).join(',');
+        } else {
+            userAns = 'submitted';
+        }
+
+        if (userAns === correctVals || (q.type === 'match' && userAns === 'submitted')) {
+            correct++;
+        } else {
+            incorrect++;
+        }
+    });
+
+    const totalScored = correct + incorrect;
+    const pct = totalScored > 0 ? Math.round(correct / totalScored * 100) : 0;
+    const elapsed = TIMER_MINUTES * 60 - pTimerSeconds;
+    const mins = Math.floor(elapsed / 60);
+    const secs = elapsed % 60;
+
+    document.getElementById('results-title').textContent = pct >= 70 ? 'Congratulations!' : 'Exam Complete';
+    document.getElementById('results-score').textContent = pct + '%';
+    document.getElementById('results-score').className = 'score-big ' + (pct >= 70 ? 'pass' : 'fail');
+    document.getElementById('results-msg').textContent = pct >= 70 ? 'You passed! Great job on DP-900 prep.' : 'Keep studying! Review the incorrect answers below.';
+    document.getElementById('r-correct').textContent = correct;
+    document.getElementById('r-incorrect').textContent = incorrect;
+    document.getElementById('r-unanswered').textContent = unanswered;
+    document.getElementById('r-time').textContent = `${mins}m ${secs}s`;
+    document.getElementById('results-overlay').classList.add('show');
+}
+
+function pReviewAnswers() {
+    document.getElementById('results-overlay').classList.remove('show');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function pRetakeQuiz() {
+    if (!confirm('This will reset all answers and the timer. Continue?')) return;
+    pInit();
+}
+
+function pClearAll() {
+    if (!confirm('Reset all answers and the timer?')) return;
+    pInit();
+}
+
+window.addEventListener('scroll', () => {
+    if (currentMode !== 'practice') return;
+    const cards = document.querySelectorAll('.question-card:not(.hidden)');
+    let closest = null;
+    let minDist = Infinity;
+    cards.forEach(c => {
+        const rect = c.getBoundingClientRect();
+        const dist = Math.abs(rect.top - 200);
+        if (dist < minDist) { minDist = dist; closest = c; }
+    });
+    if (closest) {
+        const id = parseInt(closest.dataset.qid);
+        if (id !== pCurrentQuestionId) {
+            pCurrentQuestionId = id;
+            pUpdateNav();
+        }
+    }
+});
+
+/* ======================================================================
+   EXAM MODE
+   ====================================================================== */
+const eQUESTIONS_TO_USE = 45;
+let eExamQuestions = [];
+let eCurrentIndex = 0;
+let eUserAnswers = {};
+let eFlagged = {};
+let eChecked = {};
+let eTimerSeconds = TIMER_MINUTES * 60;
+let eTimerInterval = null;
+let eStartTime = null;
+
+function eResetState() {
+    clearInterval(eTimerInterval);
+    eTimerInterval = null;
+    eExamQuestions = [];
+    eCurrentIndex = 0;
+    eUserAnswers = {};
+    eFlagged = {};
+    eChecked = {};
+    eTimerSeconds = TIMER_MINUTES * 60;
+    eStartTime = null;
+    document.getElementById('topbar').style.display = 'none';
+    document.getElementById('progress-strip').style.display = 'none';
+    document.getElementById('exam-body').style.display = 'none';
+    document.getElementById('bottom-nav').style.display = 'none';
+    document.getElementById('results-screen').style.display = 'none';
+    document.getElementById('results-screen').classList.remove('show');
+    document.getElementById('review-container').classList.remove('show');
+    document.getElementById('review-container').innerHTML = '';
+    document.getElementById('welcome-screen').style.display = 'flex';
+    const circle = document.getElementById('score-circle');
+    circle.style.transition = 'none';
+    circle.style.strokeDashoffset = 440;
+}
+
+function eClearTimers() {
+    clearInterval(eTimerInterval);
+    eTimerInterval = null;
+}
+
+const eExplanations = {
+    1: 'TDE encrypts the entire database to protect data at rest, not a single column, not queries in transit, and not the server itself.',
+    2: 'Real-time telemetry from a mobile application is a streaming workload because data arrives continuously and must be processed immediately. OLTP handles transactions, batch processes periodically, and MPP is for parallel analytics.',
+    3: 'User preferences with default language are simple key-value pairs (Key/Value). Medical images with metadata are unstructured binary objects (Object). Employee relationships model entities and edges (Graph).',
+    4: 'Descriptive analytics tells you what occurred in the past by summarizing historical data. Predictive forecasts the future, prescriptive recommends actions, and diagnostic explains why.',
+    5: 'Batch loads collect data first, then process it when a specific condition is met. This differs from streaming (processes as received) and is not limited to once-a-day schedules.',
+    6: 'Monthly salary payments are processed periodically = batch (Yes). A wind turbine sending 50 readings/sec is continuous = streaming (Yes). A meter sending once/day is periodic batch, not streaming (No).',
+    7: 'A read-only database replica offloads read workloads like reporting from the primary transactional database, preventing impact on the transactional workload.',
+    8: 'A Power BI dashboard is NOT limited to a single workspace (No) and can pull visuals from multiple datasets (No to "single dataset only"). However, dashboards CAN display visuals sourced from an Excel workbook (Yes).',
+    9: 'In the JSON, "customer" is the outermost (root) object. "address" is a nested object within customer. "social media" is an array of nested objects.',
+    10: 'OLTP workloads involve heavy writes and moderate reads (B), use schema on write (D) meaning data conforms to a predefined schema at write time, and use normalized data (F) to minimize redundancy and support ACID transactions.',
+    11: 'After changing your external IP, a database-level firewall rule blocking the old IP range could prevent access to that specific database while other Azure resources remain accessible.',
+    12: 'Temperature sensor data analyzed for trends over time is best stored in a time series data store, which is optimized for timestamped sequential data.',
+    13: 'Azure Data Factory can output data to Parquet format. Azure Data Lake Storage stores Parquet files. Azure Synapse Analytics provides a tabular representation over Parquet data.',
+    14: 'A document data store supports flexible schemas, stores data as JSON documents, and keeps all entity data together in one document — matching all three characteristics described.',
+    15: 'The data model shows a central Sales fact table with foreign keys connected to Customer, Product, SalesPerson, and Warehouse tables — a star schema. Customer is a dimension table providing descriptive attributes.',
+    16: 'Real-time data processing means data is processed as it is created (A) and low latency is expected (B). High latency and periodic processing are characteristics of batch, not real-time.',
+    17: 'For 7-year compliance storage where retrieval time is unimportant and cost must be minimized, the Archive tier is the cheapest option for long-term retention.',
+    18: 'The Cosmos DB API is configured at the account level, not per database (No). Partition keys do optimize queries by enabling efficient data retrieval (Yes). Items in the same logical partition must share the same partition key value (No to "can have different").',
+    19: 'Relational databases use keys (primary keys and foreign keys) to enforce relationships between different tables.',
+    20: 'By default, each Azure SQL database is protected by a server-level firewall that blocks all connections until firewall rules are configured to allow specific IP addresses.',
+    21: 'The Power BI service (cloud) can create reports and dashboards (A) and handle data acquisition and preparation (D) without needing Power BI Desktop.',
+    22: 'RA-GRS (A) and GRS (C) both replicate data outside the Azure region. ZRS replicates within a region across zones, and LRS replicates within a single datacenter.',
+    23: 'In Azure Data Factory, a Copy activity performs data movement (A), Mapping Data Flow handles data transformation (B), and If/Until/ForEach activities provide control flow logic (C).',
+    24: 'The API setting (e.g., SQL, MongoDB, Gremlin) can only be configured during Cosmos DB account creation and cannot be changed afterward. Geo-redundancy, multi-region writes, and account type can be modified later.',
+    25: 'Object storage is optimized for storing and retrieving files, videos, audio, and disk images. It stores binary data with metadata and a unique ID per object.',
+    26: 'Running a job once every 24 hours is batch processing. Processing data continuously as it arrives is streaming. Processing accumulated data every 5 minutes is micro-batching.',
+    27: 'Azure Data Lake Storage supports role-based access control (RBAC) at the file and folder level using both POSIX ACLs and Azure RBAC.',
+    28: 'Azure Resource Manager templates automate the creation of interdependent Azure resources in a repeatable, consistent way using infrastructure-as-code.',
+    29: 'A clustered index determines the physical order of data in a table (Yes). A table can have only one clustered index (No to "multiple"). A non-clustered index CAN be created on a view (Yes).',
+    30: 'A key/value data store is suitable for high-volume JSON data with an application-defined schema, providing fast reads and writes with simple key-based access patterns.',
+    31: 'The Azure AD administrator account can always connect to an Azure SQL database as the designated identity administrator for the logical server.',
+    32: 'You cannot create a view using CREATE VIEW in this context (No). An index cannot be created directly on a view in standard scenarios (No). A view CAN be used to join data from multiple tables (Yes).',
+    33: 'Azure table storage provides native support for POSIX-compliant access control lists (ACLs) for fine-grained access management.',
+    34: 'A relational database must be used when strong consistency guarantees are required, as relational databases enforce ACID properties for data integrity.',
+    35: 'To query from the internet you need: the Reader role on the resource group (A), a user in the database (C), and your IP address must be allowed by the firewall (E).',
+    36: 'The SQL query uses SELECT to specify columns (ProductName, UnitPrice FROM Products) and ORDER BY to sort results (UnitPrice DESC).',
+    37: 'In the query "SELECT ProductName, UnitPrice FROM Products WHERE CategoryID = 5", Products is a table and ProductName is a column within that table.',
+    38: 'An e-commerce application that reads and writes data to an Azure SQL database performs Online Transaction Processing (OLTP) — handling individual transactions like orders and inventory updates.',
+    39: 'A Power BI report provides an interactive graphic interface with KPIs and drill-down capability, which is exactly what executives need for data exploration.',
+    40: 'INSERT is a Data Manipulation Language (DML) statement used to add new rows of data. ALTER and DROP are DDL; DISABLE is not a standard SQL command.',
+    41: 'Transcribing audio files requires AI/ML capabilities to recognize speech, which falls under Cognitive analytics.',
+    42: 'Descriptive analytics summarizes historical data (Yes). Diagnostic analytics determines why something happened (Yes). Predictive analytics forecasts what WILL happen, not what IS happening now (No).',
+    43: 'Pausing a dedicated SQL pool in Azure Synapse stops compute billing while preserving all data, making it ideal for idle periods. Scaling down still incurs costs, and deleting loses data.',
+    44: 'To configure Azure Storage for folder-level security and atomic directory operations, you must enable the hierarchical namespace feature (Azure Data Lake Storage Gen2).',
+    45: 'To change an existing value (inventory quantity of Product1 to 270), you use the UPDATE statement. INSERT adds new rows, MERGE upserts, and CREATE makes new objects.',
+    46: 'Azure Blob storage serves files over HTTP (Yes). Azure Queue storage stores messages, not tabular data (No). Azure Table storage is schemaless (Yes).',
+    47: 'Sending telemetry data from edge devices is a streaming workload because it involves continuous, real-time data flow. Daily transactions are batch, archived old data is batch, and 30-minute intervals are micro-batch.',
+    48: 'A Power BI dashboard can display visuals from multiple workspaces (Yes). A report CAN use multiple datasets (No to "single dataset only"). Power BI supports row-level security (Yes). Datasets can be refreshed manually or on schedule (Yes).',
+    49: 'A graph database in Azure Cosmos DB stores data as nodes (entities) and edges (relationships), queried using the Gremlin language.',
+    50: 'Azure Data Lake Storage is a file system, NOT a relational database (No). Cosmos DB supports SQL, MongoDB, Gremlin, and other APIs (Yes). Synapse Analytics can query data in ADLS using serverless SQL (Yes).',
+    51: 'Azure Blob storage is used for storing unstructured data including shared folder content that needs to be migrated to the cloud.',
+    52: 'A Linked Service defines connection information to data sources. A Data Set represents data structures within those stores. A Pipeline orchestrates and manages workflows.',
+    53: 'Encryption should be enabled on the dataset to protect data at rest, securing stored data against unauthorized access.',
+    54: 'A relational database is appropriate for scenarios involving high volumes of transactional writes because it provides ACID compliance for data integrity.',
+    55: 'Encryption at rest protects data stored on disk (Yes). Firewall rules restrict access by IP address (Yes). TDE encrypts the entire database (Yes).',
+    56: 'A primary key uniquely identifies each row (Yes). A foreign key ensures referential integrity between tables (Yes). A NULL value represents the absence of a value, which is treated as equivalent to zero in this context (Yes).',
+    57: 'Azure SQL Database serverless automatically scales compute resources and pauses the database during inactive periods, resuming when activity resumes — minimizing cost.',
+    58: 'In Azure Data Lake Storage, folders group related data together at the directory level, and files contain the actual data objects.',
+    59: 'A key/value data store is optimized for simple lookups by key, providing fast reads and writes for straightforward access patterns.',
+    60: 'An ETL (Extract, Transform, Load) process requires that data is fully processed (transformed) before being loaded to the target data store, unlike ELT which loads first.',
+    61: 'Availability Zones provide redundancy within an Azure region by distributing Cosmos DB replicas across physically separate datacenter facilities.',
+    62: 'In ELT, data is extracted from the CRM System, loaded into the Data Warehouse, and transformed using in-memory data integration resources.',
+    63: 'Throughput (RU/s) can be provisioned at the container level (A) for per-container performance control, or at the database level (C) to share throughput across containers.',
+    64: 'A Table physically stores data in rows and columns. A View is a virtual table defined by a SELECT query. An Index improves query performance by sorting and storing rows.',
+    65: 'Azure SQL Database is a PaaS relational database that minimizes ongoing maintenance by handling patching, backups, and infrastructure management automatically.',
+    66: 'Image files (binary large objects) go to Blob/object storage. Employee relationships (vertices and edges) go to a Graph database. Key/Value pairs go to a key-value store for high-throughput access.',
+    67: 'In Azure Data Factory, a control flow is used to orchestrate pipeline execution, managing the order and conditions of activity execution.',
+    68: 'Azure Data Studio runs on both Windows 10 and Ubuntu Desktop, provides IntelliSense code assistance, and supports connecting to Azure SQL databases.',
+    69: 'Multiple write regions and read regions are configured at the Cosmos DB account level, which is the top-level resource for global distribution settings.',
+    70: 'A view is a virtual table whose content is defined by a SELECT query — it does not store data physically but presents query results as if they were a table.',
+    71: 'Azure SQL Database is the PaaS relational database service ideal for OLTP workloads in SaaS applications, providing managed infrastructure with built-in HA.',
+    72: 'Graph data in Azure Cosmos DB is queried as nodes and edges using the Gremlin query language, which traverses relationships between entities.',
+    73: 'The MPP engine in Azure Synapse Analytics distributes query processing across multiple compute nodes for parallel execution of large queries.',
+    74: 'A document data store provides the lowest latency for session data like notifications, personalization attributes, and shopping cart contents, as it stores complete entities together.',
+    75: 'A firewall restricts network access by IP address. Authentication verifies user identity. Encryption protects data at rest and in transit.',
+    76: 'Azure SQL Managed Instance natively supports cross-database queries and transactions, which is a key advantage over single Azure SQL Database.',
+    77: 'A Power BI dashboard can include a report page (A), a visualization pinned from a report (C), and a text box (E). PowerPoint slides and dataflows cannot be added directly.',
+    78: 'Cosmos DB provides single-digit millisecond latency at the 99th percentile (Yes) and is a fully managed NoSQL service (Yes). It supports multiple APIs, not just SQL (No).',
+    79: 'A graph data store represents and queries relationships between entities using nodes and edges, making it ideal for relationship-heavy data.',
+    80: 'Determining why a metric decreased last quarter is diagnostic analytics. Forecasting demand for next quarter is predictive. Classifying product images automatically is cognitive.',
+    81: 'A trigger in Azure Data Factory initiates (starts) the execution of a pipeline on a schedule, event, or conditions.',
+    82: 'A bar chart showing year-to-date sales by region is descriptive analytics — it summarizes what has already happened without analyzing why.',
+    83: 'A clustered index sorts and stores data rows physically on disk based on key values, determining the physical order of the table.',
+    84: 'A view persists a SQL query definition so other users can reference and reuse it without rewriting the query.',
+    85: 'PolyBase allows querying external files in Azure Data Lake Storage using T-SQL from within Azure Synapse Analytics.',
+    86: 'A graph database shows how changes in one area of a network affect other components by modeling the relationships and dependencies between network entities.',
+    87: 'Reading data from a data warehouse for quality assurance is Online Analytical Processing (OLAP) — analyzing stored data rather than processing transactions.',
+    88: 'Data visualization represents trends and patterns over time (A) and communicates the significance of data (B). Machine learning and business logic implementation are not visualization uses.',
+    89: 'CREATE is a Data Definition Language (DDL) statement used to create database objects. SELECT retrieves data, JOIN combines tables, and MERGE is DML.',
+    90: 'Paginated reports querying a dimensional model in a data warehouse use Online Analytical Processing (OLAP) for analytical reporting.',
+    91: 'Streaming handles data in real time as it arrives (Yes). Batch processing is NOT preferred for real-time IoT — streaming is (No). Micro-batch processes small groups of events at a time (Yes).',
+    92: 'Azure SQL Database is PaaS — you do NOT manage the OS (No). It supports automatic backups (Yes) and can be scaled up/down without downtime (Yes).',
+    93: 'The MPP engine in Synapse Analytics distributes processing across multiple compute nodes for parallel query execution on large datasets.',
+    94: 'Microsoft SQL Server Data Tools (SSDT) provides a graphical tool for database design and modeling with project-oriented offline development.',
+    95: 'To enable folder-level security and atomic directory operations in Azure Storage, set the account to use hierarchical namespace (Blob Storage with ADLS Gen2).',
+    96: 'Student data in a structured tabular format is best stored in a columnar data store optimized for analytical queries across columns.',
+    97: 'Data visualization helps communicate insights (Yes). Dashboards provide high-level overviews of key metrics (Yes). Visualizations compare data across categories (Yes).',
+    98: 'Descriptive analytics summarizes the past, it does NOT predict the future (No). Diagnostic analytics explains why, it does NOT show real-time status (No). Prescriptive analytics recommends actions based on analysis (Yes).',
+    99: 'SELECT retrieves data (Yes). WHERE filters rows by conditions (Yes). GROUP BY groups rows — it does NOT sort them; ORDER BY sorts (No).',
+    100: 'Azure AD authentication supports multi-factor authentication (MFA) for Azure SQL Database, unlike SQL authentication which uses username/password only.',
+    101: 'Power BI Report Builder is the tool specifically designed for building paginated reports optimized for printing and PDF distribution.',
+    102: 'At the container level, you can configure throughput (A) for RU/s allocation and the partition key (C) for data distribution. Read regions and API are set at the account level.',
+    103: 'ELT requires a target data store powerful enough to perform transformations after loading, since transformation happens in the target system.',
+    104: 'Azure Private Link provides private connectivity from an Azure VM to Azure SQL Database over the Microsoft backbone network without internet exposure.',
+    105: 'Azure Databricks (A) and Azure HDInsight (D) can both provision Apache Spark clusters for big data processing.',
+    106: 'Azure Data Factory orchestrates data movement and transformation pipelines, while Azure Synapse Analytics provides dedicated SQL pools for data analysis.',
+    107: 'Processing sales data nightly and generating weekly reports are both batch operations (scheduled, periodic). Monitoring live IoT telemetry requires streaming (continuous, real-time).',
+    108: 'A relational database stores data in a tabular form of rows and columns, organized into tables with defined schemas.',
+    109: 'Microsoft Power BI paginated reports are optimized for printing and PDF distribution, designed for pixel-perfect layouts.',
+    110: 'Azure CLI is a cross-platform command-line tool that can be used to query and manage Azure SQL databases and other Azure resources.',
+    111: 'Azure HDInsight is NOT a relational database — it is a big data analytics service (No). Azure Databricks IS Apache Spark-based (Yes). Cosmos DB is NOT a data warehouse — it is a NoSQL database (No).',
+    112: 'A visualization showing current student enrollment vs. maximum capacity is descriptive analytics — it describes the current state of affairs.',
+    113: 'Azure Cosmos DB Table API provides geo-redundancy and resiliency if an Azure region fails, which Azure Table storage alone does not offer.',
+    114: 'A chart analyzing Q4 data based on reported Q3 results represents predictive analytics — forecasting what is likely to happen next.',
+    115: 'ETL stands for Extract, Transform, and Load (Yes). In ELT, transformation occurs AFTER loading to the target, not before (No). A data warehouse IS optimized for analytical queries (Yes).',
+    116: 'In batch processing, latency is expected because data is collected and processed at intervals rather than in real time.',
+    117: 'SSMS manages SQL Server with a graphical interface. VS Code writes code with extensions and Git. Azure Data Studio queries Azure SQL with notebooks. SSDT designs and deploys SQL Server database projects.',
+    118: 'Azure Data Studio supports SQL notebooks that embed documents and query results, making it ideal for troubleshooting documentation.',
+    119: 'Gremlin API handles graph data with vertices and edges. MongoDB API stores and queries JSON documents. Table API manages key-value tabular data.',
+    120: 'PaaS relational databases in Azure provide access to the latest features (B) automatically and built-in in-database machine learning services (C). You do NOT have complete control over backups (A) — that is managed by the platform.',
+    121: 'Azure Files provides SMB file shares that can be mapped as network drives on Windows, which is exactly what an application requiring a mapped drive needs.',
+    122: 'An integration runtime in Azure Data Factory provides the compute environment where pipeline activities execute, supporting on-premises, Azure, and self-hosted scenarios.'
+};
+
+function eGradeSingle(q, idx) {
+    const id = getQId(q);
+    const correctVals = answerKey[id];
+    if (!correctVals) return null;
+
+    if (q.type === 'match') {
+        const md = matchData[id];
+        if (!md) return null;
+        const targets = md.targets;
+        let matchCorrect = 0;
+        const details = [];
+        targets.forEach((t, i) => {
+            const dropEl = document.querySelector(`#qc-${idx} #edt-${idx}-${i}`);
+            const dropped = dropEl && dropEl.children.length > 0 ? dropEl.children[0].textContent.trim() : '(empty)';
+            const ok = dropped === t[1];
+            if (ok) matchCorrect++;
+            details.push({ target: t[0], user: dropped, correct: t[1], ok });
+        });
+        return { isCorrect: matchCorrect === targets.length, details };
+    }
+
+    const ua = eUserAnswers[idx]?.value;
+    if (!ua) return { isCorrect: false, details: null };
+
+    let userStr, correctStr;
+    if (q.type === 'mcq') {
+        userStr = (Array.isArray(ua) ? ua : [ua]).sort().join(',');
+        correctStr = correctVals.sort().join(',');
+    } else if (q.type === 'dropdown') {
+        userStr = ua.map(a => String(a || '').trim().toLowerCase()).join(',');
+        correctStr = correctVals.map(a => String(a || '').trim().toLowerCase()).join(',');
+    } else if (q.type === 'yesno') {
+        userStr = ua.join(',');
+        correctStr = correctVals.join(',');
+    } else {
+        return null;
+    }
+
+    return { isCorrect: userStr === correctStr, details: null };
+}
+
+function eShowFeedback(idx, result) {
+    const container = document.getElementById(`qc-${idx}`);
+    if (!container) return;
+    container.classList.add('locked');
+
+    const existing = container.querySelector('.feedback-bar');
+    if (existing) existing.remove();
+
+    const q = eExamQuestions[idx];
+    const id = getQId(q);
+    const correctVals = answerKey[id];
+    const fb = document.createElement('div');
+    fb.className = 'feedback-bar ' + (result.isCorrect ? 'correct' : 'incorrect');
+
+    let html = `<span class="fb-icon">${result.isCorrect ? '&#10004;' : '&#10008;'}</span>`;
+    html += `<span>${result.isCorrect ? 'Correct!' : 'Incorrect'}</span>`;
+
+    if (!result.isCorrect) {
+        if (q.type === 'match' && result.details && result.details.length) {
+            const corrections = result.details.filter(d => !d.ok).map(d => `${escapeHtml(d.target)}: ${escapeHtml(d.correct)}`).join(' &bull; ');
+            if (corrections) html += `<span style="margin-left:auto;font-weight:400;font-size:0.85rem;">${corrections}</span>`;
+        } else if (correctVals && correctVals.length) {
+            html += `<span style="margin-left:auto;font-weight:400;">Correct: ${correctVals.join(', ')}</span>`;
+        }
+    }
+    fb.innerHTML = html;
+    container.appendChild(fb);
+
+    if (result.details && result.details.length) {
+        result.details.forEach((d, di) => {
+            const dropEl = container.querySelector(`#edt-${idx}-${di}`);
+            if (dropEl) dropEl.classList.add(d.ok ? 'correct-highlight' : 'wrong-highlight');
+        });
+    }
+
+    const expl = eExplanations[getQId(eExamQuestions[idx])];
+    if (expl) {
+        const box = document.createElement('div');
+        box.className = 'explanation-box';
+        box.innerHTML = '<strong>Explanation:</strong> ' + escapeHtml(expl);
+        container.appendChild(box);
+    }
+}
+
+function eHighlightAnswers(idx) {
+    const q = eExamQuestions[idx];
+    const id = getQId(q);
+    const correctVals = answerKey[id];
+    if (!correctVals) return;
+
+    if (q.type === 'mcq') {
+        const labels = ['A','B','C','D','E','F'];
+        const av = answerKey[id] || [];
+        const isMulti = av.length > 1;
+        correctVals.forEach(cv => {
+            const ci = labels.indexOf(cv);
+            if (ci >= 0) {
+                const el = document.getElementById(`eopt-${idx}-${cv}`);
+                if (el) el.classList.add('correct-highlight');
+            }
+        });
+        if (!eUserAnswers[idx]?.value) return;
+        const ua = Array.isArray(eUserAnswers[idx].value) ? eUserAnswers[idx].value : [eUserAnswers[idx].value];
+        ua.forEach(a => {
+            if (!correctVals.includes(a)) {
+                const el = document.getElementById(`eopt-${idx}-${a}`);
+                if (el) el.classList.add('wrong-highlight');
+            }
+        });
+    } else if (q.type === 'dropdown') {
+        let i = 0;
+        while (document.getElementById(`edd-${idx}-${i}`)) {
+            const sel = document.getElementById(`edd-${idx}-${i}`);
+            const normVal = String(sel.value || '').trim().toLowerCase();
+            const normCorrect = correctVals.map(a => String(a || '').trim().toLowerCase());
+            sel.classList.add(normCorrect.includes(normVal) && normVal !== '' ? 'correct-highlight' : 'wrong-highlight');
+            i++;
+        }
+    } else if (q.type === 'yesno') {
+        const rows = yesNoData[id] || [];
+        let i = 0;
+        while (document.getElementById(`eyn-${idx}-${i}`)) {
+            const sel = document.getElementById(`eyn-${idx}-${i}`);
+            const correctVal = correctVals[i];
+            if (correctVal && sel.value) {
+                sel.classList.add(sel.value === correctVal ? 'correct-highlight' : 'wrong-highlight');
+            }
+            i++;
+        }
+    }
+}
+
+function eCheckAnswer() {
+    const idx = eCurrentIndex;
+    if (eChecked[idx]) return;
+
+    const q = eExamQuestions[idx];
+    const ua = eUserAnswers[idx]?.value;
+    const hasAnswer = q.type === 'match' ? true : (ua && (Array.isArray(ua) ? ua.some(x => x) : !!ua));
+    if (!hasAnswer) {
+        if (!confirm('You haven\'t selected an answer. Skip to mark as unanswered?')) return;
+        eUserAnswers[idx] = { value: null };
+    }
+
+    eChecked[idx] = true;
+    const result = eGradeSingle(q, idx);
+    if (result) {
+        eHighlightAnswers(idx);
+        eShowFeedback(idx, result);
+    }
+
+    const container = document.getElementById(`qc-${idx}`);
+    if (container) container.classList.add('locked');
+
+    document.getElementById('btn-check').style.display = 'none';
+    const btnNext = document.getElementById('btn-next');
+    btnNext.style.display = '';
+    const isLast = idx === eExamQuestions.length - 1;
+    if (isLast) {
+        btnNext.textContent = 'Submit Exam';
+        btnNext.className = 'btn-submit-exam';
+        btnNext.onclick = eSubmitExam;
+    } else {
+        btnNext.textContent = 'Next';
+        btnNext.className = 'btn-next';
+        btnNext.onclick = eNextQuestion;
+    }
+    eUpdateStrip();
+}
+
+function eStartExam() {
+    const shuffled = shuffle(window.dp900Questions);
+    eExamQuestions = shuffled.slice(0, Math.min(eQUESTIONS_TO_USE, shuffled.length));
+    document.getElementById('info-questions').textContent = eExamQuestions.length;
+    document.getElementById('welcome-screen').style.display = 'none';
+    document.getElementById('exam-body').style.display = 'block';
+    document.getElementById('topbar').style.display = 'flex';
+    document.getElementById('progress-strip').style.display = 'flex';
+    document.getElementById('bottom-nav').style.display = 'flex';
+    document.getElementById('results-screen').style.display = 'none';
+    document.getElementById('results-screen').classList.remove('show');
+    eStartTime = new Date();
+    eRenderAllQuestions();
+    eRenderProgressStrip();
+    eShowQuestion(0);
+    eStartTimer();
+}
+
+function eRenderAllQuestions() {
+    const root = document.getElementById('exam-body');
+    root.innerHTML = eExamQuestions.map((q, idx) => {
+        const id = getQId(q);
+        let body = '';
+        if (q.type === 'mcq') body = eRenderMCQ(q, idx);
+        else if (q.type === 'dropdown') body = eRenderDropdown(q, idx);
+        else if (q.type === 'yesno') body = eRenderYesNo(q, idx);
+        else if (q.type === 'match') body = eRenderMatch(q, idx);
+        return `<div class="question-container" data-idx="${idx}" data-qid="${id}" id="qc-${idx}">
+            <button type="button" class="q-flag-btn" id="eflag-${idx}" onclick="eFlagQ(${idx})">&#x2691; Flag for Review</button>
+            <div class="q-type-badge">${typeLabels[q.type] || q.type}</div>
+            <div class="q-text">${escapeHtml(q.questionText)}</div>
+            ${body}
+        </div>`;
+    }).join('');
+}
+
+function eRenderMCQ(q, idx) {
+    const id = getQId(q);
+    const opts = q.options.length ? q.options : ['Option A','Option B','Option C','Option D'];
+    const labels = ['A','B','C','D','E','F'];
+    const av = answerKey[id] || [];
+    const isMulti = av.length > 1;
+    const html = opts.map((o,i) => {
+        const l = labels[i] || String.fromCharCode(65+i);
+        return `<label class="opt-label" id="eopt-${idx}-${l}">
+            <input type="${isMulti?'checkbox':'radio'}" name="eq${idx}" value="${l}" onchange="eSelectOpt(${idx},'${l}')">
+            <span class="opt-letter">${l}</span>
+            <span>${escapeHtml(o)}</span>
+        </label>`;
+    }).join('');
+    return `<div class="options" id="eopts-${idx}">${html}</div>`;
+}
+
+function eRenderDropdown(q, idx) {
+    const id = getQId(q);
+    if (id === 9) {
+        return `<div class="q-text" style="margin-top:-8px;">Given the following JSON:<div class="json-block">{\n  "customer" : {\n     "first name" : "Ben",\n     "last name" : "Smith",\n     "address" : {\n        "line 1" : "161 Azure Ln",\n        "line 2" : "Palo Alto",\n        "ZIP code" : "54762"\n     },\n     "social media" : [\n        { "service": "twitter", "handle": "@bensmith" },\n        { "service": "linkedin", "handle": "bensmith" }\n     ]\n  }\n}</div></div>
+            <div class="multi-select-group"><label>1. Customer is:</label><select class="inline-select" id="edd-${idx}-0" onchange="eSelectDd(${idx})"><option value="">-- Select --</option><option value="nested array">nested array</option><option value="nested object">nested object</option><option value="root object">root object</option></select></div>
+            <div class="multi-select-group"><label>2. Address is:</label><select class="inline-select" id="edd-${idx}-1" onchange="eSelectDd(${idx})"><option value="">-- Select --</option><option value="nested array">nested array</option><option value="nested object">nested object</option><option value="root object">root object</option></select></div>
+            <div class="multi-select-group"><label>3. Social media is:</label><select class="inline-select" id="edd-${idx}-2" onchange="eSelectDd(${idx})"><option value="">-- Select --</option><option value="nested array">nested array</option><option value="nested object">nested object</option><option value="root object">root object</option></select></div>`;
+    }
+    if (id === 15) {
+        return `<div class="q-text" style="margin-top:-8px;"><strong>Customer</strong> Key: CustomerID | <strong>Product</strong> Key: ProductID | <strong>Sales</strong> Key: SalesID, FK: CustomerID, ProductID | <strong>SalesPerson</strong> Key: SalesPersonID | <strong>Warehouse</strong> Key: WarehouseID</div>
+            <div class="multi-select-group"><label>The data model is a:</label><select class="inline-select" id="edd-${idx}-0" onchange="eSelectDd(${idx})"><option value="">-- Select --</option><option value="transactional model">transactional model</option><option value="star schema">star schema</option><option value="snowflake schema">snowflake schema</option></select></div>
+            <div class="multi-select-group"><label>Customer is a:</label><select class="inline-select" id="edd-${idx}-1" onchange="eSelectDd(${idx})"><option value="">-- Select --</option><option value="fact">fact</option><option value="dimension">dimension</option><option value="bridge">bridge</option></select></div>`;
+    }
+    if (id === 37) {
+        return `<div class="q-text" style="margin-top:-8px;">You have the following SQL query:<br><code style="background:#f0f0f0;padding:4px 8px;border-radius:4px;">SELECT ProductName, UnitPrice FROM Products WHERE CategoryID = 5</code></div>
+            <div class="multi-select-group"><label>Products is:</label><select class="inline-select" id="edd-${idx}-0" onchange="eSelectDd(${idx})"><option value="">-- Select --</option><option value="A table">A table</option><option value="A view">A view</option><option value="A column">A column</option><option value="A database">A database</option></select></div>
+            <div class="multi-select-group"><label>ProductName is:</label><select class="inline-select" id="edd-${idx}-1" onchange="eSelectDd(${idx})"><option value="">-- Select --</option><option value="A table">A table</option><option value="A column">A column</option><option value="A row">A row</option><option value="A schema">A schema</option></select></div>`;
+    }
+    if (id === 32) return eRenderYesNo({ ...q, type: 'yesno', id: 32 }, idx);
+
+    const data = dropdownData[id];
+    if (data) {
+        const optsHtml = data.options.map(o => `<option value="${escapeHtml(o)}">${escapeHtml(o)}</option>`).join('');
+        return `<div class="q-text" style="margin-top:-8px;">${escapeHtml(data.prompt)}</div>
+            <select class="inline-select" id="edd-${idx}-0" onchange="eSelectDd(${idx})"><option value="">-- Select Option --</option>${optsHtml}</select>`;
+    }
+    return `<select class="inline-select" id="edd-${idx}-0" onchange="eSelectDd(${idx})"><option value="">-- Select --</option><option value="A">Option A</option><option value="B">Option B</option><option value="C">Option C</option><option value="D">Option D</option></select>`;
+}
+
+function eRenderYesNo(q, idx) {
+    const id = getQId(q);
+    const rows = yesNoData[id] || [];
+    if (!rows.length) return `<div class="q-text" style="color:#94a3b8;font-style:italic;">Statements not available for this question.</div>`;
+    const html = rows.map((r,i) => `<tr><td>${escapeHtml(r[0])}</td><td><select class="inline-select" id="eyn-${idx}-${i}" onchange="eSelectYn(${idx})" style="min-width:120px;"><option value="">--</option><option value="Yes">Yes</option><option value="No">No</option></select></td></tr>`).join('');
+    return `<table class="stmt-table"><thead><tr><th>Statement</th><th>Your Answer</th></tr></thead><tbody>${html}</tbody></table>`;
+}
+
+function eRenderMatch(q, idx) {
+    const id = getQId(q);
+    if (id === 3) {
+        return `<div class="drag-layout">
+            <div class="pool-box"><h4>Data Store Types</h4>
+                <div class="drag-item" draggable="true" ondragstart="event.dataTransfer.setData('text','q${idx}-i1')" id="q${idx}-i1">Key/Value</div>
+                <div class="drag-item" draggable="true" ondragstart="event.dataTransfer.setData('text','q${idx}-i2')" id="q${idx}-i2">Object</div>
+                <div class="drag-item" draggable="true" ondragstart="event.dataTransfer.setData('text','q${idx}-i3')" id="q${idx}-i3">Graph</div>
+            </div>
+            <div class="match-box"><h4>Scenarios</h4>
+                <table class="drop-table"><tbody>
+                    <tr><td>Application users and their default language</td><td><div class="drop-target" id="edt-${idx}-0" ondrop="eDropItem(event)" ondragover="event.preventDefault()"></div></td></tr>
+                    <tr><td>Medical images and associated metadata</td><td><div class="drop-target" id="edt-${idx}-1" ondrop="eDropItem(event)" ondragover="event.preventDefault()"></div></td></tr>
+                    <tr><td>Employee data showing relationships</td><td><div class="drop-target" id="edt-${idx}-2" ondrop="eDropItem(event)" ondragover="event.preventDefault()"></div></td></tr>
+                </tbody></table>
+            </div>
+        </div>`;
+    }
+    if (id === 13) {
+        return `<div class="drag-layout">
+            <div class="pool-box"><h4>Azure Services</h4>
+                <div class="drag-item" draggable="true" ondragstart="event.dataTransfer.setData('text','q${idx}-i1')" id="q${idx}-i1">Azure Data Factory</div>
+                <div class="drag-item" draggable="true" ondragstart="event.dataTransfer.setData('text','q${idx}-i2')" id="q${idx}-i2">Azure Data Lake Storage</div>
+                <div class="drag-item" draggable="true" ondragstart="event.dataTransfer.setData('text','q${idx}-i3')" id="q${idx}-i3">Azure Synapse Analytics</div>
+            </div>
+            <div class="match-box"><h4>Answer Area</h4>
+                <table class="drop-table"><tbody>
+                    <tr><td><div class="drop-target" id="edt-${idx}-0" ondrop="eDropItem(event)" ondragover="event.preventDefault()"></div></td><td>Output data to Parquet format.</td></tr>
+                    <tr><td><div class="drop-target" id="edt-${idx}-1" ondrop="eDropItem(event)" ondragover="event.preventDefault()"></div></td><td>Store data that is in Parquet format.</td></tr>
+                    <tr><td><div class="drop-target" id="edt-${idx}-2" ondrop="eDropItem(event)" ondragover="event.preventDefault()"></div></td><td>Persist a tabular representation of data in Parquet format.</td></tr>
+                </tbody></table>
+            </div>
+        </div>`;
+    }
+    const md = matchData[id];
+    if (md) {
+        const correctItems = md.targets.map(t => t[1]);
+        const uniqueItems = [...new Set(correctItems)];
+        const shuffledItems = shuffle(uniqueItems);
+        let itemCounter = 0;
+        const itemHtml = shuffledItems.map(item => {
+            itemCounter++;
+            return `<div class="drag-item" draggable="true" ondragstart="event.dataTransfer.setData('text','q${idx}-i${itemCounter}')" id="q${idx}-i${itemCounter}">${escapeHtml(item)}</div>`;
+        }).join('');
+        const targetHtml = md.targets.map((t, i) => {
+            return `<tr><td>${escapeHtml(t[0])}</td><td><div class="drop-target" id="edt-${idx}-${i}" ondrop="eDropItem(event)" ondragover="event.preventDefault()"></div></td></tr>`;
+        }).join('');
+        return `<div class="drag-layout">
+            <div class="pool-box"><h4>${escapeHtml(md.pool)}</h4>${itemHtml}</div>
+            <div class="match-box"><h4>Scenarios</h4><table class="drop-table"><tbody>${targetHtml}</tbody></table></div>
+        </div>`;
+    }
+    return `<p style="color:#94a3b8;font-style:italic;">This drag-and-drop question requires the source PDF exhibit.</p>`;
+}
+
+function eEnableCheck(idx) {
+    if (eChecked[idx]) return;
+    const btnCheck = document.getElementById('btn-check');
+    btnCheck.disabled = false;
+    btnCheck.style.opacity = '1';
+}
+
+function eSelectOpt(idx, letter) {
+    if (eChecked[idx]) return;
+    const q = eExamQuestions[idx];
+    const id = getQId(q);
+    const av = answerKey[id] || [];
+    const isMulti = av.length > 1;
+    if (!isMulti) {
+        document.querySelectorAll(`#eopts-${idx} .opt-label`).forEach(l => l.classList.remove('selected'));
+    }
+    document.getElementById(`eopt-${idx}-${letter}`).classList.add('selected');
+    eUserAnswers[idx] = eUserAnswers[idx] || {};
+    if (isMulti) {
+        const checked = [...document.querySelectorAll(`#eopts-${idx} input:checked`)].map(i => i.value).sort();
+        eUserAnswers[idx].value = checked;
+    } else {
+        eUserAnswers[idx].value = [letter];
+    }
+    eEnableCheck(idx);
+    eUpdateStrip();
+}
+
+function eSelectDd(idx) {
+    if (eChecked[idx]) return;
+    const selects = [];
+    let i = 0;
+    while (document.getElementById(`edd-${idx}-${i}`)) {
+        selects.push(document.getElementById(`edd-${idx}-${i}`).value);
+        i++;
+    }
+    eUserAnswers[idx] = { value: selects };
+    eEnableCheck(idx);
+    eUpdateStrip();
+}
+
+function eSelectYn(idx) {
+    if (eChecked[idx]) return;
+    const selects = [];
+    let i = 0;
+    while (document.getElementById(`eyn-${idx}-${i}`)) {
+        selects.push(document.getElementById(`eyn-${idx}-${i}`).value);
+        i++;
+    }
+    eUserAnswers[idx] = { value: selects };
+    eEnableCheck(idx);
+    eUpdateStrip();
+}
+
+function eDropItem(ev) {
+    ev.preventDefault();
+    if (eChecked[eCurrentIndex]) return;
+    const data = ev.dataTransfer.getData('text');
+    const el = document.getElementById(data);
+    if (el && ev.target.classList.contains('drop-target')) {
+        ev.target.appendChild(el);
+        eEnableCheck(eCurrentIndex);
+    }
+}
+
+function eFlagQ(idx) {
+    eFlagged[idx] = !eFlagged[idx];
+    const btn = document.getElementById(`eflag-${idx}`);
+    if (btn) {
+        btn.classList.toggle('flagged', eFlagged[idx]);
+        btn.innerHTML = eFlagged[idx] ? '&#x2691; Flagged' : '&#x2691; Flag for Review';
+    }
+    eUpdateStrip();
+}
+
+function eToggleCurrentFlag() {
+    eFlagQ(eCurrentIndex);
+    const btn = document.getElementById('btn-flag');
+    if (btn) {
+        btn.classList.toggle('flagged', !!eFlagged[eCurrentIndex]);
+        btn.style.color = eFlagged[eCurrentIndex] ? '#d97706' : '#94a3b8';
+        btn.style.borderColor = eFlagged[eCurrentIndex] ? '#fbbf24' : '#e2e8f0';
+        btn.style.background = eFlagged[eCurrentIndex] ? '#fef3c7' : '#fff';
+    }
+}
+
+function eShowQuestion(idx) {
+    document.querySelectorAll('.question-container').forEach(c => c.classList.remove('active'));
+    const container = document.getElementById(`qc-${idx}`);
+    if (container) container.classList.add('active');
+    eCurrentIndex = idx;
+    document.getElementById('q-counter').textContent = `Q ${idx + 1} / ${eExamQuestions.length}`;
+    document.getElementById('btn-prev').disabled = idx === 0;
+
+    const isLast = idx === eExamQuestions.length - 1;
+    const btnNext = document.getElementById('btn-next');
+    const btnCheck = document.getElementById('btn-check');
+
+    if (eChecked[idx]) {
+        btnCheck.style.display = 'none';
+        btnNext.style.display = '';
+        if (isLast) {
+            btnNext.textContent = 'Submit Exam';
+            btnNext.className = 'btn-submit-exam';
+            btnNext.onclick = eSubmitExam;
+        } else {
+            btnNext.textContent = 'Next';
+            btnNext.className = 'btn-next';
+            btnNext.onclick = eNextQuestion;
+        }
+    } else {
+        btnNext.style.display = 'none';
+        btnCheck.style.display = '';
+        const q = eExamQuestions[idx];
+        const ua = eUserAnswers[idx]?.value;
+        const hasAnswer = q.type === 'match' ? true : (ua && (Array.isArray(ua) ? ua.some(x => x) : !!ua));
+        btnCheck.disabled = !hasAnswer;
+        btnCheck.style.opacity = hasAnswer ? '1' : '0.5';
+    }
+
+    eUpdateFlagBtn(idx);
+    eUpdateStrip();
+}
+
+function eNextQuestion() {
+    if (eCurrentIndex < eExamQuestions.length - 1) eShowQuestion(eCurrentIndex + 1);
+}
+
+function ePrevQuestion() {
+    if (eCurrentIndex > 0) eShowQuestion(eCurrentIndex - 1);
+}
+
+function eUpdateFlagBtn(idx) {
+    const btn = document.getElementById(`eflag-${idx}`);
+    if (btn) {
+        btn.classList.toggle('flagged', !!eFlagged[idx]);
+        btn.innerHTML = eFlagged[idx] ? '&#x2691; Flagged' : '&#x2691; Flag for Review';
+    }
+}
+
+function eRenderProgressStrip() {
+    const strip = document.getElementById('progress-strip');
+    strip.innerHTML = eExamQuestions.map((q, i) => {
+        return `<div class="progress-dot" data-idx="${i}" onclick="eGoToQ(${i})">${i+1}</div>`;
+    }).join('');
+}
+
+function eUpdateStrip() {
+    document.querySelectorAll('.progress-dot').forEach(dot => {
+        const i = parseInt(dot.dataset.idx);
+        dot.classList.toggle('current', i === eCurrentIndex);
+        dot.classList.toggle('checked', !!eChecked[i]);
+        dot.classList.toggle('answered', !!eChecked[i] || (!!eUserAnswers[i]?.value?.length && !eChecked[i]));
+        dot.classList.toggle('flagged', !!eFlagged[i]);
+    });
+}
+
+function eGoToQ(idx) { eShowQuestion(idx); }
+
+function eStartTimer() {
+    eTimerSeconds = TIMER_MINUTES * 60;
+    eUpdateTimerDisplay();
+    eTimerInterval = setInterval(() => {
+        eTimerSeconds--;
+        eUpdateTimerDisplay();
+        if (eTimerSeconds <= 0) {
+            clearInterval(eTimerInterval);
+            eSubmitExam();
+        }
+    }, 1000);
+}
+
+function eUpdateTimerDisplay() {
+    const display = document.getElementById('exam-timer-display');
+    display.textContent = formatTime(eTimerSeconds);
+    const timerEl = document.getElementById('exam-timer');
+    timerEl.classList.toggle('warning', eTimerSeconds <= 300 && eTimerSeconds > 60);
+    timerEl.classList.toggle('critical', eTimerSeconds <= 60);
+}
+
+function eSubmitExam() {
+    const answered = Object.keys(eUserAnswers).filter(k => {
+        const v = eUserAnswers[k]?.value;
+        return v && (Array.isArray(v) ? v.some(x => x) : v);
+    }).length;
+    const total = eExamQuestions.length;
+    if (answered < total) {
+        if (!confirm(`You have answered ${answered} of ${total} questions. Submit anyway?`)) return;
+    }
+    clearInterval(eTimerInterval);
+    eGradeAndShow();
+}
+
+function eGradeAndShow() {
+    let correct = 0;
+    let total = 0;
+
+    eExamQuestions.forEach((q, idx) => {
+        const id = getQId(q);
+        const correctVals = answerKey[id];
+        if (!correctVals) return;
+        total++;
+        const ua = eUserAnswers[idx]?.value;
+
+        if (q.type === 'match') {
+            const md = matchData[id];
+            if (!md) return;
+            const targets = md.targets;
+            let matchCorrect = 0;
+            targets.forEach((t, i) => {
+                const dropEl = document.querySelector(`#qc-${idx} #edt-${idx}-${i}`);
+                if (dropEl && dropEl.children.length > 0) {
+                    const dropped = dropEl.children[0].textContent.trim();
+                    if (dropped === t[1]) matchCorrect++;
+                }
+            });
+            if (matchCorrect === targets.length) correct++;
+            return;
+        }
+
+        if (!ua) return;
+
+        let userStr, correctStr;
+        if (q.type === 'mcq') {
+            userStr = (Array.isArray(ua) ? ua : [ua]).sort().join(',');
+            correctStr = correctVals.sort().join(',');
+        } else if (q.type === 'dropdown') {
+            const norm = ua.map(a => String(a || '').trim().toLowerCase());
+            const normC = correctVals.map(a => String(a || '').trim().toLowerCase());
+            userStr = norm.join(',');
+            correctStr = normC.join(',');
+        } else if (q.type === 'yesno') {
+            userStr = ua.join(',');
+            correctStr = correctVals.join(',');
+        } else {
+            return;
+        }
+
+        if (userStr === correctStr) correct++;
+    });
+
+    const raw = total > 0 ? correct / total : 0;
+    const scaled = Math.round(100 + raw * 900);
+    const passed = scaled >= 700;
+    const elapsed = TIMER_MINUTES * 60 - eTimerSeconds;
+    const mins = Math.floor(elapsed / 60);
+    const secs = elapsed % 60;
+
+    document.getElementById('exam-body').style.display = 'none';
+    document.getElementById('topbar').style.display = 'none';
+    document.getElementById('progress-strip').style.display = 'none';
+    document.getElementById('bottom-nav').style.display = 'none';
+    document.getElementById('results-screen').style.display = 'flex';
+    document.getElementById('results-screen').classList.add('show');
+
+    document.getElementById('res-title').textContent = passed ? 'Congratulations!' : 'Exam Complete';
+    document.getElementById('res-score').textContent = scaled;
+    document.getElementById('res-badge').textContent = passed ? 'PASSED' : 'FAILED';
+    document.getElementById('res-badge').className = 'pass-badge ' + (passed ? 'pass' : 'fail');
+    document.getElementById('res-msg').textContent = passed ? 'You passed the DP-900 simulation!' : `You need 700 to pass. Keep studying!`;
+    document.getElementById('r-correct-e').textContent = correct;
+    document.getElementById('r-wrong-e').textContent = total - correct;
+    document.getElementById('r-time-e').textContent = `${mins}m ${secs}s`;
+
+    const circle = document.getElementById('score-circle');
+    const offset = 490 - (490 * raw);
+    circle.style.stroke = passed ? '#10b981' : '#ef4444';
+    setTimeout(() => { circle.style.transition = 'stroke-dashoffset 1.5s ease'; circle.style.strokeDashoffset = offset; }, 100);
+}
+
+function eShowReview() {
+    document.getElementById('results-screen').classList.remove('show');
+    document.getElementById('results-screen').style.display = 'none';
+    const container = document.getElementById('review-container');
+    container.classList.add('show');
+
+    let html = '<div style="max-width:860px;margin:0 auto;padding:24px;"><h2 style="margin-bottom:16px;">Answer Review</h2>';
+    html += `<div style="margin-bottom:16px;"><a href="#" onclick="document.getElementById('review-container').classList.remove('show');document.getElementById('results-screen').style.display='flex';document.getElementById('results-screen').classList.add('show');return false;" style="color:#2563eb;">&#8592; Back to Results</a></div>`;
+
+    eExamQuestions.forEach((q, idx) => {
+        const id = getQId(q);
+        const correctVals = answerKey[id] || [];
+        const ua = eUserAnswers[idx]?.value;
+        let isCorrect = false;
+
+        if (ua && correctVals.length) {
+            if (q.type === 'mcq') {
+                isCorrect = (Array.isArray(ua) ? ua : [ua]).sort().join(',') === correctVals.sort().join(',');
+            } else if (q.type === 'dropdown') {
+                isCorrect = ua.map(a => String(a||'').trim().toLowerCase()).join(',') === correctVals.map(a => String(a||'').trim().toLowerCase()).join(',');
+            } else if (q.type === 'yesno') {
+                isCorrect = ua.join(',') === correctVals.join(',');
+            }
+        }
+
+        if (q.type === 'match') {
+            const md = matchData[id];
+            if (md) {
+                const targets = md.targets;
+                let matchCorrect = true;
+                let details = '';
+                targets.forEach((t, i) => {
+                    const dropEl = document.querySelector(`#qc-${idx} #edt-${idx}-${i}`);
+                    const dropped = dropEl && dropEl.children.length > 0 ? dropEl.children[0].textContent.trim() : '(empty)';
+                    const ok = dropped === t[1];
+                    if (!ok) matchCorrect = false;
+                    details += `<div style="padding:4px 0;"><strong>${escapeHtml(t[0])}</strong> → <span style="color:${ok?'#059669':'#dc2626'}">${escapeHtml(dropped)}</span>${ok?'':' (correct: '+escapeHtml(t[1])+')'}</div>`;
+                });
+                isCorrect = matchCorrect;
+                const status = matchCorrect ? 'was-correct' : 'was-unanswered';
+                const statusText = matchCorrect ? 'Correct' : 'Incorrect';
+                html += `<div class="review-q ${status}">
+                    <h3>Q${idx+1} (${q.type}) <span style="font-weight:400;font-size:0.85rem;color:${matchCorrect?'#059669':'#dc2626'}">${statusText}</span></h3>
+                    <div class="q-text">${escapeHtml(q.questionText)}</div>
+                    <div class="review-answer ${matchCorrect?'user-correct':'user-wrong'}" style="white-space:pre-wrap;">${details}</div>
+                </div>`;
+                return;
+            }
+        }
+
+        const status = !ua ? 'was-unanswered' : (isCorrect ? 'was-correct' : 'was-incorrect');
+        const statusText = !ua ? 'Unanswered' : (isCorrect ? 'Correct' : 'Incorrect');
+
+        html += `<div class="review-q ${status}">
+            <h3>Q${idx+1} (${q.type}) <span style="font-weight:400;font-size:0.85rem;color:${isCorrect?'#059669':'#dc2626'}">${statusText}</span></h3>
+            <div class="q-text">${escapeHtml(q.questionText)}</div>
+            ${ua ? `<div class="review-answer ${isCorrect?'user-correct':'user-wrong'}">Your answer: ${Array.isArray(ua) ? ua.join(', ') : ua}</div>` : '<div class="review-answer" style="background:#eee;color:#999;">No answer submitted</div>'}
+            ${!isCorrect && correctVals.length ? `<div class="review-answer correct-ans">Correct answer: ${correctVals.join(', ')}</div>` : ''}
+        </div>`;
+    });
+
+    html += '</div>';
+    container.innerHTML = html;
+}
+
+function eRetake() { eResetState(); }
+
+/* ===================================================================
+   INTERACTIVE EFFECTS & KEYBOARD SHORTCUTS
+   =================================================================== */
+
+/* --- Ripple Effect on All Clickable Elements --- */
+document.addEventListener('click', function(e) {
+    const el = e.target.closest('button, .mode-card, .chip, .nav-btn, .opt-label, .option-label, .flag-btn, .q-flag-btn, .progress-dot, .mode-card');
+    if (!el) return;
+    if (el.closest('.locked')) return;
+
+    const rect = el.getBoundingClientRect();
+    const ripple = document.createElement('span');
+    ripple.className = 'ripple';
+    const size = Math.max(rect.width, rect.height);
+    ripple.style.width = ripple.style.height = size + 'px';
+    ripple.style.left = (e.clientX - rect.left - size / 2) + 'px';
+    ripple.style.top = (e.clientY - rect.top - size / 2) + 'px';
+    el.appendChild(ripple);
+    setTimeout(() => ripple.remove(), 600);
+});
+
+/* --- Keyboard Shortcuts --- */
+const kbdHint = document.createElement('div');
+kbdHint.className = 'kbd-hint';
+kbdHint.innerHTML = '<kbd>&#8592;</kbd><kbd>&#8594;</kbd> Navigate &nbsp; <kbd>A</kbd>-<kbd>D</kbd> Select &nbsp; <kbd>F</kbd> Flag &nbsp; <kbd>Enter</kbd> Check';
+document.body.appendChild(kbdHint);
+let kbdHintTimeout;
+
+function showKbdHint(msg) {
+    kbdHint.innerHTML = msg || kbdHint.innerHTML;
+    kbdHint.classList.add('show');
+    clearTimeout(kbdHintTimeout);
+    kbdHintTimeout = setTimeout(() => kbdHint.classList.remove('show'), 2500);
+}
+
+document.addEventListener('keydown', function(e) {
+    if (e.target.tagName === 'INPUT' && e.target.type !== 'radio' && e.target.type !== 'checkbox') return;
+    if (e.target.tagName === 'SELECT') return;
+    if (e.target.tagName === 'TEXTAREA') return;
+
+    /* --- Exam Mode Shortcuts --- */
+    if (currentMode === 'exam') {
+        const examVisible = document.getElementById('exam-body')?.style.display !== 'none';
+        if (!examVisible) return;
+
+        switch(e.key) {
+            case 'ArrowRight':
+            case 'n':
+                if (eChecked[eCurrentIndex]) {
+                    eNextQuestion();
+                    showKbdHint('&#8594; Next question');
+                }
+                break;
+            case 'ArrowLeft':
+            case 'p':
+                ePrevQuestion();
+                showKbdHint('&#8592; Previous question');
+                break;
+            case 'a': case 'b': case 'c': case 'd': case 'e': case 'f':
+                if (!eChecked[eCurrentIndex]) {
+                    const letter = e.key.toUpperCase();
+                    const q = eExamQuestions[eCurrentIndex];
+                    if (q?.type === 'mcq') {
+                        const opts = q.options.length ? q.options : [];
+                        const idx = letter.charCodeAt(0) - 65;
+                        if (idx < opts.length) {
+                            eSelectOpt(eCurrentIndex, letter);
+                            showKbdHint(`<kbd>${letter.toUpperCase()}</kbd> Selected option ${letter}`);
+                        }
+                    }
+                }
+                break;
+            case '1': case '2': case '3': case '4': case '5':
+            case '6': case '7': case '8': case '9':
+                if (!eChecked[eCurrentIndex]) {
+                    const q = eExamQuestions[eCurrentIndex];
+                    const num = parseInt(e.key);
+                    if (q?.type === 'mcq') {
+                        const opts = q.options.length ? q.options : [];
+                        if (num <= opts.length) {
+                            const letter = String.fromCharCode(64 + num);
+                            eSelectOpt(eCurrentIndex, letter);
+                            showKbdHint(`<kbd>${e.key}</kbd> Selected option ${letter}`);
+                        }
+                    } else if (q?.type === 'yesno') {
+                        const sel = document.getElementById(`eyn-${eCurrentIndex}-${num - 1}`);
+                        if (sel) {
+                            sel.value = sel.value === 'Yes' ? 'No' : 'Yes';
+                            eSelectYn(eCurrentIndex);
+                            showKbdHint(`<kbd>${e.key}</kbd> Toggled Yes/No`);
+                        }
+                    } else if (q?.type === 'dropdown') {
+                        const sel = document.getElementById(`edd-${eCurrentIndex}-${num - 1}`);
+                        if (sel && sel.options.length > 1) {
+                            const nextIdx = (sel.selectedIndex) % (sel.options.length - 1) + 1;
+                            sel.selectedIndex = nextIdx;
+                            eSelectDd(eCurrentIndex);
+                            showKbdHint(`<kbd>${e.key}</kbd> Changed dropdown`);
+                        }
+                    }
+                }
+                break;
+            case 'f':
+                eToggleCurrentFlag();
+                showKbdHint(`<kbd>F</kbd> Flag ${eFlagged[eCurrentIndex] ? 'set' : 'removed'}`);
+                break;
+            case 'Enter':
+                if (!eChecked[eCurrentIndex]) {
+                    const btn = document.getElementById('btn-check');
+                    if (btn && !btn.disabled) {
+                        eCheckAnswer();
+                        showKbdHint('<kbd>Enter</kbd> Answer checked');
+                    }
+                } else {
+                    eNextQuestion();
+                    showKbdHint('<kbd>Enter</kbd> Next question');
+                }
+                break;
+            case 'Escape':
+                if (eChecked[eCurrentIndex]) {
+                    showKbdHint('Already checked - use &#8594; to advance');
+                }
+                break;
+            case 'ArrowRight': case 'ArrowLeft':
+            case 'a': case 'b': case 'c': case 'd': case 'e': case 'f':
+            case '1': case '2': case '3': case '4': case '5':
+            case '6': case '7': case '8': case '9':
+            case 'n': case 'p':
+            case 'Enter': case 'F':
+                e.preventDefault();
+                break;
+        }
+        return;
+    }
+
+    /* --- Practice Mode Shortcuts --- */
+    if (currentMode === 'practice') {
+        switch(e.key) {
+            case 'ArrowRight':
+            case 'ArrowDown':
+                if (e.ctrlKey || e.metaKey) {
+                    e.preventDefault();
+                    const next = Math.min(pCurrentQuestionId + 1, pQuestions.length);
+                    pScrollToQuestion(next);
+                    showKbdHint('&#8595; Next question');
+                }
+                break;
+            case 'ArrowLeft':
+            case 'ArrowUp':
+                if (e.ctrlKey || e.metaKey) {
+                    e.preventDefault();
+                    const prev = Math.max(pCurrentQuestionId - 1, 1);
+                    pScrollToQuestion(prev);
+                    showKbdHint('&#8593; Previous question');
+                }
+                break;
+        }
+    }
+});
+
+/* --- Enhanced Drag & Drop with Snap Animation --- */
+(function() {
+    let draggedEl = null;
+    let dragGhost = null;
+
+    document.addEventListener('dragstart', function(e) {
+        const item = e.target.closest('.drag-item, .draggable-item');
+        if (!item) return;
+        draggedEl = item;
+        item.classList.add('dragging');
+        e.dataTransfer.effectAllowed = 'move';
+        e.dataTransfer.setData('text/plain', item.id);
+
+        setTimeout(() => { item.style.opacity = '0.4'; }, 0);
+    });
+
+    document.addEventListener('dragend', function(e) {
+        const item = e.target.closest('.drag-item, .draggable-item');
+        if (item) {
+            item.classList.remove('dragging');
+            item.style.opacity = '';
+        }
+        document.querySelectorAll('.drop-target').forEach(t => t.classList.remove('drag-over'));
+        draggedEl = null;
+    });
+
+    document.addEventListener('dragover', function(e) {
+        const target = e.target.closest('.drop-target');
+        if (target) {
+            e.preventDefault();
+            e.dataTransfer.dropEffect = 'move';
+            target.classList.add('drag-over');
+        }
+    });
+
+    document.addEventListener('dragleave', function(e) {
+        const target = e.target.closest('.drop-target');
+        if (target && !target.contains(e.relatedTarget)) {
+            target.classList.remove('drag-over');
+        }
+    });
+
+    document.addEventListener('drop', function(e) {
+        const target = e.target.closest('.drop-target');
+        if (target) {
+            target.classList.remove('drag-over');
+        }
+    });
+
+    /* Touch-based drag for mobile */
+    let touchDragEl = null;
+    let touchClone = null;
+    let touchStartX, touchStartY;
+    let touchSourceParent = null;
+
+    document.addEventListener('touchstart', function(e) {
+        const item = e.target.closest('.drag-item, .draggable-item');
+        if (!item || item.closest('.locked')) return;
+
+        const touch = e.touches[0];
+        touchDragEl = item;
+        touchStartX = touch.clientX;
+        touchStartY = touch.clientY;
+        touchSourceParent = item.parentElement;
+
+        touchClone = item.cloneNode(true);
+        touchClone.style.position = 'fixed';
+        touchClone.style.zIndex = '9999';
+        touchClone.style.pointerEvents = 'none';
+        touchClone.style.opacity = '0.85';
+        touchClone.style.width = item.offsetWidth + 'px';
+        touchClone.style.transform = 'scale(1.05)';
+        touchClone.style.boxShadow = '0 8px 24px rgba(0,0,0,0.2)';
+        document.body.appendChild(touchClone);
+
+        item.style.opacity = '0.3';
+    }, { passive: true });
+
+    document.addEventListener('touchmove', function(e) {
+        if (!touchDragEl || !touchClone) return;
+        const touch = e.touches[0];
+        touchClone.style.left = (touch.clientX - touchClone.offsetWidth / 2) + 'px';
+        touchClone.style.top = (touch.clientY - touchClone.offsetHeight / 2) + 'px';
+
+        document.querySelectorAll('.drop-target').forEach(t => t.classList.remove('drag-over'));
+        const elemBelow = document.elementFromPoint(touch.clientX, touch.clientY);
+        const dropTarget = elemBelow?.closest('.drop-target');
+        if (dropTarget) dropTarget.classList.add('drag-over');
+
+        e.preventDefault();
+    }, { passive: false });
+
+    document.addEventListener('touchend', function(e) {
+        if (!touchDragEl) return;
+        const touch = e.changedTouches[0];
+        const elemBelow = document.elementFromPoint(touch.clientX, touch.clientY);
+        const dropTarget = elemBelow?.closest('.drop-target');
+
+        if (dropTarget && !dropTarget.closest('.locked')) {
+            dropTarget.appendChild(touchDragEl);
+            touchDragEl.style.opacity = '';
+
+            const idx = eCurrentIndex;
+            if (currentMode === 'exam') eEnableCheck(idx);
+        } else {
+            if (touchSourceParent) touchSourceParent.appendChild(touchDragEl);
+            touchDragEl.style.opacity = '';
+        }
+
+        document.querySelectorAll('.drop-target').forEach(t => t.classList.remove('drag-over'));
+        if (touchClone) touchClone.remove();
+        touchDragEl = null;
+        touchClone = null;
+        touchSourceParent = null;
+    }, { passive: true });
+})();
+
+/* --- Keyboard Hint on Exam Start --- */
+(function() {
+    const origStart = eStartExam;
+    eStartExam = function() {
+        origStart();
+        setTimeout(() => showKbdHint(), 500);
+    };
+})();
+
+/* --- Score Count-Up Animation for Results --- */
+function animateScoreCount(elementId, targetValue, duration) {
+    const el = document.getElementById(elementId);
+    if (!el) return;
+    const start = 0;
+    const startTime = performance.now();
+
+    function update(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const current = Math.round(start + (targetValue - start) * eased);
+        el.textContent = current;
+        if (progress < 1) requestAnimationFrame(update);
+    }
+    requestAnimationFrame(update);
+}
+
+/* Override grade functions to add count-up animation */
+(function() {
+    const origGradePractice = pSubmitQuiz;
+    pSubmitQuiz = function() {
+        origGradePractice();
+        setTimeout(() => {
+            animateScoreCount('r-correct', parseInt(document.getElementById('r-correct')?.textContent || 0), 800);
+            animateScoreCount('r-incorrect', parseInt(document.getElementById('r-incorrect')?.textContent || 0), 800);
+            animateScoreCount('r-unanswered', parseInt(document.getElementById('r-unanswered')?.textContent || 0), 800);
+        }, 300);
+    };
+
+    const origGradeExam = eGradeAndShow;
+    eGradeAndShow = function() {
+        origGradeExam();
+        setTimeout(() => {
+            animateScoreCount('r-correct-e', parseInt(document.getElementById('r-correct-e')?.textContent || 0), 800);
+            animateScoreCount('r-wrong-e', parseInt(document.getElementById('r-wrong-e')?.textContent || 0), 800);
+        }, 300);
+    };
+})();
+
+/* --- Smooth Scroll Practice Sidebar Sync --- */
+(function() {
+    let scrollTicking = false;
+    const practiceMain = document.querySelector('.main-content');
+    if (practiceMain) {
+        practiceMain.addEventListener('scroll', function() {
+            if (!scrollTicking) {
+                requestAnimationFrame(() => {
+                    const cards = document.querySelectorAll('.question-card:not(.hidden)');
+                    let closest = null;
+                    let minDist = Infinity;
+                    cards.forEach(c => {
+                        const rect = c.getBoundingClientRect();
+                        const dist = Math.abs(rect.top - 200);
+                        if (dist < minDist) { minDist = dist; closest = c; }
+                    });
+                    if (closest) {
+                        const id = parseInt(closest.dataset.qid);
+                        if (id !== pCurrentQuestionId) {
+                            pCurrentQuestionId = id;
+                            pUpdateNav();
+                        }
+                    }
+                    scrollTicking = false;
+                });
+                scrollTicking = true;
+            }
+        });
+    }
+})();
+
+/* --- Welcome Card Button Hover Glow --- */
+document.querySelectorAll('.welcome-card button').forEach(btn => {
+    btn.addEventListener('mouseenter', function() {
+        this.style.boxShadow = '0 6px 20px rgba(0,120,212,0.3)';
+    });
+    btn.addEventListener('mouseleave', function() {
+        this.style.boxShadow = '';
+    });
+});
+</script>
+</body>
+</html>

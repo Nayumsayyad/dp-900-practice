@@ -1,0 +1,1886 @@
+[
+  {
+    "id": 1,
+    "question": "To complete the sentence, select the appropriate option in the answer area.",
+    "type": "dropdown",
+    "options": [],
+    "answer": [
+      "the database to protect data at rest."
+    ],
+    "explanation": "Incomplete: OCR removed part of the sentence, options, or exhibit from the source PDF.",
+    "status": "Incomplete",
+    "pageNumbers": []
+  },
+  {
+    "id": 2,
+    "question": "You need to gather real-time telemetry data from a mobile application. Which type of workload describes this scenario?",
+    "type": "mcq",
+    "options": [
+      "Online Transaction Processing (OLTP)",
+      "batch",
+      "massively parallel processing (MPP)",
+      "streaming"
+    ],
+    "answer": [
+      "D"
+    ],
+    "explanation": "Answer extracted from the provided PDF.",
+    "status": "Complete",
+    "pageNumbers": []
+  },
+  {
+    "id": 3,
+    "question": "Match the types of data stores to the appropriate scenarios. To answer, drag the appropriate data store type from the column on the left to its scenario on the right. Each data store type may be used once, more than once, or not at all. NOTE: Each correct match is worth one point.",
+    "type": "match",
+    "options": [],
+    "answer": [
+      "Key/Value",
+      "Object",
+      "Graph"
+    ],
+    "explanation": "Incomplete: OCR removed the drag-and-drop prompt or exhibit details from the source PDF.",
+    "status": "Incomplete",
+    "pageNumbers": []
+  },
+  {
+    "id": 4,
+    "question": "To complete the sentence, select the appropriate option in the answer area.",
+    "type": "dropdown",
+    "options": [],
+    "answer": [
+      "what occurred in the past."
+    ],
+    "explanation": "Incomplete: OCR removed part of the sentence, options, or exhibit from the source PDF.",
+    "status": "Incomplete",
+    "pageNumbers": []
+  },
+  {
+    "id": 5,
+    "question": "To complete the sentence, select the appropriate option in the answer area.",
+    "type": "dropdown",
+    "options": [],
+    "answer": [
+      "collect data and then process the data when a condition is met."
+    ],
+    "explanation": "Incomplete: OCR removed part of the sentence, options, or exhibit from the source PDF.",
+    "status": "Incomplete",
+    "pageNumbers": []
+  },
+  {
+    "id": 6,
+    "question": "For each of the following statements, select Yes if the statement is true. Otherwise, select No. NOTE: Each correct selection is worth one point.",
+    "type": "yesno",
+    "options": [
+      "Yes",
+      "No"
+    ],
+    "answer": [
+      "Yes",
+      "Yes",
+      "No"
+    ],
+    "explanation": "Incomplete: OCR removed the statement rows from the source PDF.",
+    "status": "Incomplete",
+    "pageNumbers": []
+  },
+  {
+    "id": 7,
+    "question": "You have a transactional application that stores data in an Azure SQL managed instance. When should you implement a read-only database replica?",
+    "type": "mcq",
+    "options": [
+      "You need to generate reports without affecting the transactional workload.",
+      "You need to audit the transactional application.",
+      "You need to implement high availability in the event of a regional outage",
+      "You need to improve the recovery point objective (RPO)."
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": "Corrected to A. Microsoft Learn says read-only replicas are used to offload read workloads such as analytics and reporting from the write replica: https://learn.microsoft.com/en-us/azure/azure-sql/database/read-scale-out?view=azuresql",
+    "status": "Complete",
+    "pageNumbers": []
+  },
+  {
+    "id": 8,
+    "question": "For each of the following statements, select Yes if the statement is true. Otherwise, select No. NOTE: Each correct selection is worth one point.",
+    "type": "yesno",
+    "options": [
+      "Yes",
+      "No"
+    ],
+    "answer": [
+      "No",
+      "No",
+      "Yes"
+    ],
+    "explanation": "Incomplete: OCR removed the statement rows from the source PDF.",
+    "status": "Incomplete",
+    "pageNumbers": []
+  },
+  {
+    "id": 9,
+    "question": "You have the following JSON document. Use the drop-down menus to select the answer choice that completes each statement based on the information presented in the JSON document. NOTE: Each correct selection is worth one point.",
+    "type": "dropdown",
+    "options": [],
+    "answer": [
+      "root object",
+      "nested object",
+      "nested array"
+    ],
+    "explanation": "Incomplete: OCR removed part of the sentence, options, or exhibit from the source PDF.",
+    "status": "Incomplete",
+    "pageNumbers": []
+  },
+  {
+    "id": 10,
+    "question": "What are three characteristics of an Online Transaction Processing (OLTP) workload? Each correct answer presents a complete solution. (Choose three.) NOTE: Each correct selection is worth one point.",
+    "type": "mcq",
+    "options": [
+      "denormalized data",
+      "heavy writes and moderate reads",
+      "light writes and heavy reads",
+      "schema on write",
+      "schema on read",
+      "normalized data"
+    ],
+    "answer": [
+      "B D E"
+    ],
+    "explanation": "Answer extracted from the provided PDF.",
+    "status": "Complete",
+    "pageNumbers": []
+  },
+  {
+    "id": 11,
+    "question": "You have an Azure SQL database that you access directly from the internet. You recently changed your external IP address. After changing the IP address, you can no longer access the database. You can connect to other resources in Azure. What is a possible cause of the issue?",
+    "type": "mcq",
+    "options": [
+      "a database-level firewall",
+      "role-based access control (RBAC)",
+      "Dynamic Host Configuration Protocol (DHCP)",
+      "Domain Name Service (DNS)"
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": "Corrected to A. Microsoft Learn documents that Azure SQL Database firewall rules control access by client IP address, so a changed external IP must be added to the allow list: https://learn.microsoft.com/en-us/azure/azure-sql/database/firewall-configure?view=azuresql",
+    "status": "Complete",
+    "pageNumbers": []
+  },
+  {
+    "id": 12,
+    "question": "Your company is designing a data store for internet-connected temperature sensors. The collected data will be used to analyze temperature trends. Which type of data store should you use?",
+    "type": "mcq",
+    "options": [
+      "relational",
+      "columnar",
+      "graph",
+      "time series"
+    ],
+    "answer": [
+      "D"
+    ],
+    "explanation": "Corrected to D. Microsoft Learn's big data guidance treats internet-connected temperature sensor trend analysis as a time-series scenario: https://learn.microsoft.com/en-us/azure/architecture/databases/guide/big-data-architectures",
+    "status": "Complete",
+    "pageNumbers": []
+  },
+  {
+    "id": 13,
+    "question": "Match the Azure services to appropriate requirements. To answer, drag the appropriate services from the column on the left to its requirement on the right. Each service may be used once. more than once, or not at all. NOTE: Each correct match is worth one point.",
+    "type": "match",
+    "options": [],
+    "answer": [
+      "Azure Data Factory",
+      "Azure Data Lake Storage",
+      "Azure Synapse Analytics"
+    ],
+    "explanation": "Incomplete: OCR removed the drag-and-drop prompt or exhibit details from the source PDF.",
+    "status": "Incomplete",
+    "pageNumbers": []
+  },
+  {
+    "id": 14,
+    "question": "Which type of non-relational data store supports a flexible schema, stores data as JSON files, and stores the all the data for an entity in the same document?",
+    "type": "mcq",
+    "options": [
+      "document",
+      "columnar",
+      "graph",
+      "time series"
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": "Answer extracted from the provided PDF.",
+    "status": "Complete",
+    "pageNumbers": []
+  },
+  {
+    "id": 15,
+    "question": "You are reviewing the data model shown in the following exhibit. Use the drop-down menus to select the answer choice that completes each statement based on the information presented in the graphic. NOTE: Each correct selection is worth one point",
+    "type": "dropdown",
+    "options": [],
+    "answer": [
+      "Star schema",
+      "Dimension"
+    ],
+    "explanation": "Incomplete: OCR removed part of the sentence, options, or exhibit from the source PDF.",
+    "status": "Incomplete",
+    "pageNumbers": []
+  },
+  {
+    "id": 16,
+    "question": "What are two characteristics of real-time data processing? Each correct answer present a complete solution. NOTE: Each correct selection is worth one point.",
+    "type": "mcq",
+    "options": [
+      "Data is processed as it is created.",
+      "Low latency is expected",
+      "High latency acceptable",
+      "Data is processed periodically"
+    ],
+    "answer": [
+      "B D"
+    ],
+    "explanation": "Answer extracted from the provided PDF.",
+    "status": "Complete",
+    "pageNumbers": []
+  },
+  {
+    "id": 17,
+    "question": "You need to store data in Azure Blob storage for seven years to meet your company's compliance requirements. The retrieval time of the data is unimportant. The solution must minimize storage costs. Which storage tier should you use?",
+    "type": "mcq",
+    "options": [
+      "Archive",
+      "Hot",
+      "Cool"
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": "Answer extracted from the provided PDF.",
+    "status": "Complete",
+    "pageNumbers": []
+  },
+  {
+    "id": 18,
+    "question": "For each of the following statements. select Yes if the statement is true. Otherwise, select No. NOTE Each correct selection is worth one point.",
+    "type": "yesno",
+    "options": [
+      "Yes",
+      "No"
+    ],
+    "answer": [
+      "Yes",
+      "No",
+      "No"
+    ],
+    "explanation": "Incomplete: OCR removed the statement rows from the source PDF.",
+    "status": "Incomplete",
+    "pageNumbers": []
+  },
+  {
+    "id": 19,
+    "question": "To complete the sentence, select the appropriate option in the answer area.",
+    "type": "dropdown",
+    "options": [],
+    "answer": [
+      "keys"
+    ],
+    "explanation": "Incomplete: OCR removed part of the sentence, options, or exhibit from the source PDF.",
+    "status": "Incomplete",
+    "pageNumbers": []
+  },
+  {
+    "id": 20,
+    "question": "To complete the sentence, select the appropriate option in the answer area.",
+    "type": "dropdown",
+    "options": [],
+    "answer": [
+      "server level firewall"
+    ],
+    "explanation": "Incomplete: OCR removed part of the sentence, options, or exhibit from the source PDF.",
+    "status": "Incomplete",
+    "pageNumbers": []
+  },
+  {
+    "id": 21,
+    "question": "Which two activities can be performed entirely by using the Microsoft Power BI service? Each correct answer presents a complete solution. (Choose two.) NOTE: Each correct selection is worth one point.",
+    "type": "mcq",
+    "options": [
+      "report and dashboard creation",
+      "report sharing and distribution",
+      "data modeling",
+      "data acquisition and preparation"
+    ],
+    "answer": [
+      "A D"
+    ],
+    "explanation": "Answer extracted from the provided PDF.",
+    "status": "Complete",
+    "pageNumbers": []
+  },
+  {
+    "id": 22,
+    "question": "You need to create an Azure Storage account. Data in the account must replica outside the Azure region automatically. Which two types of replica can you us for the storage account? Each correct answer presents a complete solution. NOTE: Each correct selection is worth one pint.",
+    "type": "mcq",
+    "options": [
+      "read-access geo-redundant storage (RA_GRS)",
+      "zone-redundant storage (ZRS)",
+      "geo-redundant storage (GRS)",
+      "locally-redundant storage (LRS)"
+    ],
+    "answer": [
+      "A C"
+    ],
+    "explanation": "Answer extracted from the provided PDF.",
+    "status": "Complete",
+    "pageNumbers": []
+  },
+  {
+    "id": 23,
+    "question": "Match the types of activities to the appropriate Azure Data Factory activities. To answer, drag the appropriate activity type from the column on the left to its Data Factory activity on the right. Each activity type may be used once, more than once, or not at all. NOTE: Each correct match is worth one point.",
+    "type": "match",
+    "options": [],
+    "answer": [
+      "Data movement",
+      "Data transformation",
+      "Control"
+    ],
+    "explanation": "Incomplete: OCR removed the drag-and-drop prompt or exhibit details from the source PDF.",
+    "status": "Incomplete",
+    "pageNumbers": []
+  },
+  {
+    "id": 24,
+    "question": "Which setting can only be configured during the creation of an Azure Cosmos DB account?",
+    "type": "mcq",
+    "options": [
+      "geo-redundancy",
+      "multi-region writes",
+      "production or non-reduction account type",
+      "API"
+    ],
+    "answer": [
+      "C"
+    ],
+    "explanation": "Answer extracted from the provided PDF.",
+    "status": "Complete",
+    "pageNumbers": []
+  },
+  {
+    "id": 25,
+    "question": "You need to recommend a non-relational data store that is optimized for storing and retrieving files, videos, audio stream, and virtual disk images. The data store must store data, some metadata, and a unique ID for each file. Which type of data store should you recommend?",
+    "type": "mcq",
+    "options": [
+      "document",
+      "key/value",
+      "object",
+      "columnar"
+    ],
+    "answer": [
+      "C"
+    ],
+    "explanation": "Answer extracted from the provided PDF.",
+    "status": "Complete",
+    "pageNumbers": []
+  },
+  {
+    "id": 26,
+    "question": "Match the types of workloads the appropriate scenario. To answer, drag the appropriate workload type from the column on the left to its scenario on the right. Each workload type may be used once, more than once or not at all. NOTE: Each correct match is worth one point.",
+    "type": "match",
+    "options": [],
+    "answer": [
+      "Batch",
+      "Streaming",
+      "Micro-batch"
+    ],
+    "explanation": "Incomplete: OCR removed the drag-and-drop prompt or exhibit details from the source PDF.",
+    "status": "Incomplete",
+    "pageNumbers": []
+  },
+  {
+    "id": 27,
+    "question": "Which storage solution supports role-based access control (RBAC) at the file and folder level?",
+    "type": "mcq",
+    "options": [
+      "Azure Disk Storage",
+      "Azure Data Lake Storage",
+      "Azure Blob storage",
+      "Azure Queue storage"
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": "Answer extracted from the provided PDF.",
+    "status": "Complete",
+    "pageNumbers": []
+  },
+  {
+    "id": 28,
+    "question": "When can you use an Azure Resource Manager template?",
+    "type": "mcq",
+    "options": [
+      "to automate the creation of an interdependent group of Azure resources in a repeatable way",
+      "to automate the creation of an interdependent and develop can deploy from the Azure portal",
+      "To provision Azure subscriptions and apply policies for multi-tenant deployments",
+      "To set complex permissions automatically on existing objects in an Azure subscription"
+    ],
+    "answer": [
+      "C"
+    ],
+    "explanation": "Answer extracted from the provided PDF.",
+    "status": "Complete",
+    "pageNumbers": []
+  },
+  {
+    "id": 29,
+    "question": "For each of the following statements, select Yes if the statement is true. Otherwise, select No. NOTE: Each correct selection is worth one point.",
+    "type": "yesno",
+    "options": [
+      "Yes",
+      "No"
+    ],
+    "answer": [
+      "Yes",
+      "No",
+      "Yes"
+    ],
+    "explanation": "Incomplete: OCR removed the statement rows from the source PDF.",
+    "status": "Incomplete",
+    "pageNumbers": []
+  },
+  {
+    "id": 30,
+    "question": "Your company if designing an application that will write a high volume of JSON data and will have an application-defined schema. Which type of data store should you use?",
+    "type": "mcq",
+    "options": [
+      "key/value",
+      "document",
+      "graph",
+      "columnar"
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": "Answer extracted from the provided PDF.",
+    "status": "Complete",
+    "pageNumbers": []
+  },
+  {
+    "id": 31,
+    "question": "When you create an Azure SQL database, which account can always connect to the database ?",
+    "type": "mcq",
+    "options": [
+      "the Azure Active director/ (Azure AO) account that created the database",
+      "the Azure Active Directly Azure AD) administrator account",
+      "the sa account",
+      "the server admin login account of the logical server"
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": "Answer extracted from the provided PDF.",
+    "status": "Complete",
+    "pageNumbers": []
+  },
+  {
+    "id": 32,
+    "question": "For each of the following statements, select yes if he statement is true, Otherwise select No. NOTE: Each correct selection is worth one point.",
+    "type": "dropdown",
+    "options": [],
+    "answer": [
+      "No",
+      "No",
+      "Yes"
+    ],
+    "explanation": "Incomplete: OCR removed part of the sentence, options, or exhibit from the source PDF.",
+    "status": "Incomplete",
+    "pageNumbers": []
+  },
+  {
+    "id": 33,
+    "question": "Which Azure storage solution provides native support for POSIX-compliant access control lists (ACLs)?",
+    "type": "mcq",
+    "options": [
+      "Azure Queue storage",
+      "Azure Data Lake Storage",
+      "Azure table storage",
+      "Azure Files"
+    ],
+    "answer": [
+      "C"
+    ],
+    "explanation": "Answer extracted from the provided PDF.",
+    "status": "Complete",
+    "pageNumbers": []
+  },
+  {
+    "id": 34,
+    "question": "To complete the sentence, select the appropriate option in the answer area.",
+    "type": "dropdown",
+    "options": [],
+    "answer": [
+      "strong consistency guarantees are required"
+    ],
+    "explanation": "Incomplete: OCR removed part of the sentence, options, or exhibit from the source PDF.",
+    "status": "Incomplete",
+    "pageNumbers": []
+  },
+  {
+    "id": 35,
+    "question": "You need to query a table named Products in an Azure SQL database. Which three requirements must be met to query the table from the internet? Each correct answer presents part of the solution. (Choose three.) NOTE: Each correct selection is worth one point.",
+    "type": "mcq",
+    "options": [
+      "You must be assigned the Reader role for the resource group that contains the database.",
+      "You must have SELECT access to the Products table.",
+      "You must have a user in the database.",
+      "You must be assigned the Contributor role for the resource group that contains the database.",
+      "Your IP address must be allowed to connect to the database."
+    ],
+    "answer": [
+      "A C E"
+    ],
+    "explanation": "Answer extracted from the provided PDF.",
+    "status": "Complete",
+    "pageNumbers": []
+  },
+  {
+    "id": 36,
+    "question": "You have a table named Sales that contains the following data. You need to query the table to return the average sales amount day. The output must produce the following results. How should you complete the query? To answer, drag the appropriate values to the correct targets. Each value may be used once, more than once, or not at all. You may need to drag the split bar between panes or scroll to view content. NOTE: Each correct selection is worth one point.",
+    "type": "match",
+    "options": [],
+    "answer": [
+      "Select",
+      "Order By"
+    ],
+    "explanation": "Incomplete: OCR removed the drag-and-drop prompt or exhibit details from the source PDF.",
+    "status": "Incomplete",
+    "pageNumbers": []
+  },
+  {
+    "id": 37,
+    "question": "You have the following SQL query. NOTE: Each correct selection is worth one point.",
+    "type": "dropdown",
+    "options": [],
+    "answer": [
+      "A table",
+      "A column"
+    ],
+    "explanation": "Incomplete: OCR removed part of the sentence, options, or exhibit from the source PDF.",
+    "status": "Incomplete",
+    "pageNumbers": []
+  },
+  {
+    "id": 38,
+    "question": "You have an e-commerce application that reads and writes data to an Azure SQL database. Which type of processing does the application use?",
+    "type": "mcq",
+    "options": [
+      "stream processing",
+      "batch processing",
+      "Online Analytical Processing (OLTP)",
+      "Online Transaction Processing (OLTP)"
+    ],
+    "answer": [
+      "D"
+    ],
+    "explanation": "Answer extracted from the provided PDF.",
+    "status": "Complete",
+    "pageNumbers": []
+  },
+  {
+    "id": 39,
+    "question": "You need to develop a solution to provide data to executives. the solution must provide an interactive graphic interface, depict various key performance indications, and support data exploration by using drill down. What should you use in Microsoft Power BI?",
+    "type": "mcq",
+    "options": [
+      "a dashboard",
+      "Microsoft Power Apps",
+      "a dataflow",
+      "a report"
+    ],
+    "answer": [
+      "D"
+    ],
+    "explanation": "Answer extracted from the provided PDF.",
+    "status": "Complete",
+    "pageNumbers": []
+  },
+  {
+    "id": 40,
+    "question": "Which statement is an example of Data Manipulation Language (DML).",
+    "type": "mcq",
+    "options": [
+      "INSERT",
+      "DISABLE",
+      "ALTER",
+      "DROP"
+    ],
+    "answer": [
+      "C"
+    ],
+    "explanation": "Answer extracted from the provided PDF.",
+    "status": "Complete",
+    "pageNumbers": []
+  },
+  {
+    "id": 41,
+    "question": "To complete the sentence, select the appropriate option in the answer area.",
+    "type": "dropdown",
+    "options": [],
+    "answer": [
+      "Cognitive"
+    ],
+    "explanation": "Incomplete: OCR removed part of the sentence, options, or exhibit from the source PDF.",
+    "status": "Incomplete",
+    "pageNumbers": []
+  },
+  {
+    "id": 42,
+    "question": "For each of the following statements, select Yes if the statement is true. Otherwise, select No. NOTE: Each correct selection is worth one point.",
+    "type": "yesno",
+    "options": [
+      "Yes",
+      "No"
+    ],
+    "answer": [
+      "Yes",
+      "Yes",
+      "No"
+    ],
+    "explanation": "Incomplete: OCR removed the statement rows from the source PDF.",
+    "status": "Incomplete",
+    "pageNumbers": []
+  },
+  {
+    "id": 43,
+    "question": "You have a SQL pool in Azure Synapse Analytics that is only used actively every night for eight hours. You need to minimize the cost of the SQL pool during idle times. The solution must ensure that the data remains intact. What should you do on the SQL pool?",
+    "type": "mcq",
+    "options": [
+      "Scale down the data warehouse units (DWUs).",
+      "Pause the pool.",
+      "Create a user-defined restore point.",
+      "Delete the pool"
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": "Answer extracted from the provided PDF.",
+    "status": "Complete",
+    "pageNumbers": []
+  },
+  {
+    "id": 44,
+    "question": "To complete the sentence, select the appropriate option in the answer area.",
+    "type": "dropdown",
+    "options": [],
+    "answer": [
+      "set Account kind to BlobStorage"
+    ],
+    "explanation": "Incomplete: OCR removed part of the sentence, options, or exhibit from the source PDF.",
+    "status": "Incomplete",
+    "pageNumbers": []
+  },
+  {
+    "id": 45,
+    "question": "You have an inventory management database that contains the following table. Which statement should you use in a SQL query to change the inventory quantity of Product1 to 270?",
+    "type": "mcq",
+    "options": [
+      "INSERT",
+      "MERGE",
+      "UPDATE",
+      "CREATE"
+    ],
+    "answer": [
+      "C"
+    ],
+    "explanation": "Answer extracted from the provided PDF.",
+    "status": "Complete",
+    "pageNumbers": []
+  },
+  {
+    "id": 46,
+    "question": "For each of the following statements. select Yes if the statement is true. Otherwise, select No. NOTE Each correct selection is worth one point.",
+    "type": "yesno",
+    "options": [
+      "Yes",
+      "No"
+    ],
+    "answer": [
+      "Yes",
+      "No",
+      "Yes"
+    ],
+    "explanation": "Incomplete: OCR removed the statement rows from the source PDF.",
+    "status": "Incomplete",
+    "pageNumbers": []
+  },
+  {
+    "id": 47,
+    "question": "Which scenario is an example of a streaming workload?",
+    "type": "mcq",
+    "options": [
+      "sending transactions that are older than a month to an archive",
+      "sending transactions daily from point of sale (POS) devices",
+      "sending telemetry data from edge devices",
+      "sending cloud infrastructure metadata every 30 minutes"
+    ],
+    "answer": [
+      "C"
+    ],
+    "explanation": "Answer extracted from the provided PDF.",
+    "status": "Complete",
+    "pageNumbers": []
+  },
+  {
+    "id": 48,
+    "question": "For each of the following statements, select Yes if the statement is true. Otherwise, select No. NOTE: Each correct selection is worth one point.",
+    "type": "yesno",
+    "options": [
+      "Yes",
+      "No"
+    ],
+    "answer": [
+      "Yes",
+      "No",
+      "Yes",
+      "Yes"
+    ],
+    "explanation": "Incomplete: OCR removed the statement rows from the source PDF.",
+    "status": "Incomplete",
+    "pageNumbers": []
+  },
+  {
+    "id": 49,
+    "question": "To complete the sentence, select the appropriate option in the answer area.",
+    "type": "dropdown",
+    "options": [],
+    "answer": [
+      "as nodes and edges by using the Germlin language"
+    ],
+    "explanation": "Incomplete: OCR removed part of the sentence, options, or exhibit from the source PDF.",
+    "status": "Incomplete",
+    "pageNumbers": []
+  },
+  {
+    "id": 50,
+    "question": "For each of the following statements, select Yes if the statement is true. Otherwise select No. NOTE: Each correct selection is worth one point.",
+    "type": "yesno",
+    "options": [
+      "Yes",
+      "No"
+    ],
+    "answer": [
+      "No",
+      "Yes",
+      "Yes"
+    ],
+    "explanation": "Incomplete: OCR removed the statement rows from the source PDF.",
+    "status": "Incomplete",
+    "pageNumbers": []
+  },
+  {
+    "id": 51,
+    "question": "You manage an application that stores data in a shared folder on a Windows server. You need to move the shared folder to Azure Storage. Which type of Azure Storage should you use?",
+    "type": "mcq",
+    "options": [
+      "queue",
+      "blob",
+      "file",
+      "table"
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": "Answer extracted from the provided PDF.",
+    "status": "Complete",
+    "pageNumbers": []
+  },
+  {
+    "id": 52,
+    "question": "match the Azure data factory components to the appropriate descriptions. To answer, drag the appropriate component from the column on the left to its description on the right. Each component may be used once, more than once, or not at all. NOTE: Each correct match is worth one point.",
+    "type": "match",
+    "options": [],
+    "answer": [
+      "Data Set",
+      "Linked Service",
+      "Pipeline"
+    ],
+    "explanation": "Incomplete: OCR removed the drag-and-drop prompt or exhibit details from the source PDF.",
+    "status": "Incomplete",
+    "pageNumbers": []
+  },
+  {
+    "id": 53,
+    "question": "To complete the sentence select the appropriate option in the answer area.",
+    "type": "dropdown",
+    "options": [],
+    "answer": [
+      "the dataset to protect data at rest."
+    ],
+    "explanation": "Incomplete: OCR removed part of the sentence, options, or exhibit from the source PDF.",
+    "status": "Incomplete",
+    "pageNumbers": []
+  },
+  {
+    "id": 54,
+    "question": "To complete the sentence, select the appropriate option in the answer area.",
+    "type": "dropdown",
+    "options": [],
+    "answer": [
+      "writes that have varying data structures"
+    ],
+    "explanation": "Incomplete: OCR removed part of the sentence, options, or exhibit from the source PDF.",
+    "status": "Incomplete",
+    "pageNumbers": []
+  },
+  {
+    "id": 55,
+    "question": "For each of the following statements, select Yes if the statement is true. Otherwise, select No. NOTE: Each correct selection is worth one point.",
+    "type": "yesno",
+    "options": [
+      "Yes",
+      "No"
+    ],
+    "answer": [
+      "Yes",
+      "Yes",
+      "Yes"
+    ],
+    "explanation": "Incomplete: OCR removed the statement rows from the source PDF.",
+    "status": "Incomplete",
+    "pageNumbers": []
+  },
+  {
+    "id": 56,
+    "question": "For each of the following statements, select Yes if the statement is true. Otherwise, select No. NOTE: Each correct selection is worth one point.",
+    "type": "yesno",
+    "options": [
+      "Yes",
+      "No"
+    ],
+    "answer": [
+      "Yes",
+      "Yes",
+      "Yes"
+    ],
+    "explanation": "Incomplete: OCR removed the statement rows from the source PDF.",
+    "status": "Incomplete",
+    "pageNumbers": []
+  },
+  {
+    "id": 57,
+    "question": "Which Azure SQL offering supports automatic database scaling and automatic pausing of the database during inactive periods?",
+    "type": "mcq",
+    "options": [
+      "Azure SQL Database Hyperscale",
+      "Azure SQL managed instance",
+      "Azure SQL Database serveless",
+      "Azure SQL Database elastic pod"
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": "Answer extracted from the provided PDF.",
+    "status": "Complete",
+    "pageNumbers": []
+  },
+  {
+    "id": 58,
+    "question": "Match the Azure Data Lake Storage terms to the appropriate levels in the hierarchy. To answer, drag the appropriate term from the column on the left to its level on the right. Each term may be used once, more than once, or not at all. NOTE: Each correct match is worth one point.",
+    "type": "match",
+    "options": [],
+    "answer": [
+      "Folders",
+      "Files"
+    ],
+    "explanation": "Incomplete: OCR removed the drag-and-drop prompt or exhibit details from the source PDF.",
+    "status": "Incomplete",
+    "pageNumbers": []
+  },
+  {
+    "id": 59,
+    "question": "To complete the sentence, select the appropriate option in the answer area.",
+    "type": "dropdown",
+    "options": [],
+    "answer": [
+      "simple lookups"
+    ],
+    "explanation": "Incomplete: OCR removed part of the sentence, options, or exhibit from the source PDF.",
+    "status": "Incomplete",
+    "pageNumbers": []
+  },
+  {
+    "id": 60,
+    "question": "To complete the sentence, select the appropriate option in the answer area.",
+    "type": "dropdown",
+    "options": [],
+    "answer": [
+      "data that is fully processed before being loaded to the target data store"
+    ],
+    "explanation": "Incomplete: OCR removed part of the sentence, options, or exhibit from the source PDF.",
+    "status": "Incomplete",
+    "pageNumbers": []
+  },
+  {
+    "id": 61,
+    "question": "When provisioning an Azure Cosmos DB account, which feature provides redundancy within an Azure region?",
+    "type": "mcq",
+    "options": [
+      "multi-master replication",
+      "Availability Zones",
+      "automatic failover",
+      "the strong consistency level"
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": "Answer extracted from the provided PDF.",
+    "status": "Complete",
+    "pageNumbers": []
+  },
+  {
+    "id": 62,
+    "question": "Your company plans to load data from a customer relationship management (CRM) system to a data warehouse by using an extract load, and transform (ELT) process. Where does data processing occur for each stage of the ELT process? To answer, drag the appropriate locations to the correct. Each location may be used once, or not at all, You may need to drag the split bar between panes or scroll to view content. NOTE: Each correct selection is worth one point.",
+    "type": "match",
+    "options": [],
+    "answer": [
+      "CRM System",
+      "Data Warehouse",
+      "In memory data integration"
+    ],
+    "explanation": "Incomplete: OCR removed the drag-and-drop prompt or exhibit details from the source PDF.",
+    "status": "Incomplete",
+    "pageNumbers": []
+  },
+  {
+    "id": 63,
+    "question": "At which two levels can you set the throughput for an Azure Cosmos DB account? Each correct answer presents a complete solution. NOTE: Each correct selection is worth one point.",
+    "type": "mcq",
+    "options": [
+      "container",
+      "item",
+      "database",
+      "partition"
+    ],
+    "answer": [
+      "A C"
+    ],
+    "explanation": "Answer extracted from the provided PDF.",
+    "status": "Complete",
+    "pageNumbers": []
+  },
+  {
+    "id": 64,
+    "question": "Match the terms to the appropriate descriptions. To answer, drag the appropriate term from the column on the left to its description on the right. Each term may be used once, more than once, or not at all. NOTE: Each correct match is worth one point.",
+    "type": "match",
+    "options": [],
+    "answer": [
+      "Table",
+      "View",
+      "Index"
+    ],
+    "explanation": "Incomplete: OCR removed the drag-and-drop prompt or exhibit details from the source PDF.",
+    "status": "Incomplete",
+    "pageNumbers": []
+  },
+  {
+    "id": 65,
+    "question": "Your company needs to implement a relational database in Azure. The solution must minimize ongoing maintenance. Which Azure service should you use?",
+    "type": "mcq",
+    "options": [
+      "Azure HDInsight",
+      "Azure SQL Database",
+      "Azure Cosmos DB",
+      "SQL Server on Azure virtual machines"
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": "Answer extracted from the provided PDF.",
+    "status": "Complete",
+    "pageNumbers": []
+  },
+  {
+    "id": 66,
+    "question": "Match the types of data to the appropriate Azure data services. To answer, drag the appropriate data types from the column on the left to its service on the right. Each data type may be used once, more than once, or not at all. NOTE: Each correct match is worth one point.",
+    "type": "match",
+    "options": [],
+    "answer": [
+      "Image files",
+      "Relationship between employees",
+      "Key/Value pairs"
+    ],
+    "explanation": "Incomplete: OCR removed the drag-and-drop prompt or exhibit details from the source PDF.",
+    "status": "Incomplete",
+    "pageNumbers": []
+  },
+  {
+    "id": 67,
+    "question": "To complete the sentence, select the appropriate option in the answer area.",
+    "type": "dropdown",
+    "options": [],
+    "answer": [
+      "An"
+    ],
+    "explanation": "Incomplete: OCR removed part of the sentence, options, or exhibit from the source PDF.",
+    "status": "Incomplete",
+    "pageNumbers": []
+  },
+  {
+    "id": 68,
+    "question": "A team of developers has computers Thai run Windows 10 and Ubuntu Desktop. The developers need to connect to and query an Azure SCX database from the computers. The developers require code assistance features such as intellSense. What should the developers use ?",
+    "type": "mcq",
+    "options": [
+      "Azure Data Studio",
+      "sq1cmd",
+      "Microsoft SQL Server Management Studio (SSMS)",
+      "Azure Data Explorer"
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": "Answer extracted from the provided PDF.",
+    "status": "Complete",
+    "pageNumbers": []
+  },
+  {
+    "id": 69,
+    "question": "At which level in Azure Cosmos DB can you configure multiple write regions and read regions?",
+    "type": "mcq",
+    "options": [
+      "database",
+      "partition",
+      "collection",
+      "account"
+    ],
+    "answer": [
+      "C"
+    ],
+    "explanation": "Answer extracted from the provided PDF.",
+    "status": "Complete",
+    "pageNumbers": []
+  },
+  {
+    "id": 70,
+    "question": "To complete the sentence, select the appropriate option in the answer area.",
+    "type": "dropdown",
+    "options": [],
+    "answer": [
+      "A view"
+    ],
+    "explanation": "Incomplete: OCR removed part of the sentence, options, or exhibit from the source PDF.",
+    "status": "Incomplete",
+    "pageNumbers": []
+  },
+  {
+    "id": 71,
+    "question": "You are deploying a software as a service (SaaS) application that requires a relational database for Online Transaction Processing (OLTP). Which Azure service should you use to support the application?",
+    "type": "mcq",
+    "options": [
+      "Azure Cosmos D3",
+      "Azure Synapse Analytics",
+      "Azure HCMmtghi",
+      "Azure SQL Database"
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": "Answer extracted from the provided PDF.",
+    "status": "Complete",
+    "pageNumbers": []
+  },
+  {
+    "id": 72,
+    "question": "To complete the sentence, select the appropriate option in the answer area.",
+    "type": "dropdown",
+    "options": [],
+    "answer": [
+      "as nodes & edges by using Germlin language"
+    ],
+    "explanation": "Incomplete: OCR removed part of the sentence, options, or exhibit from the source PDF.",
+    "status": "Incomplete",
+    "pageNumbers": []
+  },
+  {
+    "id": 73,
+    "question": "To complete the sentence, select the appropriate option in the answer area.",
+    "type": "dropdown",
+    "options": [],
+    "answer": [
+      "distribute processing across compute nodes"
+    ],
+    "explanation": "Incomplete: OCR removed part of the sentence, options, or exhibit from the source PDF.",
+    "status": "Incomplete",
+    "pageNumbers": []
+  },
+  {
+    "id": 74,
+    "question": "Your company is designing a database that will contain session data for a website. The data will include notifications, personalization attributes, and products that are added to a shopping cart. Which type of data store will provide the lowest latency to retrieve the data?",
+    "type": "mcq",
+    "options": [
+      "key/value",
+      "graph",
+      "columnar",
+      "document"
+    ],
+    "answer": [
+      "C"
+    ],
+    "explanation": "Answer extracted from the provided PDF.",
+    "status": "Complete",
+    "pageNumbers": []
+  },
+  {
+    "id": 75,
+    "question": "Match the security components to the appropriate scenarios. To answer, drag the appropriate component from the column on the left to its scenario on the right. Each component may be used once, more than once, or not at all. NOTE: Each correct match is worth one point.",
+    "type": "match",
+    "options": [],
+    "answer": [
+      "Firewall",
+      "Authentication",
+      "Encryption"
+    ],
+    "explanation": "Incomplete: OCR removed the drag-and-drop prompt or exhibit details from the source PDF.",
+    "status": "Incomplete",
+    "pageNumbers": []
+  },
+  {
+    "id": 76,
+    "question": "What Is a benefit of hosting a database on Azure SQL managed instance as compared to an Azure SQL database?",
+    "type": "mcq",
+    "options": [
+      "native support for cross-database queries and transactions",
+      "built-in high availability",
+      "system-Initiated automatic backups",
+      "support for encryption at rest"
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": "Answer extracted from the provided PDF.",
+    "status": "Complete",
+    "pageNumbers": []
+  },
+  {
+    "id": 77,
+    "question": "Which three objects can be added to a Microsoft Power BI dashboard? Each correct answer presents a complete solution. (Choose three.) NOTE: Each correct selection is worth one point.",
+    "type": "mcq",
+    "options": [
+      "a report page",
+      "a Microsoft PowerPoint slide",
+      "a visualization from a report",
+      "a dataflow",
+      "a text box"
+    ],
+    "answer": [
+      "A C E"
+    ],
+    "explanation": "Answer extracted from the provided PDF.",
+    "status": "Complete",
+    "pageNumbers": []
+  },
+  {
+    "id": 78,
+    "question": "For each of the following statements, select yes if the statement is true, Otherwise, select No. Note: Each correct selection is worth one point.",
+    "type": "yesno",
+    "options": [
+      "Yes",
+      "No"
+    ],
+    "answer": [
+      "Yes",
+      "Yes",
+      "No"
+    ],
+    "explanation": "Incomplete: OCR removed the statement rows from the source PDF.",
+    "status": "Incomplete",
+    "pageNumbers": []
+  },
+  {
+    "id": 79,
+    "question": "To complete the sentence, select the appropriate option in the answer area.",
+    "type": "dropdown",
+    "options": [],
+    "answer": [
+      "graph"
+    ],
+    "explanation": "Incomplete: OCR removed part of the sentence, options, or exhibit from the source PDF.",
+    "status": "Incomplete",
+    "pageNumbers": []
+  },
+  {
+    "id": 80,
+    "question": "Match the types of analytics that can be used to answer the business questions. To answer, drag the appropriate analytics type from the column on the left to its question on the right. Each analytics type may be used once, more than once, or not at all. NOTE: Each correct match is worth one point.",
+    "type": "match",
+    "options": [],
+    "answer": [
+      "Diagnostic",
+      "Perspective",
+      "Cognitive"
+    ],
+    "explanation": "Incomplete: OCR removed the drag-and-drop prompt or exhibit details from the source PDF.",
+    "status": "Incomplete",
+    "pageNumbers": []
+  },
+  {
+    "id": 81,
+    "question": "Which Azure Data Factory component initiates the execution of a pipeline?",
+    "type": "mcq",
+    "options": [
+      "a control flow",
+      "a trigger",
+      "a parameter",
+      "an activity"
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": "Answer extracted from the provided PDF.",
+    "status": "Complete",
+    "pageNumbers": []
+  },
+  {
+    "id": 82,
+    "question": "A bar chart showing year-to date sales by region is an example of which type of analytics?",
+    "type": "mcq",
+    "options": [
+      "descriptive",
+      "diagnostic",
+      "predictive",
+      "prescriptive"
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": "Answer extracted from the provided PDF.",
+    "status": "Complete",
+    "pageNumbers": []
+  },
+  {
+    "id": 83,
+    "question": "To complete the sentence, select the appropriate option in the answer area.",
+    "type": "dropdown",
+    "options": [],
+    "answer": [
+      "A clustered index"
+    ],
+    "explanation": "Incomplete: OCR removed part of the sentence, options, or exhibit from the source PDF.",
+    "status": "Incomplete",
+    "pageNumbers": []
+  },
+  {
+    "id": 84,
+    "question": "You have a SQL query that combines customer data and order data. The query includes calculated columns. You need to persist the SQL query so that other users can use the query. What should you create?",
+    "type": "mcq",
+    "options": [
+      "a table",
+      "an index",
+      "scalar function",
+      "a view"
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": "Answer extracted from the provided PDF.",
+    "status": "Complete",
+    "pageNumbers": []
+  },
+  {
+    "id": 85,
+    "question": "You need to use Transact-SQL to query files in Azure Data Lake Storage from an Azure Synapse Analytics data warehouse. What should you use to query the files?",
+    "type": "mcq",
+    "options": [
+      "Azure Functions",
+      "Microsoft SQL Server Integration Services (SSIS)",
+      "PolyBase",
+      "Azure Data Factory"
+    ],
+    "answer": [
+      "C"
+    ],
+    "explanation": "Answer extracted from the provided PDF.",
+    "status": "Complete",
+    "pageNumbers": []
+  },
+  {
+    "id": 86,
+    "question": "Your company needs to design a database that shows how changes traffic in one area of a network affect other components on the network. Which type of data store should you use?",
+    "type": "mcq",
+    "options": [
+      "Key/value",
+      "Graph",
+      "Document",
+      "columnar"
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": "Answer extracted from the provided PDF.",
+    "status": "Complete",
+    "pageNumbers": []
+  },
+  {
+    "id": 87,
+    "question": "You have a quality assurance application that reads data from a data warehouse. Which type of processing does the application use?",
+    "type": "mcq",
+    "options": [
+      "Online Transaction Processing (OLTP)",
+      "batch processing",
+      "Online Analytical Processing (OLAP)",
+      "stream processing"
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": "Answer extracted from the provided PDF.",
+    "status": "Complete",
+    "pageNumbers": []
+  },
+  {
+    "id": 88,
+    "question": "What are two uses of data visualization? Each correct answer present a complete solution. NOTE: Each correct selection is worth one point.",
+    "type": "mcq",
+    "options": [
+      "Represent trends and patterns over time.",
+      "Communicate the significance of data.",
+      "implement machine learning to predict future values.",
+      "Consistently implement business logic across reports"
+    ],
+    "answer": [
+      "A C"
+    ],
+    "explanation": "Answer extracted from the provided PDF.",
+    "status": "Complete",
+    "pageNumbers": []
+  },
+  {
+    "id": 89,
+    "question": "Which statement is an example of Data Definition Language (DDL)?",
+    "type": "mcq",
+    "options": [
+      "SELECT",
+      "JOIN",
+      "MERGE",
+      "CREATE"
+    ],
+    "answer": [
+      "D"
+    ],
+    "explanation": "Answer extracted from the provided PDF.",
+    "status": "Complete",
+    "pageNumbers": []
+  },
+  {
+    "id": 90,
+    "question": "Your company has a reporting solution that has paginated reports. The reports query a dimensional model in a data warehouse. Which type of processing does the reporting solution use?",
+    "type": "mcq",
+    "options": [
+      "stream processing",
+      "Online Transaction Processing (OLTP)",
+      "batch processing",
+      "Online Analytical Processing (OLAP)"
+    ],
+    "answer": [
+      "D"
+    ],
+    "explanation": "Answer extracted from the provided PDF.",
+    "status": "Complete",
+    "pageNumbers": []
+  },
+  {
+    "id": 91,
+    "question": "For each of the following statements, select Yes if the statement is true. Otherwise, select No. NOTE: Each correct selection is worth one point.",
+    "type": "yesno",
+    "options": [
+      "Yes",
+      "No"
+    ],
+    "answer": [
+      "Yes",
+      "No",
+      "Yes"
+    ],
+    "explanation": "Incomplete: OCR removed the statement rows from the source PDF.",
+    "status": "Incomplete",
+    "pageNumbers": []
+  },
+  {
+    "id": 92,
+    "question": "For each of the following statements, select Yes if the statement is true. Otherwise, select No. NOTE: Each correct selection is worth one point.",
+    "type": "yesno",
+    "options": [
+      "Yes",
+      "No"
+    ],
+    "answer": [
+      "No",
+      "Yes",
+      "Yes"
+    ],
+    "explanation": "Incomplete: OCR removed the statement rows from the source PDF.",
+    "status": "Incomplete",
+    "pageNumbers": []
+  },
+  {
+    "id": 93,
+    "question": "To complement the sentence, select the appropriate option in the answer area.",
+    "type": "dropdown",
+    "options": [],
+    "answer": [
+      "Distribute processing across compute nodes"
+    ],
+    "explanation": "Incomplete: OCR removed part of the sentence, options, or exhibit from the source PDF.",
+    "status": "Incomplete",
+    "pageNumbers": []
+  },
+  {
+    "id": 94,
+    "question": "You need to design and model a database by using a graphical tool that supports project-oriented offline database development. What should you use?",
+    "type": "mcq",
+    "options": [
+      "Microsoft SQL Server Data Tools (SSDT)",
+      "Microsoft SQL Server Management Studio (SSMS)",
+      "Azure Databricks",
+      "Azure Data Studio"
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": "Answer extracted from the provided PDF.",
+    "status": "Complete",
+    "pageNumbers": []
+  },
+  {
+    "id": 95,
+    "question": "To complete the sentence, select the appropriate option in the answer area.",
+    "type": "dropdown",
+    "options": [],
+    "answer": [
+      "set Account to Blob Storage"
+    ],
+    "explanation": "Incomplete: OCR removed part of the sentence, options, or exhibit from the source PDF.",
+    "status": "Incomplete",
+    "pageNumbers": []
+  },
+  {
+    "id": 96,
+    "question": "Your company is designing a data store that will contain student data. The data has the following format. Which type of data store should you use?",
+    "type": "mcq",
+    "options": [
+      "graph",
+      "key/value",
+      "object",
+      "columnar"
+    ],
+    "answer": [
+      "D"
+    ],
+    "explanation": "Answer extracted from the provided PDF.",
+    "status": "Complete",
+    "pageNumbers": []
+  },
+  {
+    "id": 97,
+    "question": "For each of the following statements, select Yes if the statement is true. Otherwise, select No. NOTE: Each correct selection is worth one point.",
+    "type": "yesno",
+    "options": [
+      "Yes",
+      "No"
+    ],
+    "answer": [
+      "Yes",
+      "Yes",
+      "Yes"
+    ],
+    "explanation": "Incomplete: OCR removed the statement rows from the source PDF.",
+    "status": "Incomplete",
+    "pageNumbers": []
+  },
+  {
+    "id": 98,
+    "question": "For each of the following statements, select Yes if the statement is true. Otherwise, select No. NOTE: Each correct selection is worth one point.",
+    "type": "yesno",
+    "options": [
+      "Yes",
+      "No"
+    ],
+    "answer": [
+      "No",
+      "No",
+      "Yes"
+    ],
+    "explanation": "Incomplete: OCR removed the statement rows from the source PDF.",
+    "status": "Incomplete",
+    "pageNumbers": []
+  },
+  {
+    "id": 99,
+    "question": "For each of the following statements, select Yes if the statement is true, Otherwise, select No. NOTE: Each correct selection is worth one point.",
+    "type": "yesno",
+    "options": [
+      "Yes",
+      "No"
+    ],
+    "answer": [
+      "Yes",
+      "Yes",
+      "No"
+    ],
+    "explanation": "Incomplete: OCR removed the statement rows from the source PDF.",
+    "status": "Incomplete",
+    "pageNumbers": []
+  },
+  {
+    "id": 100,
+    "question": "You need to ensure that users use multi-factor authentication (MFA) when connecting to an Azure SQL database. Which type of authentication should you use?",
+    "type": "mcq",
+    "options": [
+      "service principal authentication",
+      "Azure Active Directory (Azure AD) authentication",
+      "SQL authentication",
+      "certificate authentication"
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": "Answer extracted from the provided PDF.",
+    "status": "Complete",
+    "pageNumbers": []
+  },
+  {
+    "id": 101,
+    "question": "What should you use to build a Microsoft Power BI paginated report?",
+    "type": "mcq",
+    "options": [
+      "Power BI report Builder",
+      "Power BI Desktop",
+      "Charticulator",
+      "the Power BI service"
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": "Answer extracted from the provided PDF.",
+    "status": "Complete",
+    "pageNumbers": []
+  },
+  {
+    "id": 102,
+    "question": "You have an Azure Cosmos DB account that uses the Core (SQL) API. Which two settings can you configure at the container level? Each correct answer presents a complete solution. (Choose two.) NOTE: Each correct selection is worth one point.",
+    "type": "mcq",
+    "options": [
+      "the throughput",
+      "the read region",
+      "the partition key",
+      "the API"
+    ],
+    "answer": [
+      "A C"
+    ],
+    "explanation": "Answer extracted from the provided PDF.",
+    "status": "Complete",
+    "pageNumbers": []
+  },
+  {
+    "id": 103,
+    "question": "To complete the sentence, select the appropriate option in the answer area.",
+    "type": "dropdown",
+    "options": [],
+    "answer": [
+      "data is fully processed before being loaded to the target data store"
+    ],
+    "explanation": "Incomplete: OCR removed part of the sentence, options, or exhibit from the source PDF.",
+    "status": "Incomplete",
+    "pageNumbers": []
+  },
+  {
+    "id": 104,
+    "question": "Your company needs to ensure that in Azure virtual machine can connect to Azure SQL databases without exposing the databases to the internet. What should you use?",
+    "type": "mcq",
+    "options": [
+      "Azure DNS",
+      "Azure Application Gateway",
+      "Azure Private link",
+      "Azure Traffic Manager"
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": "Answer extracted from the provided PDF.",
+    "status": "Complete",
+    "pageNumbers": []
+  },
+  {
+    "id": 105,
+    "question": "Which two Azure services can be used to provision Spark clusters? Each correct answer presents a complete solution. NOTE: Each correct selection is worth one point.",
+    "type": "mcq",
+    "options": [
+      "Azure Databricks",
+      "Azure Log Analytics",
+      "Azure Time Series Insights",
+      "Azure HDinsight"
+    ],
+    "answer": [
+      "A D"
+    ],
+    "explanation": "Answer extracted from the provided PDF.",
+    "status": "Complete",
+    "pageNumbers": []
+  },
+  {
+    "id": 106,
+    "question": "Match the Azure services to the appropriate locations in the architecture. To answer, drag the appropriate service from the column on the left to its location on the right. Each service may be used once, more than once, or not at all. NOTE: Each correct match is worth one point.",
+    "type": "match",
+    "options": [],
+    "answer": [
+      "Azure Data Factory",
+      "Azure Synapse Analytics"
+    ],
+    "explanation": "Incomplete: OCR removed the drag-and-drop prompt or exhibit details from the source PDF.",
+    "status": "Incomplete",
+    "pageNumbers": []
+  },
+  {
+    "id": 107,
+    "question": "Match the types of workloads to the appropriate scenarios. To answer, drag the appropriate workload type from the column on the left to its scenario on the right. Each workload type may be used once, more than once, or not at all. NOTE: Each correct match is worth one point.",
+    "type": "match",
+    "options": [],
+    "answer": [
+      "Batch",
+      "Batch",
+      "Streaming"
+    ],
+    "explanation": "Incomplete: OCR removed the drag-and-drop prompt or exhibit details from the source PDF.",
+    "status": "Incomplete",
+    "pageNumbers": []
+  },
+  {
+    "id": 108,
+    "question": "To complete the sentence, select the appropriate option in the answer area.",
+    "type": "dropdown",
+    "options": [],
+    "answer": [
+      "a tabular form of rows and columns"
+    ],
+    "explanation": "Incomplete: OCR removed part of the sentence, options, or exhibit from the source PDF.",
+    "status": "Incomplete",
+    "pageNumbers": []
+  },
+  {
+    "id": 109,
+    "question": "To complete the sentence, select the appropriate option in the answer area.",
+    "type": "dropdown",
+    "options": [],
+    "answer": [
+      "Explanation"
+    ],
+    "explanation": "Incomplete: OCR removed part of the sentence, options, or exhibit from the source PDF.",
+    "status": "Incomplete",
+    "pageNumbers": []
+  },
+  {
+    "id": 110,
+    "question": "Which command-line tool can you use to query Azure SQL databases?",
+    "type": "mcq",
+    "options": [
+      "sqlcmd",
+      "bcp",
+      "azdata",
+      "Azure CLI"
+    ],
+    "answer": [
+      "D"
+    ],
+    "explanation": "Answer extracted from the provided PDF.",
+    "status": "Complete",
+    "pageNumbers": []
+  },
+  {
+    "id": 111,
+    "question": "For each of the following statements, select Yes if the statement is true. Otherwise, select No. NOTE: Each correct selection is worth one point.",
+    "type": "yesno",
+    "options": [
+      "Yes",
+      "No"
+    ],
+    "answer": [
+      "No",
+      "Yes",
+      "No"
+    ],
+    "explanation": "Incomplete: OCR removed the statement rows from the source PDF.",
+    "status": "Incomplete",
+    "pageNumbers": []
+  },
+  {
+    "id": 112,
+    "question": "To complete the sentence, select the appropriate option in the answer area.",
+    "type": "dropdown",
+    "options": [],
+    "answer": [
+      "Descriptive"
+    ],
+    "explanation": "Incomplete: OCR removed part of the sentence, options, or exhibit from the source PDF.",
+    "status": "Incomplete",
+    "pageNumbers": []
+  },
+  {
+    "id": 113,
+    "question": "What is a benefit of the Azure Cosmos DB Table API as compared to Azure Table storage?",
+    "type": "mcq",
+    "options": [
+      "supports partitioning",
+      "provides resiliency if art Azure region fads",
+      "provides a higher storage capacity",
+      "supports a multi-master model"
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": "Answer extracted from the provided PDF.",
+    "status": "Complete",
+    "pageNumbers": []
+  },
+  {
+    "id": 114,
+    "question": "Your company recently reported sales from the third quarter. You have the chart shown in the following exhibit. Which type of analysis is shown for the fourth quarter?",
+    "type": "mcq",
+    "options": [
+      "predictive",
+      "prescription",
+      "descriptive",
+      "diagnostic"
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": "Answer extracted from the provided PDF.",
+    "status": "Complete",
+    "pageNumbers": []
+  },
+  {
+    "id": 115,
+    "question": "For each of the following statements, select Yes if the statement is true. Otherwise, select No. NOTE: Each correct selection is worth one point.",
+    "type": "yesno",
+    "options": [
+      "Yes",
+      "No"
+    ],
+    "answer": [
+      "Yes",
+      "No",
+      "Yes"
+    ],
+    "explanation": "Incomplete: OCR removed the statement rows from the source PDF.",
+    "status": "Incomplete",
+    "pageNumbers": []
+  },
+  {
+    "id": 116,
+    "question": "To complete the sentence, select the appropriate option in the answer area.",
+    "type": "dropdown",
+    "options": [],
+    "answer": [
+      "latency is expected"
+    ],
+    "explanation": "Incomplete: OCR removed part of the sentence, options, or exhibit from the source PDF.",
+    "status": "Incomplete",
+    "pageNumbers": []
+  },
+  {
+    "id": 117,
+    "question": "Match the tools to the appropriate descriptions. To answer, drag the appropriate tool from the column on the left to its description on the right. Each tool may be used once, more than once, or not at all. NOTE: Each correct match is worth one point.",
+    "type": "match",
+    "options": [],
+    "answer": [
+      "SSMS",
+      "Visual Studio Code",
+      "Azure Data Studio",
+      "SSDT"
+    ],
+    "explanation": "Incomplete: OCR removed the drag-and-drop prompt or exhibit details from the source PDF.",
+    "status": "Incomplete",
+    "pageNumbers": []
+  },
+  {
+    "id": 118,
+    "question": "You are writing a set of SQL queries that administrators will use to troubleshoot an Azure SQL database. You need to embed documents and query results into a SQL notebook. What should you use?",
+    "type": "mcq",
+    "options": [
+      "Microsoft SQL Server Management Studio (SSMS)",
+      "Azure Data Studio",
+      "Azure CLI",
+      "Azure PowerShell"
+    ],
+    "answer": [
+      "B"
+    ],
+    "explanation": "Answer extracted from the provided PDF.",
+    "status": "Complete",
+    "pageNumbers": []
+  },
+  {
+    "id": 119,
+    "question": "Match the Azure Cosmos DB APIs to the appropriate data structures. To answer, drag the appropriate API from the column on the left to its data structure on the right. Each API may be used once, more than once, or not at all. NOTE: Each correct match is worth one point.",
+    "type": "match",
+    "options": [],
+    "answer": [
+      "Germlin API",
+      "MongoDB API",
+      "Table API"
+    ],
+    "explanation": "Incomplete: OCR removed the drag-and-drop prompt or exhibit details from the source PDF.",
+    "status": "Incomplete",
+    "pageNumbers": []
+  },
+  {
+    "id": 120,
+    "question": "What are two benefits of platform as a service (PaaS) relational database offerings in Azure, such as Azure SQL Database? Each correct answer presents a complete solution. NOTE: Each correct selection is worth one point.",
+    "type": "mcq",
+    "options": [
+      "complete control over backup and restore processes",
+      "access to the latest features",
+      "in-database machine learning services",
+      "reduced administrative effort for managing the server infrastructure"
+    ],
+    "answer": [
+      "B C"
+    ],
+    "explanation": "Answer extracted from the provided PDF.",
+    "status": "Complete",
+    "pageNumbers": []
+  },
+  {
+    "id": 121,
+    "question": "You have an application that runs on Windows and requires across to a mapped drive. Which Azure service should you use?",
+    "type": "mcq",
+    "options": [
+      "Azure Cosmos DB",
+      "Azure Table storage",
+      "Azure Files",
+      "Azure Blob Storage"
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": "Answer extracted from the provided PDF.",
+    "status": "Complete",
+    "pageNumbers": []
+  },
+  {
+    "id": 122,
+    "question": "Which Azure Data Factory component provides the compute environment for activities?",
+    "type": "mcq",
+    "options": [
+      "a linked service",
+      "an integration runtime",
+      "a control flow",
+      "a pipeline"
+    ],
+    "answer": [
+      "A"
+    ],
+    "explanation": "Answer extracted from the provided PDF.",
+    "status": "Complete",
+    "pageNumbers": []
+  }
+]

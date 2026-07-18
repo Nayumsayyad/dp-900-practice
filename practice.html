@@ -1,0 +1,1458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Microsoft DP-900 Practice Quiz</title>
+    <style>
+        :root {
+            --primary: #0078d4;
+            --primary-dark: #005a9e;
+            --success: #107c41;
+            --error: #a80000;
+            --background: #f3f2f1;
+            --card-bg: #ffffff;
+            --surface: #faf9f8;
+            --text: #323130;
+            --muted: #605e5c;
+            --border: #e1dfdd;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(180deg, #eef5fb 0%, var(--background) 30%, #f7f7f5 100%);
+            color: var(--text);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        .app-layout {
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+            background: rgba(255,255,255,0.95);
+            border-right: 1px solid var(--border);
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .sidebar h3 {
+            margin: 0;
+            font-size: 1rem;
+            color: var(--primary-dark);
+        }
+
+        .timer-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 12px;
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .timer-bar.warning { color: var(--error); border-color: var(--error); }
+
+        .timer-bar button {
+            font-size: 0.75rem;
+            padding: 4px 8px;
+            border-radius: 6px;
+        }
+
+        .progress-info {
+            font-size: 0.85rem;
+            color: var(--muted);
+        }
+
+        .progress-info span { font-weight: 700; color: var(--text); }
+
+        .progress-bar-track {
+            height: 6px;
+            background: var(--border);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: var(--primary);
+            border-radius: 3px;
+            transition: width 0.3s ease;
+        }
+
+        .nav-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 4px;
+        }
+
+        .nav-btn {
+            width: 100%;
+            aspect-ratio: 1;
+            border: 1px solid var(--border);
+            background: #fff;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.15s ease;
+            position: relative;
+        }
+
+        .nav-btn:hover { border-color: var(--primary); }
+        .nav-btn.current { background: var(--primary); color: #fff; border-color: var(--primary); }
+        .nav-btn.answered { background: #dff6dd; border-color: var(--success); }
+        .nav-btn.flagged::after {
+            content: '\2691';
+            position: absolute;
+            top: -4px;
+            right: -2px;
+            font-size: 0.6rem;
+            color: var(--error);
+        }
+
+        .sidebar-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-top: auto;
+        }
+
+        .sidebar-actions button {
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            border: none;
+            font-size: 0.9rem;
+        }
+
+        .btn-submit { background: var(--primary); color: #fff; }
+        .btn-submit:hover { background: var(--primary-dark); }
+
+        .btn-clear { background: #fff; color: var(--error); border: 1px solid var(--error) !important; }
+        .btn-clear:hover { background: #fde7e9; }
+
+        .main-content {
+            padding: 24px;
+            max-width: 900px;
+        }
+
+        header {
+            display: grid;
+            gap: 10px;
+            text-align: center;
+            margin-bottom: 24px;
+            padding: 28px 24px;
+            background: rgba(255, 255, 255, 0.92);
+            border: 1px solid rgba(0, 120, 212, 0.15);
+            border-radius: 18px;
+            box-shadow: 0 10px 30px rgba(37, 39, 44, 0.08);
+        }
+
+        h1 {
+            margin: 0;
+            font-size: clamp(1.6rem, 3vw, 2.4rem);
+            letter-spacing: -0.02em;
+            color: #0f172a;
+        }
+
+        header p { margin: 0; color: var(--muted); font-size: 0.95rem; }
+
+        .toolbar {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            padding: 14px 16px;
+            background: rgba(255, 255, 255, 0.85);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+        }
+
+        .toolbar .meta { color: var(--muted); font-size: 0.95rem; }
+
+        .toolbar .filter { display: flex; gap: 8px; flex-wrap: wrap; }
+
+        .chip {
+            border: 1px solid var(--border);
+            background: white;
+            color: var(--text);
+            padding: 8px 12px;
+            border-radius: 999px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all 0.15s ease;
+        }
+
+        .chip:hover { transform: translateY(-1px); border-color: rgba(0, 120, 212, 0.35); }
+
+        .chip.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+
+        .question-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 22px;
+            margin-bottom: 18px;
+            box-shadow: 0 8px 24px rgba(37, 39, 44, 0.06);
+        }
+
+        .question-card.hidden { display: none; }
+
+        .question-card.current-q { border: 2px solid var(--primary); }
+
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            align-items: baseline;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 16px;
+        }
+
+        .question-header h2 { margin: 0; font-size: 1.1rem; color: var(--primary-dark); }
+
+        .question-badges { display: flex; gap: 8px; flex-wrap: wrap; }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 10px;
+            border-radius: 999px;
+            background: #eef6ff;
+            color: var(--primary-dark);
+            border: 1px solid rgba(0, 120, 212, 0.15);
+            font-size: 0.82rem;
+            font-weight: 700;
+        }
+
+        .badge.secondary { background: #f5f5f4; color: var(--muted); border-color: var(--border); }
+
+        .badge.flag-badge { background: #fde7e9; color: var(--error); border-color: rgba(168,0,0,0.3); cursor: pointer; }
+
+        .question-text { font-size: 1.03rem; margin-bottom: 16px; white-space: pre-wrap; }
+
+        .source-toggle {
+            margin-top: 12px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .source-toggle button {
+            background: transparent;
+            color: var(--primary-dark);
+            border: 1px solid rgba(0, 120, 212, 0.25);
+            padding: 8px 12px;
+        }
+
+        .source-toggle button:hover { background: rgba(0, 120, 212, 0.08); }
+
+        .source-panel {
+            display: none;
+            margin-top: 14px;
+            padding: 12px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: #fafafa;
+        }
+
+        .source-panel img {
+            display: block;
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+        }
+
+        .source-panel p { margin: 10px 0 0; color: var(--muted); font-size: 0.92rem; }
+
+        .options { display: grid; gap: 10px; }
+
+        .option-label {
+            display: block;
+            background: var(--surface);
+            padding: 12px 14px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            border: 1px solid transparent;
+        }
+
+        .option-label:hover { background: #e9f3fb; border-color: rgba(0, 120, 212, 0.18); }
+        .option-label input { margin-right: 10px; }
+
+        .inline-select {
+            min-width: min(100%, 360px);
+            padding: 8px 12px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            font-size: 0.96rem;
+            background: white;
+        }
+
+        .statement-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+        }
+
+        .statement-table th,
+        .statement-table td {
+            padding: 14px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+            vertical-align: top;
+        }
+
+        .statement-table th { background: #f8fafc; }
+
+        .drag-layout {
+            display: grid;
+            grid-template-columns: 1fr 1.6fr;
+            gap: 16px;
+            margin-top: 12px;
+        }
+
+        .pool-box, .match-box {
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 14px;
+            background: #fafafa;
+        }
+
+        .pool-box h3, .match-box h3 {
+            margin: 0 0 10px;
+            font-size: 1rem;
+            color: var(--primary-dark);
+        }
+
+        .draggable-item {
+            background: var(--primary);
+            color: white;
+            padding: 10px 12px;
+            margin: 8px 0;
+            border-radius: 10px;
+            cursor: grab;
+            user-select: none;
+            font-weight: 600;
+        }
+
+        .drop-zone-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 6px;
+        }
+
+        .drop-zone-table th,
+        .drop-zone-table td {
+            border: 1px solid var(--border);
+            padding: 10px;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        .drop-target {
+            min-height: 44px;
+            border: 2px dashed #a19f9d;
+            border-radius: 10px;
+            padding: 6px;
+            background: #fff;
+        }
+
+        .drop-target .draggable-item { margin: 0; }
+
+        .actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
+
+        button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 0.95em;
+            font-weight: 700;
+        }
+
+        button:hover { background: var(--primary-dark); }
+
+        .feedback {
+            margin-top: 14px;
+            padding: 12px 14px;
+            border-radius: 10px;
+            display: none;
+            font-weight: 700;
+        }
+
+        .feedback.correct { display: block; background: #dff6dd; color: var(--success); border: 1px solid rgba(16, 124, 65, 0.3); }
+        .feedback.incorrect { display: block; background: #fde7e9; color: var(--error); border: 1px solid rgba(168, 0, 0, 0.3); }
+
+        .explanation {
+            display: none;
+            margin-top: 10px;
+            padding: 12px 14px;
+            border-radius: 10px;
+            background: #eef6ff;
+            color: var(--primary-dark);
+            border: 1px solid rgba(0,120,212,0.2);
+            font-size: 0.9rem;
+            font-weight: 400;
+        }
+
+        .flag-btn {
+            background: transparent;
+            color: var(--muted);
+            border: 1px solid var(--border);
+            padding: 6px 12px;
+            font-size: 0.82rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .flag-btn:hover { color: var(--error); border-color: var(--error); }
+        .flag-btn.flagged { color: var(--error); border-color: var(--error); background: #fde7e9; }
+
+        .results-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .results-overlay.show { display: flex; }
+
+        .results-card {
+            background: #fff;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 560px;
+            width: 90%;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+
+        .results-card h2 { margin: 0 0 8px; font-size: 1.8rem; }
+        .results-card .score-big { font-size: 3.5rem; font-weight: 800; margin: 16px 0; }
+        .results-card .score-big.pass { color: var(--success); }
+        .results-card .score-big.fail { color: var(--error); }
+        .results-card p { color: var(--muted); margin: 4px 0; }
+
+        .results-breakdown {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin: 20px 0;
+            text-align: left;
+        }
+
+        .results-breakdown .stat {
+            padding: 12px;
+            background: var(--surface);
+            border-radius: 10px;
+            border: 1px solid var(--border);
+        }
+
+        .results-breakdown .stat .label { font-size: 0.8rem; color: var(--muted); }
+        .results-breakdown .stat .value { font-size: 1.3rem; font-weight: 700; }
+
+        .results-actions { display: flex; gap: 10px; justify-content: center; margin-top: 20px; }
+
+        .json-block {
+            white-space: pre;
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 14px;
+            border-radius: 10px;
+            font-family: 'Cascadia Code', 'Fira Code', monospace;
+            font-size: 0.88rem;
+            line-height: 1.5;
+            overflow-x: auto;
+        }
+
+        @media (max-width: 900px) {
+            .app-layout { grid-template-columns: 1fr; }
+            .sidebar {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: auto;
+                max-height: 45vh;
+                border-right: none;
+                border-top: 1px solid var(--border);
+                z-index: 100;
+                flex-direction: row;
+                flex-wrap: wrap;
+                overflow-y: auto;
+                padding: 10px;
+                gap: 8px;
+            }
+            .sidebar h3, .timer-bar, .progress-info, .progress-bar-track { display: none; }
+            .nav-grid { grid-template-columns: repeat(10, 1fr); width: 100%; }
+            .sidebar-actions { flex-direction: row; width: 100%; margin-top: 0; }
+            .sidebar-actions button { flex: 1; }
+            .main-content { padding: 14px; padding-bottom: 120px; }
+            .drag-layout { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 640px) {
+            .question-card { padding: 16px; }
+            .question-header { align-items: flex-start; flex-direction: column; }
+            .statement-table th, .statement-table td { padding: 10px; }
+        }
+    </style>
+</head>
+<body>
+<div class="app-layout">
+    <aside class="sidebar">
+        <h3>DP-900 Exam</h3>
+        <div class="timer-bar" id="timer-bar">
+            <span id="timer-display">45:00</span>
+            <button type="button" id="timer-toggle" onclick="toggleTimer()">Pause</button>
+        </div>
+        <div class="progress-info">
+            <span id="answered-count">0</span> / <span id="total-count">0</span> answered
+        </div>
+        <div class="progress-bar-track"><div class="progress-bar-fill" id="progress-fill"></div></div>
+        <div class="nav-grid" id="nav-grid"></div>
+        <div class="sidebar-actions">
+            <button type="button" class="btn-submit" onclick="submitQuiz()">Submit Exam</button>
+            <button type="button" class="btn-clear" onclick="clearAll()">Reset All</button>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <header>
+            <h1>Microsoft DP-900 Practice Platform</h1>
+            <p>Timed exam simulation. Answer all questions, then submit for your score.</p>
+        </header>
+
+        <div class="toolbar">
+            <div class="meta" id="quiz-meta">Loading questions...</div>
+            <div class="filter" id="type-filters"></div>
+        </div>
+
+        <div id="quiz-root"></div>
+    </main>
+</div>
+
+<div class="results-overlay" id="results-overlay">
+    <div class="results-card">
+        <h2 id="results-title">Exam Complete</h2>
+        <div class="score-big" id="results-score">0%</div>
+        <p id="results-msg"></p>
+        <div class="results-breakdown">
+            <div class="stat"><div class="label">Correct</div><div class="value" id="r-correct">0</div></div>
+            <div class="stat"><div class="label">Incorrect</div><div class="value" id="r-incorrect">0</div></div>
+            <div class="stat"><div class="label">Unanswered</div><div class="value" id="r-unanswered">0</div></div>
+            <div class="stat"><div class="label">Time Taken</div><div class="value" id="r-time">0m</div></div>
+        </div>
+        <div class="results-actions">
+            <button type="button" onclick="reviewAnswers()">Review Answers</button>
+            <button type="button" class="btn-clear" onclick="retakeQuiz()" style="background:var(--error);color:#fff;border:none;">Retake</button>
+        </div>
+    </div>
+</div>
+
+<script src="dp900-questions.js"></script>
+<script>
+    const TIMER_MINUTES = 45;
+    const pageImageBase = 'page-images';
+    const pageImageExtension = '.png';
+
+    const matchData = {
+        23: { pool: 'Activity Types', targets: [
+            ['Copy activity','Data movement'],['Mapping Data Flow','Data transformation'],['If/Until/ForEach activity','Control']
+        ]},
+        26: { pool: 'Workload Types', targets: [
+            ['Run a job once every 24 hours','Batch'],['Process data continuously as it arrives','Streaming'],['Process accumulated data every 5 minutes','Micro-batch']
+        ]},
+        36: { pool: 'SQL Clauses', targets: [
+            ['_____ ProductName, UnitPrice FROM Products','Select'],['_____ UnitPrice DESC','Order By']
+        ]},
+        52: { pool: 'ADF Components', targets: [
+            ['Contains connection information to data sources','Linked Service'],['Represents data structures within data stores','Data Set'],['Orchestrates and manages workflows','Pipeline']
+        ]},
+        58: { pool: 'ADLS Terms', targets: [
+            ['Groups related data together','Folders'],['Contains the actual data objects','Files']
+        ]},
+        62: { pool: 'ELT Locations', targets: [
+            ['Extract data from here','CRM System'],['Load data into here','Data Warehouse'],['Transform data here','In memory data integration']
+        ]},
+        64: { pool: 'SQL Terms', targets: [
+            ['Stores data physically in rows and columns','Table'],['A virtual table defined by a SELECT statement','View'],['An object that improves query performance by sorting and storing rows','Index']
+        ]},
+        66: { pool: 'Data Types', targets: [
+            ['Store and serve binary large objects','Image files'],['Store and query data as vertices and edges','Relationship between employees'],['Store data for high-throughput key-based access','Key/Value pairs']
+        ]},
+        75: { pool: 'Security', targets: [
+            ['Restrict network access based on IP addresses','Firewall'],['Verify user identity before granting access','Authentication'],['Protect data at rest and in transit','Encryption']
+        ]},
+        80: { pool: 'Analytics Types', targets: [
+            ['Determine why a metric decreased last quarter','Diagnostic'],['Forecast demand for next quarter','Predictive'],['Classify images of products automatically','Cognitive']
+        ]},
+        106: { pool: 'Azure Services', targets: [
+            ['Orchestrate data movement and transformation pipelines','Azure Data Factory'],['Analyze data using dedicated SQL pools','Azure Synapse Analytics']
+        ]},
+        107: { pool: 'Workload Types', targets: [
+            ['Process sales data every night at midnight','Batch'],['Generate a weekly sales summary report','Batch'],['Monitor live IoT telemetry in real time','Streaming']
+        ]},
+        117: { pool: 'Tools', targets: [
+            ['Manage SQL Server instances with a graphical interface','SSMS'],['Write and debug code with extensions and Git integration','Visual Studio Code'],['Query Azure SQL databases with built-in notebook support','Azure Data Studio'],['Design and deploy SQL Server database projects','SSDT']
+        ]},
+        119: { pool: 'Cosmos DB APIs', targets: [
+            ['Store and query graph data with vertices and edges','Gremlin API'],['Store and query JSON documents','MongoDB API'],['Store and query key-value tabular data','Table API']
+        ]}
+    };
+
+    const answerKeyByNumber = {
+        1: { type: 'dropdown', values: ['the database to protect data at rest.'] },
+        2: { type: 'mcq', values: ['D'] },
+        3: { type: 'match', values: ['Key/Value', 'Object', 'Graph'] },
+        4: { type: 'dropdown', values: ['what occurred in the past.'] },
+        5: { type: 'dropdown', values: ['collect data and then process the data when a condition is met.'] },
+        6: { type: 'yesno', values: ['Yes', 'Yes', 'No'] },
+        7: { type: 'mcq', values: ['A'] },
+        8: { type: 'yesno', values: ['No', 'No', 'Yes'] },
+        9: { type: 'dropdown', values: ['root object', 'nested object', 'nested array'] },
+        10: { type: 'mcq', values: ['B', 'D', 'F'] },
+        11: { type: 'mcq', values: ['A'] },
+        12: { type: 'mcq', values: ['D'] },
+        13: { type: 'match', values: ['Azure Data Factory', 'Azure Data Lake Storage', 'Azure Synapse Analytics'] },
+        14: { type: 'mcq', values: ['A'] },
+        15: { type: 'dropdown', values: ['star schema', 'dimension'] },
+        16: { type: 'mcq', values: ['A', 'B'] },
+        17: { type: 'mcq', values: ['A'] },
+        18: { type: 'yesno', values: ['No', 'Yes', 'No'] },
+        19: { type: 'dropdown', values: ['keys'] },
+        20: { type: 'dropdown', values: ['server level firewall'] },
+        21: { type: 'mcq', values: ['A', 'D'] },
+        22: { type: 'mcq', values: ['A', 'C'] },
+        23: { type: 'match', values: ['Data movement', 'Data transformation', 'Control'] },
+        24: { type: 'mcq', values: ['D'] },
+        25: { type: 'mcq', values: ['C'] },
+        26: { type: 'match', values: ['Batch', 'Streaming', 'Micro-batch'] },
+        27: { type: 'mcq', values: ['B'] },
+        28: { type: 'mcq', values: ['A'] },
+        29: { type: 'yesno', values: ['Yes', 'No', 'Yes'] },
+        30: { type: 'mcq', values: ['A'] },
+        31: { type: 'mcq', values: ['B'] },
+        32: { type: 'yesno', values: ['No', 'No', 'Yes'] },
+        33: { type: 'mcq', values: ['C'] },
+        34: { type: 'dropdown', values: ['strong consistency guarantees are required'] },
+        35: { type: 'mcq', values: ['B', 'C', 'E'] },
+        36: { type: 'match', values: ['Select', 'Order By'] },
+        37: { type: 'dropdown', values: ['A table', 'A column'] },
+        38: { type: 'mcq', values: ['D'] },
+        39: { type: 'mcq', values: ['D'] },
+        40: { type: 'mcq', values: ['A'] },
+        41: { type: 'dropdown', values: ['Cognitive'] },
+        42: { type: 'yesno', values: ['Yes', 'Yes', 'No'] },
+        43: { type: 'mcq', values: ['B'] },
+        44: { type: 'dropdown', values: ['Enable the hierarchical namespace'] },
+        45: { type: 'mcq', values: ['C'] },
+        46: { type: 'yesno', values: ['Yes', 'No', 'Yes'] },
+        47: { type: 'mcq', values: ['C'] },
+        48: { type: 'yesno', values: ['Yes', 'No', 'Yes', 'Yes'] },
+        49: { type: 'dropdown', values: ['as nodes and edges by using the Gremlin language.'] },
+        50: { type: 'yesno', values: ['No', 'Yes', 'Yes'] },
+        51: { type: 'mcq', values: ['B'] },
+        52: { type: 'match', values: ['Data Set', 'Linked Service', 'Pipeline'] },
+        53: { type: 'dropdown', values: ['the dataset to protect data at rest'] },
+        54: { type: 'dropdown', values: ['high volumes of transactional writes.'] },
+        55: { type: 'yesno', values: ['Yes', 'Yes', 'Yes'] },
+        56: { type: 'yesno', values: ['Yes', 'Yes', 'Yes'] },
+        57: { type: 'mcq', values: ['C'] },
+        58: { type: 'match', values: ['Folders', 'Files'] },
+        59: { type: 'dropdown', values: ['simple lookups'] },
+        60: { type: 'dropdown', values: ['data is fully processed before being loaded to the target data store'] },
+        61: { type: 'mcq', values: ['B'] },
+        62: { type: 'match', values: ['CRM System', 'Data Warehouse', 'In memory data integration'] },
+        63: { type: 'mcq', values: ['A', 'C'] },
+        64: { type: 'match', values: ['Table', 'View', 'Index'] },
+        65: { type: 'mcq', values: ['B'] },
+        66: { type: 'match', values: ['Image files', 'Relationship between employees', 'Key/Value pairs'] },
+        67: { type: 'dropdown', values: ['A control flow'] },
+        68: { type: 'mcq', values: ['A'] },
+        69: { type: 'mcq', values: ['D'] },
+        70: { type: 'dropdown', values: ['A view'] },
+        71: { type: 'mcq', values: ['D'] },
+        72: { type: 'dropdown', values: ['as nodes & edges by using Gremlin language'] },
+        73: { type: 'dropdown', values: ['distribute processing across compute nodes'] },
+        74: { type: 'mcq', values: ['D'] },
+        75: { type: 'match', values: ['Firewall', 'Authentication', 'Encryption'] },
+        76: { type: 'mcq', values: ['A'] },
+        77: { type: 'mcq', values: ['A', 'C', 'E'] },
+        78: { type: 'yesno', values: ['Yes', 'Yes', 'No'] },
+        79: { type: 'dropdown', values: ['graph'] },
+        80: { type: 'match', values: ['Diagnostic', 'Predictive', 'Cognitive'] },
+        81: { type: 'mcq', values: ['B'] },
+        82: { type: 'mcq', values: ['A'] },
+        83: { type: 'dropdown', values: ['A clustered index'] },
+        84: { type: 'mcq', values: ['D'] },
+        85: { type: 'mcq', values: ['C'] },
+        86: { type: 'mcq', values: ['B'] },
+        87: { type: 'mcq', values: ['C'] },
+        88: { type: 'mcq', values: ['A', 'B'] },
+        89: { type: 'mcq', values: ['D'] },
+        90: { type: 'mcq', values: ['D'] },
+        91: { type: 'yesno', values: ['Yes', 'No', 'Yes'] },
+        92: { type: 'yesno', values: ['No', 'Yes', 'Yes'] },
+        93: { type: 'dropdown', values: ['Distribute processing across compute nodes'] },
+        94: { type: 'mcq', values: ['A'] },
+        95: { type: 'dropdown', values: ['Enable the hierarchical namespace.'] },
+        96: { type: 'mcq', values: ['D'] },
+        97: { type: 'yesno', values: ['Yes', 'Yes', 'Yes'] },
+        98: { type: 'yesno', values: ['No', 'No', 'Yes'] },
+        99: { type: 'yesno', values: ['Yes', 'Yes', 'No'] },
+        100: { type: 'mcq', values: ['B'] },
+        101: { type: 'mcq', values: ['A'] },
+        102: { type: 'mcq', values: ['A', 'C'] },
+        103: { type: 'dropdown', values: ['A target data store powerful enough to transform data'] },
+        104: { type: 'mcq', values: ['C'] },
+        105: { type: 'mcq', values: ['A', 'D'] },
+        106: { type: 'match', values: ['Azure Data Factory', 'Azure Synapse Analytics'] },
+        107: { type: 'match', values: ['Batch', 'Batch', 'Streaming'] },
+        108: { type: 'dropdown', values: ['a tabular form of rows and columns'] },
+        109: { type: 'dropdown', values: ['paginated reports'] },
+        110: { type: 'mcq', values: ['D'] },
+        111: { type: 'yesno', values: ['No', 'Yes', 'No'] },
+        112: { type: 'dropdown', values: ['Descriptive'] },
+        113: { type: 'mcq', values: ['B'] },
+        114: { type: 'mcq', values: ['A'] },
+        115: { type: 'yesno', values: ['Yes', 'No', 'Yes'] },
+        116: { type: 'dropdown', values: ['latency is expected'] },
+        117: { type: 'match', values: ['SSMS', 'Visual Studio Code', 'Azure Data Studio', 'SSDT'] },
+        118: { type: 'mcq', values: ['B'] },
+        119: { type: 'match', values: ['Gremlin API', 'MongoDB API', 'Table API'] },
+        120: { type: 'mcq', values: ['B', 'C'] },
+        121: { type: 'mcq', values: ['C'] },
+        122: { type: 'mcq', values: ['B'] },
+    };
+
+    const typeLabels = { mcq: 'Multiple choice', dropdown: 'Dropdown', yesno: 'Yes / No', match: 'Drag and drop' };
+    const typePriority = ['all', 'mcq', 'dropdown', 'yesno', 'match'];
+    let activeFilter = 'all';
+    let questions = [];
+    let questionStates = {};
+    let currentQuestionId = null;
+    let timerSeconds = TIMER_MINUTES * 60;
+    let timerInterval = null;
+    let timerRunning = false;
+    let examSubmitted = false;
+    let startTime = null;
+
+    function getQuestionId(q) { return q.id ?? q.number; }
+
+    function getQuestionAnswerValues(q) {
+        if (Array.isArray(q.answer)) return q.answer;
+        if (Array.isArray(q.answerValues)) return q.answerValues;
+        if (typeof q.answer === 'string' && q.answer.trim()) return [q.answer.trim()];
+        return [];
+    }
+
+    function normalizeAnswer(a) { return String(a || '').replace(/^Answer(?:\s*\([^)]*\))?\s*:\s*/i, '').trim(); }
+
+    function escapeHtml(t) {
+        return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+    }
+
+    function shuffle(arr) {
+        const a = [...arr];
+        for (let i = a.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a;
+    }
+
+    function buildHeader(q) {
+        const id = getQuestionId(q);
+        const flagged = questionStates[id]?.flagged;
+        const badges = [
+            `<span class="badge">${typeLabels[q.type] || q.type}</span>`,
+        ];
+        if (q.pageNumbers && q.pageNumbers.length) {
+            badges.push(`<span class="badge secondary">Pages ${q.pageNumbers.join(', ')}</span>`);
+        }
+        return `
+            <div class="question-header">
+                <h2>Question #${id}</h2>
+                <div class="question-badges">
+                    ${badges.join('')}
+                    <button type="button" class="flag-btn${flagged ? ' flagged' : ''}" onclick="toggleFlag(${id})">${flagged ? '\u2691 Flagged' : '\u2691 Flag'}</button>
+                </div>
+            </div>
+        `;
+    }
+
+    function buildSourcePanel(q) {
+        const id = getQuestionId(q);
+        const pn = q.pageNumbers && q.pageNumbers.length ? q.pageNumbers[0] : id;
+        const img = `${pageImageBase}/page-${String(pn).padStart(3,'0')}${pageImageExtension}`;
+        return `
+            <div class="source-toggle"><button type="button" onclick="toggleSource('source-${id}')">Toggle source page</button></div>
+            <div class="source-panel" id="source-${id}">
+                <img src="${img}" alt="Source page for question ${id}">
+                <p>Source page: ${pn}.</p>
+            </div>
+        `;
+    }
+
+    function buildMcq(q) {
+        const id = getQuestionId(q);
+        const av = (answerKeyByNumber[id] || {}).values || getQuestionAnswerValues(q);
+        const isMulti = av.length > 1;
+        const opts = q.options.length ? q.options : ['Option A','Option B','Option C','Option D'];
+        const labels = ['A','B','C','D','E','F'];
+        const html = opts.map((o,i) => {
+            const l = labels[i] || String.fromCharCode(65+i);
+            return `<label class="option-label"><input type="${isMulti?'checkbox':'radio'}" name="q${id}-opt" value="${l}"> ${l}. ${escapeHtml(o)}</label>`;
+        }).join('');
+        return `
+            <div class="question-text">${escapeHtml(q.questionText)}</div>
+            <div class="options">${html}</div>
+            ${buildSourcePanel(q)}
+            <div class="actions"><button type="button" onclick='checkMCQ("q${id}",${JSON.stringify(av)})'>Submit Answer</button></div>
+            <div class="feedback"></div>
+            <div class="explanation"></div>
+        `;
+    }
+
+    function buildDropdown(q) {
+        const id = getQuestionId(q);
+        const av = (answerKeyByNumber[id] || {}).values || getQuestionAnswerValues(q).map(normalizeAnswer);
+        const pieces = [];
+        const text = q.questionText || '';
+
+        if (id === 9) {
+            pieces.push(`1. Customer is: ${renderSelect(id,0,av[0],['nested array','nested object','root object'])}`);
+            pieces.push(`<br><br>2. Address is: ${renderSelect(id,1,av[1],['nested array','nested object','root object'])}`);
+            pieces.push(`<br><br>3. Social media is: ${renderSelect(id,2,av[2],['nested array','nested object','root object'])}`);
+            return `<div class="question-text">Given the following JSON document structure:<br><br>${renderJsonBlock(id)}<br><br>Use the drop-down menus to select the answer choice that completes each statement.</div>
+                <div class="question-text">${pieces.join('')}</div>
+                ${buildSourcePanel(q)}
+                <div class="actions"><button type="button" onclick="checkMultiDropdown('q${id}')">Submit Selection</button></div>
+                <div class="feedback"></div><div class="explanation"></div>`;
+        }
+        if (id === 15) {
+            return `<div class="question-text">You are reviewing the data model shown in the following exhibit.</div>
+                ${renderExhibitBlock(id)}
+                <div class="question-text">The data model is a ${renderSelect(id,0,av[0],['transactional model','star schema','snowflake schema'])}.<br><br>Customer is a ${renderSelect(id,1,av[1],['fact','dimension','bridge'])} table.</div>
+                ${buildSourcePanel(q)}
+                <div class="actions"><button type="button" onclick="checkMultiDropdown('q${id}')">Submit Selection</button></div>
+                <div class="feedback"></div><div class="explanation"></div>`;
+        }
+        if (id === 37) {
+            return `<div class="question-text">You have the following SQL query:<br><br><code>SELECT ProductName, UnitPrice FROM Products WHERE CategoryID = 5</code></div>
+                <div class="question-text">1. Products is: ${renderSelect(id,0,av[0],['A table','A view','A column','A database'])}</div>
+                <div class="question-text">2. ProductName is: ${renderSelect(id,1,av[1],['A table','A column','A row','A schema'])}</div>
+                ${buildSourcePanel(q)}
+                <div class="actions"><button type="button" onclick="checkMultiDropdown('q${id}')">Submit Selection</button></div>
+                <div class="feedback"></div><div class="explanation"></div>`;
+        }
+        if (id === 32) return buildYesNo({ ...q, type: 'yesno', id: 32 });
+
+        const dropdownData = {
+            1: { prompt: 'Transparent Data Encryption (TDE) encrypts_____', options: ['a column to protect data at rest and in transit.','queries and their results in order to protect data in transit.','the database to protect data at rest.','the server to protect data at rest.'], correct: 'the database to protect data at rest.' },
+            4: { prompt: 'Descriptive analytics tells you_____.', options: ['what is most likely to occur in the future.','what occurred in the past.','which actions you can perform to affect outcomes.','why something occurred in the past.'], correct: 'what occurred in the past.' },
+            5: { prompt: 'Batch Loads _____.', options: ['process data in memory, row-by-row.','collect and process data at most once a day.','process data as new data is received in near real-time.','collect data and then process the data when a condition is met.'], correct: 'collect data and then process the data when a condition is met.' },
+            19: { prompt: 'Relational Data Uses_______to Enforce Relationships Between Different Tables', options: ['keys','columns','documents','relationships'], correct: 'keys' },
+            20: { prompt: 'By default, each Azure SQL database is protected by___', options: ['server level firewall','database level firewall','network security group','virtual network rule'], correct: 'server level firewall' },
+            34: { prompt: 'A relational database must be used when_____.', options: ['strong consistency guarantees are required','only a relational database is acceptable','you need a managed PostgreSQL service','the data is stored exclusively on-premises'], correct: 'strong consistency guarantees are required' },
+            41: { prompt: 'Transcribing audio files is an example of_____analytics.', options: ['Descriptive','Diagnostic','Predictive','Cognitive'], correct: 'Cognitive' },
+            44: { prompt: 'To configure an Azure Storage account to support both security at the folder level and atomic directory manipulation_____.', options: ['set Account kind to BlobStorage','enable the CDN endpoint','Enable the hierarchical namespace','configure a custom domain'], correct: 'Enable the hierarchical namespace' },
+            49: { prompt: 'you can query a graph database in Azure Cosmos DB______', options: ['as nodes and edges by using the Gremlin language','as rows and columns by using SQL','as key-value pairs by using the Table API','only by using the MongoDB API'], correct: 'as nodes and edges by using the Gremlin language.' },
+            53: { prompt: 'You should enable encryption on _____', options: ['a column to encrypt data at rest and in transit','queries to protect data in transit','the dataset to protect data at rest','the server to protect data at rest'], correct: 'the dataset to protect data at rest' },
+            54: { prompt: 'A relational database is appropriate for scenarios that involve a high volume of_____.', options: ['writes that have varying data structures','data that requires complex joins across many tables','time-series data only','high volumes of transactional writes.'], correct: 'high volumes of transactional writes.' },
+            59: { prompt: 'A key/value data store is optimized for _____.', options: ['simple lookups','complex analytics queries','full-text search','hierarchical data modeling'], correct: 'simple lookups' },
+            60: { prompt: 'In an ETL process requires _____.', options: ['data is fully processed before being loaded to the target data store','data is loaded to the target first and then processed','data is processed and loaded simultaneously','data is stored in a staging area indefinitely'], correct: 'data that is fully processed before being loaded to the target data store' },
+            67: { prompt: 'In Azure Data Factory you can use a _____ to orchestrate a pipeline.', options: ['A control flow','A trigger','A dataset','A linked service'], correct: 'A control flow' },
+            70: { prompt: '______a virtual table that contains content defined by a query.', options: ['A view','A stored procedure','An index','A heap'], correct: 'A view' },
+            72: { prompt: 'Querying a Graph Database in Azure Cosmos DB_____.', options: ['as nodes & edges by using Gremlin language','as documents in JSON format','as rows in a table','as key-value pairs'], correct: 'as nodes & edges by using Gremlin language' },
+            73: { prompt: 'The massively parallel processing (MPP) engine of Azure Synapse Analytics_______', options: ['distribute processing across compute nodes','encrypt data at rest','manage user authentication','replicate data across regions'], correct: 'distribute processing across compute nodes' },
+            79: { prompt: 'A data store that is used to represent and query relationships between entities is called a _____.', options: ['graph','columnar','document','key/value'], correct: 'graph' },
+            83: { prompt: 'An object associated with a table that sorts and stores the data rows based on their key values_______', options: ['A clustered index','A non-clustered index','A view','A stored procedure'], correct: 'A clustered index' },
+            93: { prompt: 'The massively parallel processing (MPP) engine of Synapse Analytics_______', options: ['Distribute processing across compute nodes','encrypt sensitive data','manage database backups','configure network firewalls'], correct: 'Distribute processing across compute nodes' },
+            95: { prompt: 'To configure an Azure Storage account to support both security at the folder level and atomic directory manipulation_____', options: ['set Account to Blob Storage','enable Azure CDN','Enable the hierarchical namespace.','configure a load balancer'], correct: 'Enable the hierarchical namespace.' },
+            103: { prompt: 'An extract, load, and transform (ELT) process requires_____', options: ['A target data store powerful enough to transform data','data is loaded without any changes','data is compressed before extraction','data is encrypted during transfer'], correct: 'A target data store powerful enough to transform data' },
+            108: { prompt: 'A relational database stores data in _____.', options: ['a tabular form of rows and columns','a hierarchical tree structure','a graph of nodes and edges','a collection of JSON documents'], correct: 'a tabular form of rows and columns' },
+            109: { prompt: 'Microsoft Power BI _____ are optimized for printing and PDF distribution.', options: ['paginated reports','interactive reports','dashboards','dataflows'], correct: 'paginated reports' },
+            112: { prompt: 'A visualization that shows a university\'s current student enrollment versus the maximum capacity is an example of ____________ analytics.', options: ['Descriptive','Diagnostic','Predictive','Prescriptive'], correct: 'Descriptive' },
+            116: { prompt: 'In Batch processing_____.', options: ['latency is expected','real-time results are required','data is processed as it arrives','low latency is critical'], correct: 'latency is expected' },
+        };
+
+        const data = dropdownData[id];
+        if (data) {
+            const optsHtml = data.options.map(o => `<option value="${escapeHtml(o)}">${escapeHtml(o)}</option>`).join('');
+            const sel = `<select class="inline-select" data-correct="${escapeHtml(data.correct)}"><option value="">-- Select Option --</option>${optsHtml}</select>`;
+            return `<div class="question-text">${escapeHtml(data.prompt)}</div>${sel}${buildSourcePanel(q)}
+                <div class="actions"><button type="button" onclick="checkInline('q${id}')">Submit Answer</button></div>
+                <div class="feedback"></div><div class="explanation"></div>`;
+        }
+
+        return `<div class="question-text">${escapeHtml(text).replace(/\n/g,'<br>')}</div>
+            <select class="inline-select" data-correct="${av[0]||''}"><option value="">-- Select Option --</option><option value="A">Option A</option><option value="B">Option B</option><option value="C">Option C</option><option value="D">Option D</option></select>
+            ${buildSourcePanel(q)}
+            <div class="actions"><button type="button" onclick="checkInline('q${id}')">Submit Answer</button></div>
+            <div class="feedback"></div><div class="explanation"></div>`;
+    }
+
+    function renderSelect(qn,idx,correct,opts) {
+        const vals = opts.map(o => `<option value="${escapeHtml(o)}">${escapeHtml(o)}</option>`).join('');
+        return `<select class="inline-select multi-ans" data-correct="${escapeHtml(correct)}" data-index="${idx}"><option value="">-- Select --</option>${vals}</select>`;
+    }
+
+    function renderJsonBlock(n) {
+        if (n !== 9) return '';
+        return `<div class="json-block">{\n  "customer" : {\n     "first name" : "Ben",\n     "last name" : "Smith",\n     "address" : {\n        "line 1" : "161 Azure Ln",\n        "line 2" : "Palo Alto",\n        "ZIP code" : "54762"\n     },\n     "social media" : [\n        { "service": "twitter", "handle": "@bensmith" },\n        { "service": "linkedin", "handle": "bensmith" }\n     ]\n  }\n}</div>`;
+    }
+
+    function renderExhibitBlock(n) {
+        if (n !== 15) return '';
+        return `<div class="json-block" style="white-space:normal;background:#f8fafc;color:#0f172a;font-family:inherit;line-height:1.4;">
+            <strong>Customer</strong> Key: CustomerID Foreign Keys: None<br><br>
+            <strong>Product</strong> Key: ProductID Foreign Keys: None<br><br>
+            <strong>Sales</strong> Key: SalesID Foreign Keys: CustomerID, ProductID, SalesPersonID, WarehouseID<br><br>
+            <strong>SalesPerson</strong> Key: SalesPersonID Foreign Keys: None<br><br>
+            <strong>Warehouse</strong> Key: WarehouseID Foreign Keys: None</div>`;
+    }
+
+    function buildYesNo(q) {
+        const id = getQuestionId(q);
+        const rows = {
+            6: [['Processing salary payments once a month is an example of a batch workload.','Yes'],['A wind turbine that sends 50 sensor readings per second is an example of a streaming workload.','Yes'],['A home electricity meter that sends readings once a day to an energy provider is an example of a streaming workload.','No']],
+            8: [['A Microsoft Power BI dashboard is associated with a single workspace.','No'],['A Microsoft Power BI dashboard can only display visualizations from a single dataset.','No'],['A Microsoft Power BI dashboard can display visualizations from a Microsoft Excel workbook.','Yes']],
+            18: [['The Azure Cosmos DB API is configured separately for each database in an Azure Cosmos DB account.','No'],['Partition keys are used in Azure Cosmos DB to optimize queries.','Yes'],['Items contained in the same Azure Cosmos DB logical partition can have different partition keys.','No']],
+            29: [['A clustered index determines the physical order of data in a table.','Yes'],['A table can have multiple clustered indexes.','No'],['A non-clustered index can be created on a view.','Yes']],
+            32: [['You can create a view by using the CREATE VIEW Transact-SQL statement.','No'],['An index can be created on a view.','No'],['A view can be used to join data from multiple tables.','Yes']],
+            42: [['Descriptive analytics is used to summarize historical data.','Yes'],['Diagnostic analytics is used to determine why something happened.','Yes'],['Predictive analytics is used to determine what is happening right now.','No']],
+            46: [['Azure Blob storage can store files that are accessed from HTTP.','Yes'],['Azure Queue storage is used to store tabular data.','No'],['Azure Table storage supports schemaless design.','Yes']],
+            48: [['A Power BI dashboard can display visualizations from multiple workspaces.','Yes'],['A Power BI report can only contain data from a single dataset.','No'],['Power BI supports row-level security (RLS) to restrict data access.','Yes'],['Power BI datasets can be refreshed manually or on a schedule.','Yes']],
+            50: [['Azure Data Lake Storage is a relational database service.','No'],['Azure Cosmos DB supports multiple APIs such as SQL, MongoDB, and Gremlin.','Yes'],['Azure Synapse Analytics can be used to run SQL queries on data lake storage.','Yes']],
+            55: [['Encryption at rest protects data that is stored on disk.','Yes'],['A firewall rule can restrict access to an Azure SQL database by IP address.','Yes'],['Transparent Data Encryption (TDE) encrypts the entire database.','Yes']],
+            56: [['A primary key constraint uniquely identifies each row in a table.','Yes'],['A foreign key constraint ensures referential integrity between two tables.','Yes'],['A NULL value is the same as a zero value.','Yes']],
+            78: [['Azure Cosmos DB provides single-digit millisecond latency at the 99th percentile.','Yes'],['Azure Cosmos DB is a fully managed NoSQL database service.','Yes'],['Azure Cosmos DB only supports the SQL (Core) API.','No']],
+            91: [['Streaming data processing handles data in real time as it arrives.','Yes'],['Batch processing is the preferred method for processing IoT sensor data in real time.','No'],['Micro-batch processing processes small groups of events at a time.','Yes']],
+            92: [['Azure SQL Database requires you to manage the underlying operating system.','No'],['Azure SQL Database supports automatic backups.','Yes'],['Azure SQL Database can be scaled up or down without downtime.','Yes']],
+            97: [['Data visualization helps to communicate insights from data.','Yes'],['Dashboards provide a high-level overview of key metrics.','Yes'],['Visualizations can be used to compare data across different categories.','Yes']],
+            98: [['Descriptive analytics predicts future outcomes.','No'],['Diagnostic analytics determines what is happening in real time.','No'],['Prescriptive analytics recommends actions based on data analysis.','Yes']],
+            99: [['A SELECT statement is used to retrieve data from a database.','Yes'],['The WHERE clause filters rows based on specified conditions.','Yes'],['The GROUP BY clause sorts the result set in ascending order.','No']],
+            111: [['Azure HDInsight is a fully managed relational database service.','No'],['Azure Databricks is an Apache Spark-based analytics service.','Yes'],['Azure Cosmos DB is a data warehouse service.','No']],
+            115: [['ETL stands for Extract, Transform, and Load.','Yes'],['In an ELT process, data transformation occurs before loading to the target.','No'],['A data warehouse is optimized for analytical queries.','Yes']],
+        }[id] || [];
+
+        const rowHtml = rows.map(([s,a]) => `
+            <tr class="stmt-row" data-ans="${a}"><td>${escapeHtml(s)}</td><td><select class="inline-select"><option value="">-- Choose --</option><option value="Yes">Yes</option><option value="No">No</option></select></td></tr>
+        `).join('');
+
+        return `<div class="question-text">For each of the following statements, select Yes if the statement is true. Otherwise, select No.</div>
+            <table class="statement-table"><thead><tr><th>Statement</th><th>Response</th></tr></thead><tbody>${rowHtml}</tbody></table>
+            ${buildSourcePanel(q)}
+            <div class="actions"><button type="button" onclick="checkMatrix('q${id}')">Submit Table Choices</button></div>
+            <div class="feedback"></div><div class="explanation"></div>`;
+    }
+
+    function buildMatch(q) {
+        const id = getQuestionId(q);
+        if (id === 3) {
+            return `<div class="question-text">Match the types of data stores to the appropriate scenarios. Drag the correct data store from the left container into the matching target zone.</div>
+                <div class="drag-layout">
+                    <div class="pool-box"><h3>Data Store Types</h3>
+                        <div class="draggable-item" draggable="true" ondragstart="drag(event)" id="q3-i1">Key/Value</div>
+                        <div class="draggable-item" draggable="true" ondragstart="drag(event)" id="q3-i2">Object</div>
+                        <div class="draggable-item" draggable="true" ondragstart="drag(event)" id="q3-i3">Graph</div>
+                    </div>
+                    <div class="match-box"><h3>Scenarios</h3>
+                        <table class="drop-zone-table"><thead><tr><th>Scenario</th><th>Target</th></tr></thead><tbody>
+                            <tr><td>Application users and their default language</td><td><div class="drop-target" id="q3-target1" data-match="Key/Value" ondrop="drop(event)" ondragover="allowDrop(event)"></div></td></tr>
+                            <tr><td>Medical images and their associated metadata</td><td><div class="drop-target" id="q3-target2" data-match="Object" ondrop="drop(event)" ondragover="allowDrop(event)"></div></td></tr>
+                            <tr><td>Employee data showing relationships between employees</td><td><div class="drop-target" id="q3-target3" data-match="Graph" ondrop="drop(event)" ondragover="allowDrop(event)"></div></td></tr>
+                        </tbody></table>
+                    </div>
+                </div>${buildSourcePanel(q)}
+                <div class="actions"><button type="button" onclick="checkDragDrop('q${id}')">Submit Match</button></div>
+                <div class="feedback"></div><div class="explanation"></div>`;
+        }
+        if (id === 13) {
+            return `<div class="question-text">Match the Azure services to appropriate requirements. Drag the appropriate services from the left to its requirement on the right.</div>
+                <div class="drag-layout">
+                    <div class="pool-box"><h3>Azure Services</h3>
+                        <div class="draggable-item" draggable="true" ondragstart="drag(event)" id="q13-i1">Azure Data Factory</div>
+                        <div class="draggable-item" draggable="true" ondragstart="drag(event)" id="q13-i2">Azure Data Lake Storage</div>
+                        <div class="draggable-item" draggable="true" ondragstart="drag(event)" id="q13-i3">Azure Synapse Analytics</div>
+                    </div>
+                    <div class="match-box"><h3>Answer Area</h3>
+                        <table class="drop-zone-table"><thead><tr><th>Target</th><th>Requirement</th></tr></thead><tbody>
+                            <tr><td><div class="drop-target" id="q13-target1" data-match="Azure Data Factory" ondrop="drop(event)" ondragover="allowDrop(event)"></div></td><td>Output data to Parquet format.</td></tr>
+                            <tr><td><div class="drop-target" id="q13-target2" data-match="Azure Data Lake Storage" ondrop="drop(event)" ondragover="allowDrop(event)"></div></td><td>Store data that is in Parquet format.</td></tr>
+                            <tr><td><div class="drop-target" id="q13-target3" data-match="Azure Synapse Analytics" ondrop="drop(event)" ondragover="allowDrop(event)"></div></td><td>Persist a tabular representation of data stored in Parquet format.</td></tr>
+                        </tbody></table>
+                    </div>
+                </div>${buildSourcePanel(q)}
+                <div class="actions"><button type="button" onclick="checkDragDrop('q${id}')">Submit Match</button></div>
+                <div class="feedback"></div><div class="explanation"></div>`;
+        }
+        const md = matchData[id];
+        if (md) {
+            const correctItems = md.targets.map(t => t[1]);
+            const uniqueItems = [...new Set(correctItems)];
+            const shuffledItems = shuffle(uniqueItems);
+            let itemCounter = 0;
+            const itemHtml = shuffledItems.map(item => {
+                itemCounter++;
+                return `<div class="draggable-item" draggable="true" ondragstart="drag(event)" id="q${id}-i${itemCounter}">${escapeHtml(item)}</div>`;
+            }).join('');
+            const targetHtml = md.targets.map((t, i) => {
+                return `<tr><td>${escapeHtml(t[0])}</td><td><div class="drop-target" id="q${id}-target${i+1}" data-match="${escapeHtml(t[1])}" ondrop="drop(event)" ondragover="allowDrop(event)"></div></td></tr>`;
+            }).join('');
+            return `<div class="question-text">Match the items from the left to the correct targets on the right.</div>
+                <div class="drag-layout">
+                    <div class="pool-box"><h3>${escapeHtml(md.pool)}</h3>${itemHtml}</div>
+                    <div class="match-box"><h3>Scenarios</h3><table class="drop-zone-table"><thead><tr><th>Description</th><th>Target</th></tr></thead><tbody>${targetHtml}</tbody></table></div>
+                </div>${buildSourcePanel(q)}
+                <div class="actions"><button type="button" onclick="checkDragDrop('q${id}')">Submit Match</button></div>
+                <div class="feedback"></div><div class="explanation"></div>`;
+        }
+        return `<div class="question-text">${escapeHtml(q.questionText)}</div>
+            <div class="feedback" style="display:block;background:#fff3cd;color:#856404;border:1px solid #ffc107;">This match question requires the source PDF exhibit. Use "Toggle source page" to view the original.</div>
+            ${buildSourcePanel(q)}`;
+    }
+
+    function buildQuestionCard(q) {
+        const id = getQuestionId(q);
+        let body = '';
+        if (q.type === 'mcq') body = buildMcq(q);
+        else if (q.type === 'dropdown') body = buildDropdown(q);
+        else if (q.type === 'yesno') body = buildYesNo(q);
+        else if (q.type === 'match') body = buildMatch(q);
+        return `<section class="question-card" data-type="${q.type}" data-qid="${id}" id="q${id}">${buildHeader(q)}${body}</section>`;
+    }
+
+    function toggleSource(id) {
+        const p = document.getElementById(id);
+        if (!p) return;
+        p.style.display = p.style.display === 'block' ? 'none' : 'block';
+    }
+
+    function allowDrop(ev) { ev.preventDefault(); }
+
+    function drag(ev) { ev.dataTransfer.setData('text', ev.target.id); }
+
+    function drop(ev) {
+        ev.preventDefault();
+        const data = ev.dataTransfer.getData('text');
+        const el = document.getElementById(data);
+        if (!el) return;
+        if (ev.target.classList.contains('drop-target')) {
+            ev.target.appendChild(el);
+        }
+    }
+
+    function markAnswered(id) {
+        if (!questionStates[id]) questionStates[id] = { answered: false, flagged: false, userAnswer: null };
+        questionStates[id].answered = true;
+        updateNav();
+        updateProgress();
+        saveState();
+    }
+
+    function checkMCQ(cardId, correctVal) {
+        const card = document.getElementById(cardId);
+        const selected = [...card.querySelectorAll(`input[name="${cardId}-opt"]:checked`)];
+        const fb = card.querySelector('.feedback');
+        const exp = card.querySelector('.explanation');
+        const correct = Array.isArray(correctVal) ? correctVal : [correctVal];
+        const id = parseInt(cardId.replace('q',''));
+
+        if (!selected.length) { alert(correct.length > 1 ? 'Please choose all correct answers first.' : 'Please choose an answer first.'); return; }
+
+        const sel = selected.map(i => i.value).sort();
+        const expc = correct.map(v => String(v)).sort();
+        const ok = sel.length === expc.length && sel.every((v,i) => v === expc[i]);
+
+        fb.style.display = 'block';
+        fb.className = 'feedback ' + (ok ? 'correct' : 'incorrect');
+        fb.innerText = ok ? 'Correct! Well done.' : (correct.length > 1 ? `Incorrect. The correct answers are ${expc.join(', ')}.` : `Incorrect. The correct answer is option ${expc[0]}.`);
+
+        if (exp) {
+            const explanation = getExplanation(id);
+            if (explanation) { exp.style.display = 'block'; exp.innerText = explanation; }
+        }
+        markAnswered(id);
+    }
+
+    function checkInline(cardId) {
+        const card = document.getElementById(cardId);
+        const sel = card.querySelector('select');
+        const fb = card.querySelector('.feedback');
+        const exp = card.querySelector('.explanation');
+        const id = parseInt(cardId.replace('q',''));
+
+        if (sel.value === '') { alert('Please pick an option from the menu.'); return; }
+
+        const expected = sel.getAttribute('data-correct');
+        const ok = sel.value === expected;
+        fb.style.display = 'block';
+        fb.className = 'feedback ' + (ok ? 'correct' : 'incorrect');
+        fb.innerText = ok ? 'Correct!' : 'Incorrect choice. Please try again.';
+
+        if (exp) {
+            const explanation = getExplanation(id);
+            if (explanation) { exp.style.display = 'block'; exp.innerText = explanation; }
+        }
+        markAnswered(id);
+    }
+
+    function checkMultiDropdown(cardId) {
+        const card = document.getElementById(cardId);
+        const sels = card.querySelectorAll('.multi-ans');
+        const fb = card.querySelector('.feedback');
+        const exp = card.querySelector('.explanation');
+        const id = parseInt(cardId.replace('q',''));
+        let ok = true;
+        sels.forEach(s => { if (s.value !== s.getAttribute('data-correct')) ok = false; });
+
+        fb.style.display = 'block';
+        fb.className = 'feedback ' + (ok ? 'correct' : 'incorrect');
+        fb.innerText = ok ? 'Correct!' : 'One or more selections are not correct.';
+
+        if (exp) {
+            const explanation = getExplanation(id);
+            if (explanation) { exp.style.display = 'block'; exp.innerText = explanation; }
+        }
+        markAnswered(id);
+    }
+
+    function checkMatrix(cardId) {
+        const card = document.getElementById(cardId);
+        const rows = card.querySelectorAll('.stmt-row');
+        const fb = card.querySelector('.feedback');
+        const exp = card.querySelector('.explanation');
+        const id = parseInt(cardId.replace('q',''));
+        let correct = 0;
+        rows.forEach(r => { if (r.querySelector('select').value === r.getAttribute('data-ans')) correct++; });
+
+        fb.style.display = 'block';
+        fb.className = 'feedback ' + (correct === rows.length ? 'correct' : 'incorrect');
+        fb.innerText = correct === rows.length ? 'Correct!' : `You correctly identified ${correct} out of ${rows.length} statements.`;
+
+        if (exp) {
+            const explanation = getExplanation(id);
+            if (explanation) { exp.style.display = 'block'; exp.innerText = explanation; }
+        }
+        markAnswered(id);
+    }
+
+    function checkDragDrop(cardId) {
+        const card = document.getElementById(cardId);
+        const targets = card.querySelectorAll('.drop-target');
+        const fb = card.querySelector('.feedback');
+        const exp = card.querySelector('.explanation');
+        const id = parseInt(cardId.replace('q',''));
+        let mistake = false;
+        targets.forEach(t => {
+            if (t.children.length === 0) { mistake = true; return; }
+            if (t.children[0].innerText.trim() !== t.getAttribute('data-match')) mistake = true;
+        });
+
+        fb.style.display = 'block';
+        fb.className = 'feedback ' + (mistake ? 'incorrect' : 'correct');
+        fb.innerText = mistake ? 'Incorrect allocations. Drag elements back and try again.' : 'Perfect Match!';
+
+        if (exp) {
+            const explanation = getExplanation(id);
+            if (explanation) { exp.style.display = 'block'; exp.innerText = explanation; }
+        }
+        markAnswered(id);
+    }
+
+    function getExplanation(id) {
+        const explanations = {
+            7: 'Read-only replicas are used to offload read workloads such as analytics and reporting from the write replica.',
+            11: 'Azure SQL Database firewall rules control access by client IP address, so a changed external IP must be added to the allow list.',
+            12: 'Internet-connected temperature sensor trend analysis is a time-series scenario.',
+            69: 'Multi-write and read regions are configured at the Cosmos DB account level.',
+            71: 'Azure SQL Database is the recommended PaaS option for OLTP workloads.',
+            82: 'A bar chart showing YTD sales by region is descriptive analytics (what happened).',
+            84: 'A view persists a SQL query so other users can reference it.',
+            87: 'Reading from a data warehouse for QA is Online Analytical Processing (OLAP).',
+            88: 'Data visualization represents trends over time and communicates the significance of data.',
+            104: 'Azure Private Link provides private connectivity from a VM to Azure SQL without internet exposure.',
+            121: 'Azure Files provides SMB/NFS file shares that can be mapped as network drives.',
+            122: 'An integration runtime provides the compute environment for ADF activities.',
+        };
+        return explanations[id] || null;
+    }
+
+    function toggleFlag(id) {
+        if (!questionStates[id]) questionStates[id] = { answered: false, flagged: false };
+        questionStates[id].flagged = !questionStates[id].flagged;
+        const card = document.getElementById('q' + id);
+        if (card) {
+            const btn = card.querySelector('.flag-btn');
+            if (btn) {
+                btn.classList.toggle('flagged', questionStates[id].flagged);
+                btn.innerText = questionStates[id].flagged ? '\u2691 Flagged' : '\u2691 Flag';
+            }
+        }
+        updateNav();
+        saveState();
+    }
+
+    function applyFilter(type) {
+        activeFilter = type;
+        document.querySelectorAll('.chip').forEach(c => c.classList.toggle('active', c.dataset.type === type));
+        document.querySelectorAll('.question-card').forEach(c => {
+            c.classList.toggle('hidden', type !== 'all' && c.dataset.type !== type);
+        });
+    }
+
+    function renderFilters() {
+        const root = document.getElementById('type-filters');
+        root.innerHTML = typePriority.map(t => `<button class="chip${t==='all'?' active':''}" type="button" data-type="${t}" onclick="applyFilter('${t}')">${t==='all'?'All':typeLabels[t]}</button>`).join('');
+    }
+
+    function buildNav() {
+        const grid = document.getElementById('nav-grid');
+        grid.innerHTML = questions.map(q => {
+            const id = getQuestionId(q);
+            return `<button type="button" class="nav-btn" data-qid="${id}" onclick="scrollToQuestion(${id})">${id}</button>`;
+        }).join('');
+    }
+
+    function scrollToQuestion(id) {
+        const el = document.getElementById('q' + id);
+        if (el) {
+            el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            document.querySelectorAll('.question-card.current-q').forEach(c => c.classList.remove('current-q'));
+            el.classList.add('current-q');
+            currentQuestionId = id;
+        }
+    }
+
+    function updateNav() {
+        document.querySelectorAll('.nav-btn').forEach(btn => {
+            const id = parseInt(btn.dataset.qid);
+            const state = questionStates[id];
+            btn.classList.toggle('answered', state?.answered);
+            btn.classList.toggle('flagged', state?.flagged);
+            btn.classList.toggle('current', id === currentQuestionId);
+        });
+    }
+
+    function updateProgress() {
+        const total = questions.length;
+        const answered = questions.filter(q => questionStates[getQuestionId(q)]?.answered).length;
+        document.getElementById('answered-count').textContent = answered;
+        document.getElementById('total-count').textContent = total;
+        document.getElementById('progress-fill').style.width = (total ? (answered/total*100) : 0) + '%';
+    }
+
+    function formatTime(s) {
+        const m = Math.floor(s / 60);
+        const sec = s % 60;
+        return `${String(m).padStart(2,'0')}:${String(sec).padStart(2,'0')}`;
+    }
+
+    function startTimer() {
+        if (timerRunning) return;
+        timerRunning = true;
+        document.getElementById('timer-toggle').textContent = 'Pause';
+        timerInterval = setInterval(() => {
+            timerSeconds--;
+            document.getElementById('timer-display').textContent = formatTime(timerSeconds);
+            if (timerSeconds <= 300) document.getElementById('timer-bar').classList.add('warning');
+            if (timerSeconds <= 0) {
+                clearInterval(timerInterval);
+                timerRunning = false;
+                submitQuiz();
+            }
+        }, 1000);
+    }
+
+    function toggleTimer() {
+        if (timerRunning) {
+            clearInterval(timerInterval);
+            timerRunning = false;
+            document.getElementById('timer-toggle').textContent = 'Resume';
+        } else {
+            startTimer();
+        }
+    }
+
+    function submitQuiz() {
+        if (examSubmitted) return;
+        const answered = questions.filter(q => questionStates[getQuestionId(q)]?.answered).length;
+        const total = questions.length;
+        if (answered < total && !confirm(`You have answered ${answered} of ${total} questions. Submit anyway?`)) return;
+
+        examSubmitted = true;
+        clearInterval(timerInterval);
+        timerRunning = false;
+
+        let correct = 0, incorrect = 0, unanswered = 0;
+        questions.forEach(q => {
+            const id = getQuestionId(q);
+            const state = questionStates[id];
+            if (!state?.answered) { unanswered++; return; }
+            const key = answerKeyByNumber[id];
+            if (!key) { incorrect++; return; }
+            const correctVals = (key.values || []).sort().join(',');
+            let userAns = '';
+            const card = document.getElementById('q' + id);
+            if (!card) { incorrect++; return; }
+
+            if (q.type === 'mcq') {
+                const checked = [...card.querySelectorAll(`input[name="q${id}-opt"]:checked`)].map(i => i.value).sort().join(',');
+                userAns = checked;
+            } else if (q.type === 'dropdown') {
+                const selects = card.querySelectorAll('.multi-ans');
+                if (selects.length) {
+                    userAns = [...selects].map(s => s.value).sort().join(',');
+                } else {
+                    const sel = card.querySelector('select');
+                    userAns = sel ? sel.value : '';
+                }
+            } else if (q.type === 'yesno') {
+                const selvals = [...card.querySelectorAll('.stmt-row select')].map(s => s.value);
+                userAns = selvals.join(',');
+            } else {
+                userAns = 'submitted';
+            }
+
+            const correctJoined = correctVals;
+            if (userAns === correctJoined || (q.type === 'match' && userAns === 'submitted')) {
+                if (q.type === 'match') { correct++; return; }
+                correct++;
+            } else {
+                incorrect++;
+            }
+        });
+
+        const totalScored = correct + incorrect;
+        const pct = totalScored > 0 ? Math.round(correct / totalScored * 100) : 0;
+        const elapsed = TIMER_MINUTES * 60 - timerSeconds;
+        const mins = Math.floor(elapsed / 60);
+        const secs = elapsed % 60;
+
+        document.getElementById('results-title').textContent = pct >= 70 ? 'Congratulations!' : 'Exam Complete';
+        document.getElementById('results-score').textContent = pct + '%';
+        document.getElementById('results-score').className = 'score-big ' + (pct >= 70 ? 'pass' : 'fail');
+        document.getElementById('results-msg').textContent = pct >= 70 ? 'You passed! Great job on DP-900 prep.' : 'Keep studying! Review the incorrect answers below.';
+        document.getElementById('r-correct').textContent = correct;
+        document.getElementById('r-incorrect').textContent = incorrect;
+        document.getElementById('r-unanswered').textContent = unanswered;
+        document.getElementById('r-time').textContent = `${mins}m ${secs}s`;
+        document.getElementById('results-overlay').classList.add('show');
+    }
+
+    function reviewAnswers() {
+        document.getElementById('results-overlay').classList.remove('show');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function retakeQuiz() {
+        if (!confirm('This will reset all answers and the timer. Continue?')) return;
+        localStorage.removeItem('dp900_state');
+        location.reload();
+    }
+
+    function clearAll() {
+        if (!confirm('Reset all answers and the timer?')) return;
+        localStorage.removeItem('dp900_state');
+        location.reload();
+    }
+
+    function saveState() {
+        const data = { questionStates, timerSeconds, startTime: startTime?.toISOString() };
+        try { localStorage.setItem('dp900_state', JSON.stringify(data)); } catch(e) {}
+    }
+
+    function loadState() {
+        try {
+            const raw = localStorage.getItem('dp900_state');
+            if (!raw) return null;
+            return JSON.parse(raw);
+        } catch(e) { return null; }
+    }
+
+    function renderQuiz() {
+        questions = window.dp900Questions;
+        const root = document.getElementById('quiz-root');
+        root.innerHTML = questions.map(buildQuestionCard).join('');
+        document.getElementById('quiz-meta').textContent = `${questions.length} questions loaded.`;
+        renderFilters();
+        buildNav();
+        applyFilter('all');
+
+        const saved = loadState();
+        if (saved) {
+            questionStates = saved.questionStates || {};
+            timerSeconds = saved.timerSeconds ?? TIMER_MINUTES * 60;
+            document.getElementById('timer-display').textContent = formatTime(timerSeconds);
+            if (timerSeconds <= 300) document.getElementById('timer-bar').classList.add('warning');
+        }
+
+        startTime = new Date();
+        updateProgress();
+        updateNav();
+        startTimer();
+    }
+
+    window.addEventListener('scroll', () => {
+        const cards = document.querySelectorAll('.question-card:not(.hidden)');
+        let closest = null;
+        let minDist = Infinity;
+        cards.forEach(c => {
+            const rect = c.getBoundingClientRect();
+            const dist = Math.abs(rect.top - 200);
+            if (dist < minDist) { minDist = dist; closest = c; }
+        });
+        if (closest) {
+            const id = parseInt(closest.dataset.qid);
+            if (id !== currentQuestionId) {
+                currentQuestionId = id;
+                updateNav();
+            }
+        }
+    });
+
+    document.addEventListener('DOMContentLoaded', renderQuiz);
+</script>
+</body>
+</html>
