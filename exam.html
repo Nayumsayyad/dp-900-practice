@@ -612,14 +612,14 @@
         19:['keys'],20:['server level firewall'],21:['A','D'],22:['A','C'],
         23:['Data movement','Data transformation','Control'],24:['D'],25:['C'],
         26:['Batch','Streaming','Micro-batch'],27:['B'],28:['A'],29:['Yes','No','Yes'],
-        30:['A'],31:['B'],32:['No','No','Yes'],33:['C'],
+        30:['A'],31:['D'],32:['No','No','Yes'],33:['B'],
         34:['strong consistency guarantees are required'],35:['B','C','E'],36:['Select','Order By'],
         37:['A table','A column'],38:['D'],39:['D'],40:['A'],41:['Cognitive'],
         42:['Yes','Yes','No'],43:['B'],44:['Enable the hierarchical namespace'],45:['C'],
         46:['Yes','No','Yes'],47:['C'],48:['Yes','No','Yes','Yes'],
-        49:['as nodes and edges by using the Gremlin language.'],50:['No','Yes','Yes'],
-        51:['B'],52:['Data Set','Linked Service','Pipeline'],53:['the dataset to protect data at rest'],
-        54:['high volumes of transactional writes.'],55:['Yes','Yes','Yes'],56:['Yes','Yes','Yes'],
+        49:['as nodes and edges by using the Gremlin language'],50:['No','Yes','Yes'],
+        51:['C'],52:['Data Set','Linked Service','Pipeline'],53:['the dataset to protect data at rest'],
+        54:['high volumes of transactional writes.'],55:['Yes','Yes','Yes'],        56:['Yes','Yes','No'],
         57:['C'],58:['Folders','Files'],59:['simple lookups'],
         60:['data is fully processed before being loaded to the target data store'],
         61:['B'],62:['CRM System','Data Warehouse','In memory data integration'],63:['A','C'],
@@ -651,7 +651,7 @@
         34:{prompt:'A relational database must be used when _____.',opts:['strong consistency guarantees are required','only a relational database is acceptable','you need a managed PostgreSQL service','the data is stored exclusively on-premises'],ans:'strong consistency guarantees are required'},
         41:{prompt:'Transcribing audio files is an example of _____ analytics.',opts:['Descriptive','Diagnostic','Predictive','Cognitive'],ans:'Cognitive'},
         44:{prompt:'To configure an Azure Storage account to support both security at the folder level and atomic directory manipulation _____.',opts:['set Account kind to BlobStorage','enable the CDN endpoint','Enable the hierarchical namespace','configure a custom domain'],ans:'Enable the hierarchical namespace'},
-        49:{prompt:'You can query a graph database in Azure Cosmos DB _____',opts:['as nodes and edges by using the Gremlin language','as rows and columns by using SQL','as key-value pairs by using the Table API','only by using the MongoDB API'],ans:'as nodes and edges by using the Gremlin language.'},
+        49:{prompt:'You can query a graph database in Azure Cosmos DB _____',opts:['as nodes and edges by using the Gremlin language','as rows and columns by using SQL','as key-value pairs by using the Table API','only by using the MongoDB API'],ans:'as nodes and edges by using the Gremlin language'},
         53:{prompt:'You should enable encryption on _____',opts:['a column to encrypt data at rest and in transit','queries to protect data in transit','the dataset to protect data at rest','the server to protect data at rest'],ans:'the dataset to protect data at rest'},
         54:{prompt:'A relational database is appropriate for scenarios that involve a high volume of _____.',opts:['writes that have varying data structures','data that requires complex joins across many tables','time-series data only','high volumes of transactional writes.'],ans:'high volumes of transactional writes.'},
         59:{prompt:'A key/value data store is optimized for _____.',opts:['simple lookups','complex analytics queries','full-text search','hierarchical data modeling'],ans:'simple lookups'},
@@ -682,7 +682,7 @@
         48:[['A Power BI dashboard can display visualizations from multiple workspaces.','Yes'],['A Power BI report can only contain data from a single dataset.','No'],['Power BI supports row-level security (RLS).','Yes'],['Power BI datasets can be refreshed manually or on a schedule.','Yes']],
         50:[['Azure Data Lake Storage is a relational database service.','No'],['Azure Cosmos DB supports multiple APIs.','Yes'],['Azure Synapse Analytics can run SQL queries on data lake storage.','Yes']],
         55:[['Encryption at rest protects data stored on disk.','Yes'],['A firewall rule can restrict access by IP address.','Yes'],['Transparent Data Encryption (TDE) encrypts the entire database.','Yes']],
-        56:[['A primary key uniquely identifies each row in a table.','Yes'],['A foreign key ensures referential integrity between two tables.','Yes'],['A NULL value is the same as a zero value.','Yes']],
+        56:[['A primary key uniquely identifies each row in a table.','Yes'],['A foreign key ensures referential integrity between two tables.','Yes'],['A NULL value is the same as a zero value.','No']],
         78:[['Azure Cosmos DB provides single-digit millisecond latency at the 99th percentile.','Yes'],['Azure Cosmos DB is a fully managed NoSQL database service.','Yes'],['Azure Cosmos DB only supports the SQL (Core) API.','No']],
         91:[['Streaming data processing handles data in real time as it arrives.','Yes'],['Batch processing is preferred for processing IoT sensor data in real time.','No'],['Micro-batch processing processes small groups of events at a time.','Yes']],
         92:[['Azure SQL Database requires you to manage the underlying OS.','No'],['Azure SQL Database supports automatic backups.','Yes'],['Azure SQL Database can be scaled without downtime.','Yes']],
@@ -694,6 +694,12 @@
     };
 
     const matchData = {
+        3: { pool: 'Data Store Types', targets: [
+            ['Application users and their default language','Key/Value'],['Medical images and associated metadata','Object'],['Employee data showing relationships','Graph']
+        ]},
+        13: { pool: 'Azure Services', targets: [
+            ['Output data to Parquet format','Azure Data Factory'],['Store data that is in Parquet format','Azure Data Lake Storage'],['Persist a tabular representation of data in Parquet format','Azure Synapse Analytics']
+        ]},
         23: { pool: 'Activity Types', targets: [
             ['Copy activity','Data movement'],['Mapping Data Flow','Data transformation'],['If/Until/ForEach activity','Control']
         ]},
@@ -890,9 +896,8 @@
         }
         const md = matchData[id];
         if (md) {
-            const correctItems = md.targets.map(t => t[1]);
-            const uniqueItems = [...new Set(correctItems)];
-            const shuffledItems = shuffle(uniqueItems);
+        const correctItems = md.targets.map(t => t[1]);
+        const shuffledItems = shuffle(correctItems);
             let itemCounter = 0;
             const itemHtml = shuffledItems.map(item => {
                 itemCounter++;
@@ -918,7 +923,15 @@
         if (!isMulti) {
             document.querySelectorAll(`#opts-${idx} .opt-label`).forEach(l => l.classList.remove('selected'));
         }
-        document.getElementById(`opt-${idx}-${letter}`).classList.add('selected');
+        const label = document.getElementById(`opt-${idx}-${letter}`);
+        if (label) {
+            const input = label.querySelector('input');
+            if (input && isMulti) {
+                label.classList.toggle('selected', input.checked);
+            } else if (label) {
+                label.classList.add('selected');
+            }
+        }
         userAnswers[idx] = userAnswers[idx] || {};
         if (isMulti) {
             const checked = [...document.querySelectorAll(`#opts-${idx} input:checked`)].map(i => i.value).sort();
@@ -957,8 +970,9 @@
         ev.preventDefault();
         const data = ev.dataTransfer.getData('text');
         const el = document.getElementById(data);
-        if (el && ev.target.classList.contains('drop-target')) {
-            ev.target.appendChild(el);
+        if (el) {
+            const target = ev.target.closest('.drop-target');
+            if (target) target.appendChild(el);
         }
     };
 
@@ -1101,7 +1115,7 @@
             let userStr, correctStr;
             if (q.type === 'mcq') {
                 userStr = (Array.isArray(ua) ? ua : [ua]).sort().join(',');
-                correctStr = correctVals.sort().join(',');
+                correctStr = [...correctVals].sort().join(',');
             } else if (q.type === 'dropdown') {
                 const norm = ua.map(a => String(a || '').trim().toLowerCase());
                 const normC = correctVals.map(a => String(a || '').trim().toLowerCase());
@@ -1183,7 +1197,7 @@
                         details += `<div style="padding:4px 0;"><strong>${escapeHtml(t[0])}</strong> → <span style="color:${ok?'var(--success)':'var(--error)'}">${escapeHtml(dropped)}</span>${ok?'':' (correct: '+escapeHtml(t[1])+')'}</div>`;
                     });
                     isCorrect = matchCorrect;
-                    const status = matchCorrect ? 'was-correct' : 'was-unanswered';
+                    const status = matchCorrect ? 'was-correct' : 'was-incorrect';
                     const statusText = matchCorrect ? 'Correct' : 'Incorrect';
                     html += `<div class="review-q ${status}">
                         <h3>Q${idx+1} (${q.type}) <span style="font-weight:400;font-size:0.85rem;color:${matchCorrect?'var(--success)':'var(--error)'}">${statusText}</span></h3>

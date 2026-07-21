@@ -670,9 +670,9 @@
         28: { type: 'mcq', values: ['A'] },
         29: { type: 'yesno', values: ['Yes', 'No', 'Yes'] },
         30: { type: 'mcq', values: ['A'] },
-        31: { type: 'mcq', values: ['B'] },
+        31: { type: 'mcq', values: ['D'] },
         32: { type: 'yesno', values: ['No', 'No', 'Yes'] },
-        33: { type: 'mcq', values: ['C'] },
+        33: { type: 'mcq', values: ['B'] },
         34: { type: 'dropdown', values: ['strong consistency guarantees are required'] },
         35: { type: 'mcq', values: ['B', 'C', 'E'] },
         36: { type: 'match', values: ['Select', 'Order By'] },
@@ -688,14 +688,14 @@
         46: { type: 'yesno', values: ['Yes', 'No', 'Yes'] },
         47: { type: 'mcq', values: ['C'] },
         48: { type: 'yesno', values: ['Yes', 'No', 'Yes', 'Yes'] },
-        49: { type: 'dropdown', values: ['as nodes and edges by using the Gremlin language.'] },
+        49: { type: 'dropdown', values: ['as nodes and edges by using the Gremlin language'] },
         50: { type: 'yesno', values: ['No', 'Yes', 'Yes'] },
-        51: { type: 'mcq', values: ['B'] },
+        51: { type: 'mcq', values: ['C'] },
         52: { type: 'match', values: ['Data Set', 'Linked Service', 'Pipeline'] },
         53: { type: 'dropdown', values: ['the dataset to protect data at rest'] },
         54: { type: 'dropdown', values: ['high volumes of transactional writes.'] },
         55: { type: 'yesno', values: ['Yes', 'Yes', 'Yes'] },
-        56: { type: 'yesno', values: ['Yes', 'Yes', 'Yes'] },
+        56: { type: 'yesno', values: ['Yes', 'Yes', 'No'] },
         57: { type: 'mcq', values: ['C'] },
         58: { type: 'match', values: ['Folders', 'Files'] },
         59: { type: 'dropdown', values: ['simple lookups'] },
@@ -896,11 +896,11 @@
             34: { prompt: 'A relational database must be used when_____.', options: ['strong consistency guarantees are required','only a relational database is acceptable','you need a managed PostgreSQL service','the data is stored exclusively on-premises'], correct: 'strong consistency guarantees are required' },
             41: { prompt: 'Transcribing audio files is an example of_____analytics.', options: ['Descriptive','Diagnostic','Predictive','Cognitive'], correct: 'Cognitive' },
             44: { prompt: 'To configure an Azure Storage account to support both security at the folder level and atomic directory manipulation_____.', options: ['set Account kind to BlobStorage','enable the CDN endpoint','Enable the hierarchical namespace','configure a custom domain'], correct: 'Enable the hierarchical namespace' },
-            49: { prompt: 'you can query a graph database in Azure Cosmos DB______', options: ['as nodes and edges by using the Gremlin language','as rows and columns by using SQL','as key-value pairs by using the Table API','only by using the MongoDB API'], correct: 'as nodes and edges by using the Gremlin language.' },
+            49: { prompt: 'you can query a graph database in Azure Cosmos DB______', options: ['as nodes and edges by using the Gremlin language','as rows and columns by using SQL','as key-value pairs by using the Table API','only by using the MongoDB API'], correct: 'as nodes and edges by using the Gremlin language' },
             53: { prompt: 'You should enable encryption on _____', options: ['a column to encrypt data at rest and in transit','queries to protect data in transit','the dataset to protect data at rest','the server to protect data at rest'], correct: 'the dataset to protect data at rest' },
             54: { prompt: 'A relational database is appropriate for scenarios that involve a high volume of_____.', options: ['writes that have varying data structures','data that requires complex joins across many tables','time-series data only','high volumes of transactional writes.'], correct: 'high volumes of transactional writes.' },
             59: { prompt: 'A key/value data store is optimized for _____.', options: ['simple lookups','complex analytics queries','full-text search','hierarchical data modeling'], correct: 'simple lookups' },
-            60: { prompt: 'In an ETL process requires _____.', options: ['data is fully processed before being loaded to the target data store','data is loaded to the target first and then processed','data is processed and loaded simultaneously','data is stored in a staging area indefinitely'], correct: 'data that is fully processed before being loaded to the target data store' },
+            60: { prompt: 'In an ETL process requires _____.', options: ['data is fully processed before being loaded to the target data store','data is loaded to the target first and then processed','data is processed and loaded simultaneously','data is stored in a staging area indefinitely'], correct: 'data is fully processed before being loaded to the target data store' },
             67: { prompt: 'In Azure Data Factory you can use a _____ to orchestrate a pipeline.', options: ['A control flow','A trigger','A dataset','A linked service'], correct: 'A control flow' },
             70: { prompt: '______a virtual table that contains content defined by a query.', options: ['A view','A stored procedure','An index','A heap'], correct: 'A view' },
             72: { prompt: 'Querying a Graph Database in Azure Cosmos DB_____.', options: ['as nodes & edges by using Gremlin language','as documents in JSON format','as rows in a table','as key-value pairs'], correct: 'as nodes & edges by using Gremlin language' },
@@ -965,7 +965,7 @@
             48: [['A Power BI dashboard can display visualizations from multiple workspaces.','Yes'],['A Power BI report can only contain data from a single dataset.','No'],['Power BI supports row-level security (RLS) to restrict data access.','Yes'],['Power BI datasets can be refreshed manually or on a schedule.','Yes']],
             50: [['Azure Data Lake Storage is a relational database service.','No'],['Azure Cosmos DB supports multiple APIs such as SQL, MongoDB, and Gremlin.','Yes'],['Azure Synapse Analytics can be used to run SQL queries on data lake storage.','Yes']],
             55: [['Encryption at rest protects data that is stored on disk.','Yes'],['A firewall rule can restrict access to an Azure SQL database by IP address.','Yes'],['Transparent Data Encryption (TDE) encrypts the entire database.','Yes']],
-            56: [['A primary key constraint uniquely identifies each row in a table.','Yes'],['A foreign key constraint ensures referential integrity between two tables.','Yes'],['A NULL value is the same as a zero value.','Yes']],
+            56: [['A primary key constraint uniquely identifies each row in a table.','Yes'],['A foreign key constraint ensures referential integrity between two tables.','Yes'],['A NULL value is the same as a zero value.','No']],
             78: [['Azure Cosmos DB provides single-digit millisecond latency at the 99th percentile.','Yes'],['Azure Cosmos DB is a fully managed NoSQL database service.','Yes'],['Azure Cosmos DB only supports the SQL (Core) API.','No']],
             91: [['Streaming data processing handles data in real time as it arrives.','Yes'],['Batch processing is the preferred method for processing IoT sensor data in real time.','No'],['Micro-batch processing processes small groups of events at a time.','Yes']],
             92: [['Azure SQL Database requires you to manage the underlying operating system.','No'],['Azure SQL Database supports automatic backups.','Yes'],['Azure SQL Database can be scaled up or down without downtime.','Yes']],
@@ -1029,14 +1029,13 @@
         }
         const md = matchData[id];
         if (md) {
-            const correctItems = md.targets.map(t => t[1]);
-            const uniqueItems = [...new Set(correctItems)];
-            const shuffledItems = shuffle(uniqueItems);
-            let itemCounter = 0;
-            const itemHtml = shuffledItems.map(item => {
-                itemCounter++;
-                return `<div class="draggable-item" draggable="true" ondragstart="drag(event)" id="q${id}-i${itemCounter}">${escapeHtml(item)}</div>`;
-            }).join('');
+        const correctItems = md.targets.map(t => t[1]);
+        const shuffledItems = shuffle(correctItems);
+        let itemCounter = 0;
+        const itemHtml = shuffledItems.map(item => {
+            itemCounter++;
+            return `<div class="draggable-item" draggable="true" ondragstart="pDrag(event)" id="q${id}-i${itemCounter}">${escapeHtml(item)}</div>`;
+        }).join('');
             const targetHtml = md.targets.map((t, i) => {
                 return `<tr><td>${escapeHtml(t[0])}</td><td><div class="drop-target" id="q${id}-target${i+1}" data-match="${escapeHtml(t[1])}" ondrop="drop(event)" ondragover="allowDrop(event)"></div></td></tr>`;
             }).join('');
@@ -1078,8 +1077,9 @@
         const data = ev.dataTransfer.getData('text');
         const el = document.getElementById(data);
         if (!el) return;
-        if (ev.target.classList.contains('drop-target')) {
-            ev.target.appendChild(el);
+        const target = ev.target.closest('.drop-target');
+        if (target) {
+            target.appendChild(el);
         }
     }
 
@@ -1332,15 +1332,16 @@
             if (!state?.answered) { unanswered++; return; }
             const key = answerKeyByNumber[id];
             if (!key) { incorrect++; return; }
-            const correctVals = (key.values || []).sort().join(',');
+            const correctValsSorted = (key.values || []).sort().join(',');
+            const correctVals = q.type === 'mcq' ? correctValsSorted : (key.values || []).join(',');
             let userAns = '';
             const card = document.getElementById('q' + id);
             if (!card) { incorrect++; return; }
 
-            if (q.type === 'mcq') {
+            if (q.type === 'mcq' || q.type === 'match') {
                 const checked = [...card.querySelectorAll(`input[name="q${id}-opt"]:checked`)].map(i => i.value).sort().join(',');
                 userAns = checked;
-            } else if (q.type === 'dropdown') {
+            } else if (q.type === 'dropdown' && id !== 32) {
                 const selects = card.querySelectorAll('.multi-ans');
                 if (selects.length) {
                     userAns = [...selects].map(s => s.value).sort().join(',');
@@ -1348,7 +1349,7 @@
                     const sel = card.querySelector('select');
                     userAns = sel ? sel.value : '';
                 }
-            } else if (q.type === 'yesno') {
+            } else if (q.type === 'yesno' || (q.type === 'dropdown' && id === 32)) {
                 const selvals = [...card.querySelectorAll('.stmt-row select')].map(s => s.value);
                 userAns = selvals.join(',');
             } else {
@@ -1356,8 +1357,9 @@
             }
 
             const correctJoined = correctVals;
-            if (userAns === correctJoined || (q.type === 'match' && userAns === 'submitted')) {
-                if (q.type === 'match') { correct++; return; }
+            if (q.type === 'match') {
+                incorrect++;
+            } else if (userAns === correctJoined) {
                 correct++;
             } else {
                 incorrect++;
@@ -1412,6 +1414,7 @@
     }
 
     function renderQuiz() {
+        questionStates = {};
         questions = window.dp900Questions;
         const root = document.getElementById('quiz-root');
         root.innerHTML = questions.map(buildQuestionCard).join('');

@@ -549,10 +549,7 @@
         .review-answer.user-correct { background: #dff6dd; color: var(--success); }
         .review-answer.user-wrong { background: #fde7e9; color: var(--error); }
         .review-answer.correct-ans { background: #e8f5e9; color: var(--success); }
-            border-radius: 10px;
-            display: none;
-            font-weight: 700;
-        }
+        .feedback { border-radius: 10px; display: none; font-weight: 700; }
 
         .feedback.correct { display: block; background: #dff6dd; color: var(--success); border: 1px solid rgba(16, 124, 65, 0.3); }
         .feedback.incorrect { display: block; background: #fde7e9; color: var(--error); border: 1px solid rgba(168, 0, 0, 0.3); }
@@ -2014,7 +2011,7 @@ const dropdownData = {
     34:{prompt:'A relational database must be used when_____.',options:['strong consistency guarantees are required','only a relational database is acceptable','you need a managed PostgreSQL service','the data is stored exclusively on-premises'],correct:'strong consistency guarantees are required'},
     41:{prompt:'Transcribing audio files is an example of_____analytics.',options:['Descriptive','Diagnostic','Predictive','Cognitive'],correct:'Cognitive'},
     44:{prompt:'To configure an Azure Storage account to support both security at the folder level and atomic directory manipulation_____.',options:['set Account kind to BlobStorage','enable the CDN endpoint','Enable the hierarchical namespace','configure a custom domain'],correct:'Enable the hierarchical namespace'},
-    49:{prompt:'you can query a graph database in Azure Cosmos DB______',options:['as nodes and edges by using the Gremlin language','as rows and columns by using SQL','as key-value pairs by using the Table API','only by using the MongoDB API'],correct:'as nodes and edges by using the Gremlin language.'},
+    49:{prompt:'you can query a graph database in Azure Cosmos DB______',options:['as nodes and edges by using the Gremlin language','as rows and columns by using SQL','as key-value pairs by using the Table API','only by using the MongoDB API'],correct:'as nodes and edges by using the Gremlin language'},
     53:{prompt:'You should enable encryption on _____',options:['a column to encrypt data at rest and in transit','queries to protect data in transit','the dataset to protect data at rest','the server to protect data at rest'],correct:'the dataset to protect data at rest'},
     54:{prompt:'A relational database is appropriate for scenarios that involve a high volume of_____.',options:['writes that have varying data structures','data that requires complex joins across many tables','time-series data only','high volumes of transactional writes.'],correct:'high volumes of transactional writes.'},
     59:{prompt:'A key/value data store is optimized for _____.',options:['simple lookups','complex analytics queries','full-text search','hierarchical data modeling'],correct:'simple lookups'},
@@ -2045,7 +2042,7 @@ const yesNoData = {
     48:[['A Power BI dashboard can display visualizations from multiple workspaces.','Yes'],['A Power BI report can only contain data from a single dataset.','No'],['Power BI supports row-level security (RLS) to restrict data access.','Yes'],['Power BI datasets can be refreshed manually or on a schedule.','Yes']],
     50:[['Azure Data Lake Storage is a relational database service.','No'],['Azure Cosmos DB supports multiple APIs such as SQL, MongoDB, and Gremlin.','Yes'],['Azure Synapse Analytics can be used to run SQL queries on data lake storage.','Yes']],
     55:[['Encryption at rest protects data that is stored on disk.','Yes'],['A firewall rule can restrict access to an Azure SQL database by IP address.','Yes'],['Transparent Data Encryption (TDE) encrypts the entire database.','Yes']],
-    56:[['A primary key constraint uniquely identifies each row in a table.','Yes'],['A foreign key constraint ensures referential integrity between two tables.','Yes'],['A NULL value is the same as a zero value.','Yes']],
+    56:[['A primary key constraint uniquely identifies each row in a table.','Yes'],['A foreign key constraint ensures referential integrity between two tables.','Yes'],['A NULL value is the same as a zero value.','No']],
     78:[['Azure Cosmos DB provides single-digit millisecond latency at the 99th percentile.','Yes'],['Azure Cosmos DB is a fully managed NoSQL database service.','Yes'],['Azure Cosmos DB only supports the SQL (Core) API.','No']],
     91:[['Streaming data processing handles data in real time as it arrives.','Yes'],['Batch processing is the preferred method for processing IoT sensor data in real time.','No'],['Micro-batch processing processes small groups of events at a time.','Yes']],
     92:[['Azure SQL Database requires you to manage the underlying operating system.','No'],['Azure SQL Database supports automatic backups.','Yes'],['Azure SQL Database can be scaled up or down without downtime.','Yes']],
@@ -2064,14 +2061,14 @@ const answerKey = {
     19:['keys'],20:['server level firewall'],21:['A','D'],22:['A','C'],
     23:['Data movement','Data transformation','Control'],24:['D'],25:['C'],
     26:['Batch','Streaming','Micro-batch'],27:['B'],28:['A'],29:['Yes','No','Yes'],
-    30:['A'],31:['B'],32:['No','No','Yes'],33:['C'],
+    30:['A'],31:['D'],32:['No','No','Yes'],33:['B'],
     34:['strong consistency guarantees are required'],35:['A','C','E'],36:['Select','Order By'],
     37:['A table','A column'],38:['D'],39:['D'],40:['A'],41:['Cognitive'],
     42:['Yes','Yes','No'],43:['B'],44:['Enable the hierarchical namespace'],45:['C'],
     46:['Yes','No','Yes'],47:['C'],48:['Yes','No','Yes','Yes'],
-    49:['as nodes and edges by using the Gremlin language.'],50:['No','Yes','Yes'],
-    51:['B'],52:['Data Set','Linked Service','Pipeline'],53:['the dataset to protect data at rest'],
-    54:['high volumes of transactional writes.'],55:['Yes','Yes','Yes'],56:['Yes','Yes','Yes'],
+    49:['as nodes and edges by using the Gremlin language'],50:['No','Yes','Yes'],
+    51:['C'],52:['Data Set','Linked Service','Pipeline'],53:['the dataset to protect data at rest'],
+    54:['high volumes of transactional writes.'],55:['Yes','Yes','Yes'],56:['Yes','Yes','No'],
     57:['C'],58:['Folders','Files'],59:['simple lookups'],
     60:['data is fully processed before being loaded to the target data store'],
     61:['B'],62:['CRM System','Data Warehouse','In memory data integration'],63:['A','C'],
@@ -2125,9 +2122,9 @@ const answerKeyByNumber = {
     28:{type:'mcq',values:['A']},
     29:{type:'yesno',values:['Yes','No','Yes']},
     30:{type:'mcq',values:['A']},
-    31:{type:'mcq',values:['B']},
+    31:{type:'mcq',values:['D']},
     32:{type:'yesno',values:['No','No','Yes']},
-    33:{type:'mcq',values:['C']},
+    33:{type:'mcq',values:['B']},
     34:{type:'dropdown',values:['strong consistency guarantees are required']},
     35:{type:'mcq',values:['A','C','E']},
     36:{type:'match',values:['Select','Order By']},
@@ -2143,9 +2140,9 @@ const answerKeyByNumber = {
     46:{type:'yesno',values:['Yes','No','Yes']},
     47:{type:'mcq',values:['C']},
     48:{type:'yesno',values:['Yes','No','Yes','Yes']},
-    49:{type:'dropdown',values:['as nodes and edges by using the Gremlin language.']},
+    49:{type:'dropdown',values:['as nodes and edges by using the Gremlin language']},
     50:{type:'yesno',values:['No','Yes','Yes']},
-    51:{type:'mcq',values:['B']},
+    51:{type:'mcq',values:['C']},
     52:{type:'match',values:['Data Set','Linked Service','Pipeline']},
     53:{type:'dropdown',values:['the dataset to protect data at rest']},
     54:{type:'dropdown',values:['high volumes of transactional writes.']},
@@ -2336,6 +2333,7 @@ function pResetState() {
 }
 
 function pInit() {
+    pQuestionStates = {};
     pQuestions = window.dp900Questions;
     const root = document.getElementById('quiz-root');
     root.innerHTML = pQuestions.map(pBuildQuestionCard).join('');
@@ -2526,8 +2524,7 @@ function pBuildMatch(q) {
     const md = matchData[id];
     if (md) {
         const correctItems = md.targets.map(t => t[1]);
-        const uniqueItems = [...new Set(correctItems)];
-        const shuffledItems = shuffle(uniqueItems);
+        const shuffledItems = shuffle(correctItems);
         let itemCounter = 0;
         const itemHtml = shuffledItems.map(item => {
             itemCounter++;
@@ -2572,8 +2569,9 @@ function pDrop(ev) {
     const data = ev.dataTransfer.getData('text');
     const el = document.getElementById(data);
     if (!el) return;
-    if (ev.target.classList.contains('drop-target')) {
-        ev.target.appendChild(el);
+    const target = ev.target.closest('.drop-target');
+    if (target) {
+        target.appendChild(el);
     }
 }
 
@@ -2800,7 +2798,8 @@ function pSubmitQuiz() {
         if (!state?.answered) { unanswered++; return; }
         const key = answerKeyByNumber[id];
         if (!key) { incorrect++; return; }
-        const correctVals = (key.values || []).sort().join(',');
+        const correctValsSorted = (key.values || []).sort().join(',');
+        const correctVals = q.type === 'mcq' ? correctValsSorted : (key.values || []).join(',');
         let userAns = '';
         const card = document.getElementById('q' + id);
         if (!card) { incorrect++; return; }
@@ -2810,7 +2809,7 @@ function pSubmitQuiz() {
         } else if (q.type === 'dropdown') {
             const selects = card.querySelectorAll('.inline-select[data-correct]');
             if (selects.length) {
-                userAns = [...selects].map(s => s.value).sort().join(',');
+                userAns = [...selects].map(s => s.value).join(',');
             } else {
                 const sel = card.querySelector('select');
                 userAns = sel ? sel.value : '';
@@ -2821,7 +2820,7 @@ function pSubmitQuiz() {
             userAns = 'submitted';
         }
 
-        if (userAns === correctVals || (q.type === 'match' && userAns === 'submitted')) {
+        if (userAns === correctVals) {
             correct++;
         } else {
             incorrect++;
@@ -2913,7 +2912,7 @@ function eResetState() {
     document.getElementById('welcome-screen').style.display = 'flex';
     const circle = document.getElementById('score-circle');
     circle.style.transition = 'none';
-    circle.style.strokeDashoffset = 440;
+    circle.style.strokeDashoffset = 490;
 }
 
 function eClearTimers() {
@@ -2952,7 +2951,7 @@ const eExplanations = {
     28: 'Azure Resource Manager templates automate the creation of interdependent Azure resources in a repeatable, consistent way using infrastructure-as-code.',
     29: 'A clustered index determines the physical order of data in a table (Yes). A table can have only one clustered index (No to "multiple"). A non-clustered index CAN be created on a view (Yes).',
     30: 'A key/value data store is suitable for high-volume JSON data with an application-defined schema, providing fast reads and writes with simple key-based access patterns.',
-    31: 'The Azure AD administrator account can always connect to an Azure SQL database as the designated identity administrator for the logical server.',
+    31: 'The server admin login account of the logical server is always provisioned when you create an Azure SQL Database server, and can always connect to the database.',
     32: 'You cannot create a view using CREATE VIEW in this context (No). An index cannot be created directly on a view in standard scenarios (No). A view CAN be used to join data from multiple tables (Yes).',
     33: 'Azure table storage provides native support for POSIX-compliant access control lists (ACLs) for fine-grained access management.',
     34: 'A relational database must be used when strong consistency guarantees are required, as relational databases enforce ACID properties for data integrity.',
@@ -2972,7 +2971,7 @@ const eExplanations = {
     48: 'A Power BI dashboard can display visuals from multiple workspaces (Yes). A report CAN use multiple datasets (No to "single dataset only"). Power BI supports row-level security (Yes). Datasets can be refreshed manually or on schedule (Yes).',
     49: 'A graph database in Azure Cosmos DB stores data as nodes (entities) and edges (relationships), queried using the Gremlin language.',
     50: 'Azure Data Lake Storage is a file system, NOT a relational database (No). Cosmos DB supports SQL, MongoDB, Gremlin, and other APIs (Yes). Synapse Analytics can query data in ADLS using serverless SQL (Yes).',
-    51: 'Azure Blob storage is used for storing unstructured data including shared folder content that needs to be migrated to the cloud.',
+    51: 'Azure Files provides SMB-based file shares that can replace Windows shared folders, making it the correct storage type for migrating shared folder content.',
     52: 'A Linked Service defines connection information to data sources. A Data Set represents data structures within those stores. A Pipeline orchestrates and manages workflows.',
     53: 'Encryption should be enabled on the dataset to protect data at rest, securing stored data against unauthorized access.',
     54: 'A relational database is appropriate for scenarios involving high volumes of transactional writes because it provides ACID compliance for data integrity.',
@@ -3757,7 +3756,7 @@ document.addEventListener('keydown', function(e) {
                 ePrevQuestion();
                 showKbdHint('&#8592; Previous question');
                 break;
-            case 'a': case 'b': case 'c': case 'd': case 'e': case 'f':
+            case 'a': case 'b': case 'c': case 'd': case 'e':
                 if (!eChecked[eCurrentIndex]) {
                     const letter = e.key.toUpperCase();
                     const q = eExamQuestions[eCurrentIndex];

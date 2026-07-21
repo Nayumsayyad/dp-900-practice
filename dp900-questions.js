@@ -469,12 +469,12 @@ window.dp900Questions = [
       "the sa account",
       "the server admin login account of the logical server"
     ],
-    "answer": "B",
+    "answer": "D",
     "answerValues": [
-      "B"
+      "D"
     ],
     "pageNumbers": [],
-    "raw": "Question #:31  \nWhen you create an Azure SQL database, which account can always connect to the database ? \nA. the Azure Active director/ (Azure AO) account that created the database \n \nB. the Azure Active Directly Azure AD) administrator account \n \nC. the sa account \n \nD. the server admin login account of the logical server \n \nAnswer: B"
+    "raw": "Question #:31  \nWhen you create an Azure SQL database, which account can always connect to the database ? \nA. the Azure Active director/ (Azure AO) account that created the database \n \nB. the Azure Active Directly Azure AD) administrator account \n \nC. the sa account \n \nD. the server admin login account of the logical server \n \nAnswer: D"
   },
   {
     "number": 32,
@@ -500,12 +500,12 @@ window.dp900Questions = [
       "Azure table storage",
       "Azure Files"
     ],
-    "answer": "C",
+    "answer": "B",
     "answerValues": [
-      "C"
+      "B"
     ],
     "pageNumbers": [],
-    "raw": "Question #:33  \nWhich Azure storage solution provides native support for POSIX-compliant access control lists (ACLs)? \nA. Azure Queue storage \n \nB. Azure Data Lake Storage \n \nC. Azure table storage \n \nD. Azure Files \n \nAnswer: C"
+    "raw": "Question #:33  \nWhich Azure storage solution provides native support for POSIX-compliant access control lists (ACLs)? \nA. Azure Queue storage \n \nB. Azure Data Lake Storage \n \nC. Azure table storage \n \nD. Azure Files \n \nAnswer: B"
   },
   {
     "number": 34,
@@ -664,9 +664,9 @@ window.dp900Questions = [
     "type": "dropdown",
     "questionText": "To complete the sentence, select the appropriate option in the answer area.",
     "options": [],
-    "answer": "set Account kind to BlobStorage",
+    "answer": "Enable the hierarchical namespace",
     "answerValues": [
-      "set Account kind to BlobStorage"
+      "Enable the hierarchical namespace"
     ],
     "pageNumbers": [],
     "raw": "Question #:44  \nTo complete the sentence, select the appropriate option in the answer area. \n \n \n \n \n \n \n \n \n \n \n \n \nAnswer: \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \nAnswer: set Account kind to BlobStorage"
@@ -770,12 +770,12 @@ window.dp900Questions = [
       "file",
       "table"
     ],
-    "answer": "B",
+    "answer": "C",
     "answerValues": [
-      "B"
+      "C"
     ],
     "pageNumbers": [],
-    "raw": "Question #:51  \nYou manage an application that stores data in a shared folder on a Windows server. \nYou need to move the shared folder to Azure Storage. \nWhich type of Azure Storage should you use? \nA. queue \n \nB. blob \n \nC. file \n \nD. table \n \nAnswer: B"
+    "raw": "Question #:51  \nYou manage an application that stores data in a shared folder on a Windows server. \nYou need to move the shared folder to Azure Storage. \nWhich type of Azure Storage should you use? \nA. queue \n \nB. blob \n \nC. file \n \nD. table \n \nAnswer: C"
   },
   {
     "number": 52,
@@ -808,9 +808,9 @@ window.dp900Questions = [
     "type": "dropdown",
     "questionText": "To complete the sentence, select the appropriate option in the answer area.",
     "options": [],
-    "answer": "writes that have varying data structures",
+    "answer": "high volumes of transactional writes.",
     "answerValues": [
-      "writes that have varying data structures"
+      "high volumes of transactional writes."
     ],
     "pageNumbers": [],
     "raw": "Question #:54  \nTo complete the sentence, select the appropriate option in the answer area. \n \n \n \n \n \nAnswer: \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n Answer: writes that have varying data structures"
@@ -1426,9 +1426,9 @@ window.dp900Questions = [
     "type": "dropdown",
     "questionText": "To complete the sentence, select the appropriate option in the answer area.",
     "options": [],
-    "answer": "set Account to Blob Storage",
+    "answer": "Enable the hierarchical namespace.",
     "answerValues": [
-      "set Account to Blob Storage"
+      "Enable the hierarchical namespace."
     ],
     "pageNumbers": [],
     "raw": "Question #:95  \nTo complete the sentence, select the appropriate option in the answer area. \n \n \n \nAnswer: \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \n \nAnswer: set Account to Blob Storage"
